@@ -1,0 +1,118 @@
+<div class="container">
+    <div class="card">
+      <div class="card-header">
+        <h2 class="card-title"><i class="fas fa-paw"></i> Alta de Mascota</h2>
+      </div>
+      <div class="card-body">
+        <form [formGroup]="mascotaForm" (ngSubmit)="guardarMascota()">
+          <div class="mb-3 row">
+            <div class="col-md-4">
+              <label for="placa" class="form-label"><i class="fas fa-id-card"></i> Placa:</label>
+              <input type="text" class="form-control" id="placa" formControlName="placa">
+            </div>
+            <div class="col-md-8">
+              <label for="nombre" class="form-label"><i class="fas fa-paw"></i> Nombre:</label>
+              <input type="text" class="form-control" id="nombre" formControlName="nombre">
+            </div>
+          </div>
+          <div class="mb-3 row">
+            <div class="col-md-6">
+              <label for="especie" class="form-label"><i class="fas fa-dove"></i> Especie:</label>
+              <!-- Dropdown para seleccionar la especie -->
+              <ng-select class="form-control" [items]="especies" bindLabel="name" bindValue="id"
+                [loading]="loadingEspecie" [clearable]="false" formControlName="especie" [addTag]="addTagEspeciePromise">
+                <ng-template #optionTemplate let-item="item">
+                  <div class="custom-option">
+                    {{ item.name }}
+                  </div>
+                </ng-template>
+              </ng-select>
+            </div>
+            <div class="col-md-6">
+              <label for="raza"><i class="fas fa-paw"></i> Raza:</label>
+              <!-- Dropdown para seleccionar la raza -->
+              <ng-select class="form-control" [items]="razas" bindLabel="name" bindValue="id" [loading]="loading"
+                [clearable]="false" formControlName="raza" [addTag]="addTagPromise">
+                <ng-template #optionTemplate let-item="item">
+                  <div class="custom-option">
+                    {{ item.name }}
+                  </div>
+                </ng-template>
+              </ng-select>
+            </div>
+          </div>
+          <div class="mb-3 row">
+            <div class="col-md-6">
+              <label for="color" class="form-label"><i class="fas fa-palette"></i> Color:</label>
+              <!-- Dropdown para seleccionar el color -->
+              <ng-select class="form-control" [items]="colores" bindLabel="name" bindValue="id" [loading]="loadingColor"
+                [clearable]="false" formControlName="color" [addTag]="addTagColorPromise">
+                <ng-template #optionTemplate let-item="item">
+                  <div class="custom-option">
+                    {{ item.name }}
+                  </div>
+                </ng-template>
+              </ng-select>
+            </div>
+            <div class="col-md-6">
+              <label for="sexo" class="form-label"><i class="fas fa-venus-mars"></i> Sexo:</label>
+              <!-- Dropdown para seleccionar el sexo -->
+              <select class="form-select" id="sexo" formControlName="sexo">
+                <option value="Macho">Macho</option>
+                <option value="Hembra">Hembra</option>
+              </select>
+            </div>
+          </div>
+          <div class="mb-3 row">
+            <div class="col-md-6">
+              <label for="fechaNacimiento" class="form-label"><i class="fas fa-birthday-cake"></i> Fecha de
+                Nacimiento:</label>
+              <input type="date" class="form-control" id="fechaNacimiento" formControlName="fechaNacimiento">
+              <div class="form-group">
+                <p>Edad: {{ edadMascota }}</p>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <label for="peso" class="form-label"><i class="fas fa-weight-hanging"></i> Peso (kg):</label>
+              <!-- Campo para ingresar el peso -->
+              <input type="number" class="form-control" id="peso" formControlName="peso">
+            </div>
+          </div>
+  
+          <div class="mb-3">
+            <label for="temperamentos" class="form-label">Temperamentos:</label>
+            <ng-select [items]="temperamentos" Class="form-control" bindLabel="name" bindValue="id" id="temperamentos"
+              [loading]="loadingTemperamento" [clearable]="false" formControlName="temperamentos" [multiple]="true"
+              [addTag]="addTagTemperamentoPromise">
+          
+              <!-- Plantilla personalizada para la etiqueta de cada elemento seleccionado -->
+              <ng-template ng-label-tmp let-item="item" let-clear="clear">
+                <span class="ng-value-label">{{ item.name }}</span>
+                <span class="ng-value-icon right" (click)="clear(item)" aria-hidden="true">×</span>
+              </ng-template>
+          
+              <!-- Plantilla personalizada para cada opción en la lista desplegable -->
+              <ng-template ng-option-tmp let-item="item">
+                {{ item.name }}
+              </ng-template>
+          
+            </ng-select>
+          </div>
+          
+          <div class="mb-3">
+            <label for="observaciones" class="form-label"><i class="fas fa-sticky-note"></i> Observaciones:</label>
+            <textarea class="form-control" id="observaciones" formControlName="observaciones" rows="3"></textarea>
+          </div>
+          <!-- Botones -->
+          <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+            <button type="button" class="btn btn-secondary me-md-2" (click)="cancelarEdicion()">
+              <i class="fas fa-times"></i> Cancelar
+            </button>
+            <button id="botonGuardar" type="submit" class="btn btn-success">
+              <i class="fas fa-save"></i> {{ editarModo ? 'Actualizar Mascota' : 'Guardar Mascota' }}
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>

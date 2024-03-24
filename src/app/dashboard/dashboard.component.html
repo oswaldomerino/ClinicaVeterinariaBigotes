@@ -1,0 +1,12 @@
+<div class="dashboard-container">
+    <app-navbar (toggleSidebar)="toggleSidebarSize()"></app-navbar>
+    <div class="dashboard-content">
+      <app-sidebar [isSmallSidebar]="isSmallSidebar"></app-sidebar>
+        <!-- Aquí puedes incluir el contenido específico del dashboard -->
+        <div class="main-content">
+          
+            <router-outlet></router-outlet>
+            <!-- Aquí puedes agregar los componentes o contenido del dashboard -->
+        </div>
+    </div>
+</div>

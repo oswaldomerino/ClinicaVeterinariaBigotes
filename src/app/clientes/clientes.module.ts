@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ClienteFormularioComponent } from './cliente-formulario/cliente-formulario.component';
 import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
-import { getFirestore, provideFirestore } from '@angular/fire/firestore';
+import { FirestoreModule, getFirestore, provideFirestore } from '@angular/fire/firestore';
 import { environment } from '../../environments/environment';
 import { ToastrModule, ToastrService } from 'ngx-toastr'; // Importar el servicio ToastrService
 import { BrowserAnimationsModule, provideAnimations } from '@angular/platform-browser/animations';
@@ -18,7 +18,8 @@ import { ClientesListaComponent } from './clientes-lista/clientes-lista.componen
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
-    ClientesListaComponent,
+ 
+    FirestoreModule,
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideFirestore(() => getFirestore()),
     ToastrModule.forRoot({
@@ -26,6 +27,6 @@ import { ClientesListaComponent } from './clientes-lista/clientes-lista.componen
     })
   ],
   providers:[ToastrService,],
-  exports:[ClienteFormularioComponent, ClientesListaComponent]
+  exports:[ClienteFormularioComponent]
 })
 export class ClientesModule { }

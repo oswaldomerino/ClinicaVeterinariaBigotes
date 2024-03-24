@@ -243,7 +243,16 @@ mostrarAlerta(titulo: string, mensaje: string, tipo: 'success' | 'error' | 'warn
     this.clienteService.agregarCliente(cliente)
       .then((doc:Cliente) => {
         this.mostrarAlerta('¡Cliente agregado!', 'El cliente se ha agregado correctamente.', 'success');
+        if(!this.cliente ){
+          this.cliente = cliente;
+        }
+      
+        
         this.cliente.id = doc.id;
+        if(doc.id){
+          this.cliente.id = doc.id;
+        }
+        console.log( this.cliente.id)
         this.sharedDataService.actualizarCliente(cliente);
         this.sharedDataService.cambiarVistaFormulario(false);
         this.editarModo = false;

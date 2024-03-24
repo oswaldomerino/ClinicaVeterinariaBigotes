@@ -1,0 +1,18 @@
+<div class="container">
+    <div class="cliente-info">
+      <!-- Tu formulario de registro del cliente aquí -->
+      <app-cliente-formulario *ngIf="mostrarFormulario"></app-cliente-formulario>
+      
+      <!-- Tu tarjeta de información del cliente aquí -->
+      <app-cliente-detalle *ngIf="!mostrarFormulario"></app-cliente-detalle>
+    </div>
+    
+    <div class="mascota-form">
+      <!-- Tu formulario de registro de mascotas aquí -->
+      <app-mascota-formulario *ngIf="mostrarFormularioMascota"></app-mascota-formulario>
+      
+      <!-- Tu tabla de mascotas aquí -->
+      <app-mascotas-lista *ngIf="!mostrarFormularioMascota"></app-mascotas-lista>
+    </div>
+  </div>
+  

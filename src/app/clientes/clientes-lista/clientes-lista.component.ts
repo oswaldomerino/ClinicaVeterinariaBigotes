@@ -11,11 +11,16 @@ import { ClienteFormularioComponent } from '../cliente-formulario/cliente-formul
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
+import { ClientesModule } from '../clientes.module';
+import { FirestoreModule } from '@angular/fire/firestore';
+
 @Component({
   selector: 'app-clientes-lista',
   standalone: true,
-  imports: [CommonModule,ReactiveFormsModule,FormsModule,NgbModule],
-
+  imports: [CommonModule,ReactiveFormsModule,FormsModule,NgbModule,ClientesModule],
+providers:[
+  
+],
   templateUrl: './clientes-lista.component.html',
   styleUrl: './clientes-lista.component.css'
 })

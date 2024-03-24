@@ -1,0 +1,29 @@
+.dashboard-container {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
+
+.dashboard-content {
+    display: flex;
+    flex: 1;
+}
+
+.app-sidebar {
+    flex: 0 0 auto; /* El sidebar no se hace flexible y no ocupa espacio adicional */
+    width: 250px; /* Ancho inicial del sidebar */
+    transition: width 0.3s; /* Transición suave cuando se cambia el ancho */
+    background-color: #333; /* Color de fondo para el sidebar */
+    color: white; /* Color del texto en el sidebar */
+    padding: 20px; /* Ajusta el espacio interno según sea necesario */
+}
+
+.main-content {
+    flex: 1; /* El contenido principal ocupa todo el espacio disponible restante */
+    padding: 20px; /* Añade un poco de espacio alrededor del contenido */
+    background-color: #f0f0f0; /* Color de fondo para el contenido principal */
+}
+
+.small-sidebar .app-sidebar {
+    width: 50px; /* Ancho reducido del sidebar cuando está en modo pequeño */
+}

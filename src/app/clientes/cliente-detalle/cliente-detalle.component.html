@@ -1,1 +1,26 @@
-<p>cliente-detalle works!</p>
+<div class="container">
+    <div class="card">
+      <div class="card-header bg-primary text-white">
+        <i class="fas fa-user"></i> Información del Cliente
+      </div>
+      <div class="card-body">
+        <p><strong>Nombres:</strong> {{ cliente?.nombres ? cliente.nombres.join(', ') : '' }}</p>
+        <p><strong>Direcciones:</strong> {{ cliente?.direcciones ? cliente.direcciones.join(', ') : '' }}</p>
+        <p><strong>Teléfonos:</strong> {{ cliente?.telefonos ? cliente.telefonos.join(', ') : '' }}</p>
+        <p><strong>Advertencias:</strong> {{ cliente?.advertencias ? cliente.advertencias.join(', ') : '' }}</p>
+        <p><strong>Bonos:</strong> {{ cliente?.bonos ? cliente.bonos.join(', ') : '' }}</p>
+        
+        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+          <!-- Botón para editar cliente -->
+          <button type="button" class="btn btn-light" (click)="editarCliente()">
+            <i class="fas fa-edit"></i> Editar Cliente
+          </button>
+          <!-- Botón para iniciar registro de mascota -->
+          <button type="button" class="btn btn-light" (click)="iniciarRegistroMascota()">
+            <i class="fas fa-paw"></i> Registrar Mascota
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  

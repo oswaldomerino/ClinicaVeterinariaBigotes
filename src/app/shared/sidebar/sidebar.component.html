@@ -1,0 +1,11 @@
+<div class="sidebar" [ngClass]="{'small-sidebar': isSmallSidebar}">
+
+    <ul class="nav flex-column">
+        <li class="nav-item" *ngFor="let menuItem of menuItems">
+            <a class="nav-link" [routerLink]="menuItem.routerLink">
+                <i [class]="menuItem.iconClass"></i>
+                <span class="icon-text" *ngIf="!isSmallSidebar">{{ menuItem.text }}</span>
+            </a>
+        </li>
+    </ul>
+</div>
