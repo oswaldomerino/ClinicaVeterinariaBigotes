@@ -1,0 +1,46 @@
+.container {
+    max-width: 600px;
+    margin: auto;
+  }
+  
+  .card {
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    transition: 0.3s;
+    border-radius: 5px;
+  }
+  
+  .card-header {
+    padding: 10px;
+    background-color: #f8f9fa;
+    border-bottom: 1px solid #e5e7eb;
+  }
+  
+  .card-title {
+    margin-bottom: 0;
+    font-size: 1.5em;
+  }
+  
+  .card-body {
+    padding: 20px;
+  }
+  
+  .form-label {
+    font-weight: bold;
+  }
+  
+  .input-group {
+    margin-bottom: 10px;
+  }
+  
+  .input-group .form-control {
+    flex: 1;
+  }
+  
+  .btn-outline-secondary {
+    margin-left: 10px;
+  }
+  
+  .btn-primary, .btn-info {
+    margin-top: 10px;
+  }
+  

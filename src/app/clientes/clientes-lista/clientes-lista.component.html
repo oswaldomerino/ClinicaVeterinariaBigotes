@@ -1,0 +1,123 @@
+<div class="card mb-3" style="box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.1);">
+    <div class="card-body">
+      <!-- Formulario de filtrado de clientes -->
+      <div class="row mb-3">
+        <div class="col">
+          <label for="codigo">ID</label>
+          <input type="text" id="codigo" class="form-control input-android" [(ngModel)]="filtros.codigo"
+            (input)="aplicarFiltro()" placeholder="">
+        </div>
+        <div class="col">
+          <label for="nombre">Propietario</label>
+          <input type="text" id="nombre" class="form-control input-android" [(ngModel)]="filtros.nombre"
+            (input)="aplicarFiltro()" placeholder="">
+        </div>
+        <div class="col">
+          <label for="direccion">Dirección</label>
+          <input type="text" id="direccion" class="form-control input-android" [(ngModel)]="filtros.direccion"
+            (input)="aplicarFiltro()" placeholder="">
+        </div>
+        <div class="col">
+          <label for="telefono">Teléfonos</label>
+          <input type="text" id="telefono" class="form-control input-android" [(ngModel)]="filtros.telefono"
+            (input)="aplicarFiltro()" placeholder="">
+        </div>
+        <div class="col">
+          <!-- Botón para limpiar filtros -->
+          <button type="button" class="btn btn-secondary form-control" (click)="resetFiltros()">Limpiar Filtros</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="card" style="box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.1);">
+    <div class="card-body">
+      <!-- Tabla de clientes -->
+      <div class="table-responsive">
+        <table class="table table-hover table-sm">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Propietario</th>
+              <th>Dirección</th>
+              <th>Teléfonos</th>
+            
+            </tr>
+          </thead>
+          <tbody>
+            <ng-container *ngFor="let cliente of clientesFiltrados">
+              <tr (click)="seleccionarCliente(cliente, $event)" (dblclick)="editarCliente(cliente)"
+                [ngClass]="{ 'selected': clienteSelecionado === cliente }"
+                (mouseover)="cliente.hover = true" (mouseout)="cliente.hover = false">
+                <td>{{ cliente.codigo }}</td>
+                <td>
+                  {{ cliente.nombres[0] }}
+                  <!-- Lista de nombres adicionales -->
+                  <ul>
+                    <ng-container *ngIf="filtroActivo">
+                        <ng-container *ngFor="let nombre of cliente.nombres.slice(1)">
+                            <li
+                                *ngIf="nombre.toLowerCase().includes(filtros.nombre?.toLowerCase())">
+                                <span
+                                    *ngIf="!cliente.nombres.includes(filtros.nombre) && nombre.toLowerCase().includes(filtros.nombre?.toLowerCase())"
+                                    class="badge bg-secondary">{{ filtros.nombre }}</span>
+                            </li>
+                        </ng-container>
+                    </ng-container>
+                </ul>
+                </td>
+                <td>
+                  {{ cliente.direcciones[0] }}
+                  <!-- Lista de direcciones adicionales -->
+                  <ul>
+                    <li *ngFor="let direccion of cliente.direcciones.slice(1)" [class.hidden]="!filtroActivo && !direccion.toLowerCase().includes(filtros.direccion?.toLowerCase())">
+                      <span class="badge bg-secondary">{{ direccion }}</span>
+                    </li>
+                  </ul>
+                </td>
+                <td>
+                  {{ cliente.telefonos[0] }}
+                  <!-- Lista de teléfonos adicionales -->
+                  <ul>
+                    <li *ngFor="let telefono of cliente.telefonos.slice(1)" [class.hidden]="!filtroActivo && !telefono.toLowerCase().includes(filtros.telefono?.toLowerCase())">
+                      <span class="badge bg-secondary">{{ telefono }}</span>
+                    </li>
+                  </ul>
+                </td>
+                <td>
+                  <!-- Iconos para bonos y advertencias -->
+                  <ng-container *ngIf="cliente.bonos && cliente.bonos.length > 0">
+                    <button type="button" class="btn btn-info btn-sm"
+                      (mouseenter)="tooltipBono.open()" (mouseleave)="tooltipBono.close()"
+                      #tooltipBono="ngbTooltip" [ngbTooltip]="cliente.bonos[0]"
+                      (touchstart)="tooltipBono.open()" (touchend)="tooltipBono.close()"
+                      (touchcancel)="tooltipBono.close()">
+                      <i class="fas fa-star text-warning"></i>
+                    </button>
+                  </ng-container>
+                  <ng-container *ngIf="cliente.advertencias && cliente.advertencias.length > 0">
+                    <button type="button" class="btn btn-warning btn-sm"
+                      (mouseenter)="tooltipAdvertencia.open()" (mouseleave)="tooltipAdvertencia.close()"
+                      #tooltipAdvertencia="ngbTooltip" [ngbTooltip]="cliente.advertencias[0]"
+                      (touchstart)="tooltipAdvertencia.open()" (touchend)="tooltipAdvertencia.close()"
+                      (touchcancel)="tooltipAdvertencia.close()">
+                      <i class="fas fa-eye text-danger"></i>
+                    </button>
+                  </ng-container>
+                  <!-- Botones de editar y eliminar -->
+                </td>
+                <td *ngIf="showButtons">
+                  <button type="button" class="btn btn-primary btn-sm" >
+                    <i class="fas fa-edit"></i> Editar
+                  </button>
+                  <button type="button" class="btn btn-danger btn-sm" (click)="eliminarCliente(cliente.id)">
+                    <i class="fas fa-trash-alt"></i> Eliminar
+                  </button>
+                </td>
+              </tr>
+            </ng-container>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
