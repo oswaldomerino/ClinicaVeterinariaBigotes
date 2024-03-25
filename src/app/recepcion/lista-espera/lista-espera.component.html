@@ -1,0 +1,34 @@
+<div class="card-body">
+    <h5 class="card-title"><i class="fas fa-clock"></i> Lista de Espera</h5>
+    <!-- Aquí va el contenido de la lista de espera -->
+    <div class="table-container">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th><i class="fas fa-user"></i> Cliente</th>
+                    <th><i class="fas fa-dog"></i> Mascota</th>
+                    <th><i class="fas fa-user-md"></i> Veterinario</th>
+                    <th><i class="far fa-clock"></i> Hora de Recepción</th>
+                    <th><i class="far fa-clock"></i> Hora de la Cita</th>
+                    <th><i class="fas fa-comment"></i> Mensaje</th>
+                    <th><i class="fas fa-weight"></i> Peso</th>
+                    <th><i class="fas fa-money-bill-alt"></i> Precio</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Aquí se mostrarían las filas de la lista de espera -->
+                <tr *ngFor="let item of listaEspeta">
+                    <td>{{ item.cliente.nombre }}</td>
+                    <td>{{ item.mascota.nombre }}</td>
+                    <td>{{ item.veterinario }}</td>
+                    <td>{{ item.horaRecepcion }}</td>
+                    <td>{{ item.horaCita }}</td>
+                    <td>{{ item.descripcion }}</td>
+                    <td>{{ item.peso }}</td>
+                    <td>{{ item.precio }}</td>
+                </tr>
+                <!-- Aquí se añadirían más filas según los datos de la lista de espera -->
+            </tbody>
+        </table>
+    </div>
+</div>

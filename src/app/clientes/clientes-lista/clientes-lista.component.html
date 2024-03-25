@@ -46,9 +46,7 @@
           </thead>
           <tbody>
             <ng-container *ngFor="let cliente of clientesFiltrados">
-              <tr (click)="seleccionarCliente(cliente, $event)" (dblclick)="editarCliente(cliente)"
-                [ngClass]="{ 'selected': clienteSelecionado === cliente }"
-                (mouseover)="cliente.hover = true" (mouseout)="cliente.hover = false">
+              <tr (click)="seleccionarCliente(cliente, $event)" [class.selected]="clienteSelecionado === cliente"  (mouseover)="cliente.hover = true" (mouseout)="cliente.hover = false">
                 <td>{{ cliente.codigo }}</td>
                 <td>
                   {{ cliente.nombres[0] }}

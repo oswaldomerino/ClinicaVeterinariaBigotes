@@ -4,9 +4,11 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { RegistroClienteMascotaComponentComponent } from './clientes/registro-cliente-mascota-component/registro-cliente-mascota-component.component';
 import { AppComponent } from './app.component';
 import { ClientesListaComponent } from './clientes/clientes-lista/clientes-lista.component';
+import { RecepcionComponent } from './recepcion/recepcion.component';
 
 export const routes: Routes = [
     { path: '', component: RegistroClienteMascotaComponentComponent }, // Ruta por defecto para el dashboard
     {path: 'registro', component: RegistroClienteMascotaComponentComponent},
     {path: 'clientes', component: ClientesListaComponent},
+    {path: 'recepcion', component: RecepcionComponent},
 ];

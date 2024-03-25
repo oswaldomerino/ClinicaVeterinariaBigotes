@@ -1,0 +1,26 @@
+<div class="modal-header">
+    <h4 class="modal-title">Cliente / Mascotas</h4>
+    <button type="button" class="btn-close" aria-label="Cerrar" (click)="closeModal()"></button>
+</div>
+<div class="modal-body">
+    <!-- Contenido del modal -->
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Área de clientes -->
+            <div class="col-md-7">
+
+                <app-clientes-lista></app-clientes-lista>
+            </div>
+            <!-- Área de mascotas -->
+            <div class="col-md-5">
+
+                <app-mascota-detalle></app-mascota-detalle>
+                <app-mascotas-lista></app-mascotas-lista>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <!-- Botón de cierre del modal -->
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="closeModal()">Cancelar</button>
+        <button type="button" class="btn btn-primary" (click)="clienteMascotaSelecionados()">Aceptar</button>
+    </div>

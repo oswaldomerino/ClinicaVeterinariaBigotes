@@ -6,9 +6,6 @@ import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
 import { FirestoreModule, getFirestore, provideFirestore } from '@angular/fire/firestore';
 import { environment } from '../../environments/environment';
 import { ToastrModule, ToastrService } from 'ngx-toastr'; // Importar el servicio ToastrService
-import { BrowserAnimationsModule, provideAnimations } from '@angular/platform-browser/animations';
-import { BrowserModule } from '@angular/platform-browser';
-import { ClientesListaComponent } from './clientes-lista/clientes-lista.component';
 
 
 @NgModule({
@@ -18,7 +15,6 @@ import { ClientesListaComponent } from './clientes-lista/clientes-lista.componen
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
- 
     FirestoreModule,
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideFirestore(() => getFirestore()),

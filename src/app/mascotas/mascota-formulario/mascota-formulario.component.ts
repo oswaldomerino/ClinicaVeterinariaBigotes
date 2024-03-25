@@ -17,10 +17,8 @@ interface PesoRegistro {
 
 @Component({
   selector: 'app-mascota-formulario',
-  standalone: true,
-  imports: [MascotasModule, CommonModule,
-    FormsModule,
-    ReactiveFormsModule,NgSelectModule],
+  standalone: false,
+
   templateUrl: './mascota-formulario.component.html',
   styleUrl: './mascota-formulario.component.css'
 })

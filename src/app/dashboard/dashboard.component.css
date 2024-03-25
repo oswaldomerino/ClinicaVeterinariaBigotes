@@ -27,3 +27,38 @@
 .small-sidebar .app-sidebar {
     width: 50px; /* Ancho reducido del sidebar cuando está en modo pequeño */
 }
+
+@media screen and (max-width: 767px) {
+    .dashboard-content {
+        flex-direction: column; /* Cambia a una disposición vertical en dispositivos móviles */
+    }
+
+    .app-navbar {
+        display: none; /* Oculta el navbar en dispositivos móviles */
+    }
+
+    .menu-toggle {
+        display: block; /* Muestra el botón de activar/desactivar el menú lateral en dispositivos móviles */
+    }
+
+    .app-sidebar {
+        position: fixed; /* Fija el menú lateral en la pantalla */
+        top: 0; /* Ajusta la posición vertical del menú lateral */
+        left: -250px; /* Oculta el menú lateral inicialmente fuera de la pantalla */
+        width: 250px; /* Ancho del menú lateral */
+        height: 100%; /* Altura del menú lateral */
+        background-color: #333; /* Color de fondo para el menú lateral */
+        color: white; /* Color del texto en el menú lateral */
+        transition: left 0.3s; /* Transición suave cuando se cambia la posición */
+    }
+
+    .main-content {
+        margin-left: 0; /* Ajusta el margen izquierdo del contenido principal para acomodar el menú lateral */
+    }
+
+    .small-sidebar .app-sidebar {
+        left: 0; /* Muestra el menú lateral cuando está en modo pequeño */
+    }
+
+
+}

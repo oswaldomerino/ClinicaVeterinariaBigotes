@@ -1,1 +1,84 @@
-<p>mascota-detalle works!</p>
+<div class="container">
+    <div class="card mb-4" style="box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.1);">
+        <div class="card-body">
+            <h5 class="card-title"><i class="fas fa-paw"></i> Información de la Mascota</h5>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label>Nombre:</label>
+                        <p>{{ nombreMascota }}</p>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label>Edad:</label>
+                        <p>{{ edadMascota }}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label>Plan de Salud:</label>
+                        <p>
+                            <span class="status" [ngClass]="{ 'vigente': planSaludVigente, 'vencido': !planSaludVigente }">
+                                {{ planSaludVigente ? 'Plan vigente' : 'Plan vencido' }}
+                            </span>
+                        </p>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label>Próxima Cita:</label>
+                        <p *ngIf="proximaCita">{{ proximaCita }}</p>
+                        <p *ngIf="!proximaCita">No hay citas programadas</p>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label>Vacunas:</label>
+                        <ul>
+                            <li *ngFor="let vacuna of vacunas"><i class="fas fa-syringe"></i> {{ vacuna.medicamento }}</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label>Últimos Tratamientos:</label>
+                        <ul>
+                            <li *ngFor="let tratamiento of tratamientos"><i class="fas fa-prescription-bottle"></i> {{ tratamiento }}</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label>Temperamento:</label>
+                        <p>{{ temperamento }}</p>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label>Observaciones:</label>
+                        <ul>
+                            <li><i class="fas fa-barking"></i> {{ observaciones }}</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label>Situación Económica:</label>
+                        <p>Estable</p>
+                    </div>
+                </div>
+                <!-- Agrega más columnas según sea necesario -->
+            </div>
+            <!-- Agrega más información según sea necesario -->
+        </div>
+    </div>
+</div>

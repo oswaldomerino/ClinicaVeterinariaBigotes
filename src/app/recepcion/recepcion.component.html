@@ -1,0 +1,68 @@
+<div class="container-fluid">
+    <!-- Lista de Espera -->
+    <div class="row">
+      <div class="col-md-10">
+        <div class="card mb-4">
+  <app-lista-espera></app-lista-espera>
+        </div>
+      </div>
+  
+      <!-- Acciones Lista de Espera -->
+      <div class="col-md-2">
+        <div class="card mb-4">
+          <div class="card-body">
+            <h5 class="card-title"><i class="fas fa-cogs"></i> Acciones</h5>
+            <!-- Botones de acciones para la lista de espera -->
+            <button class="btn btn-outline-primary btn-block rounded-pill" (click)="SelecionarClienteMascota()">
+              <i class="fas fa-plus"></i> Nuevo
+            </button>
+            <button class="btn btn-outline-success btn-block rounded-pill" (click)="agregarVisita()">
+              <i class="fas fa-clipboard-check"></i> Visita
+            </button>
+            <button class="btn btn-outline-warning btn-block rounded-pill" (click)="agregarPeso()">
+              <i class="fas fa-weight"></i> Añadir Peso
+            </button>
+            <button class="btn btn-outline-danger btn-block rounded-pill" (click)="pararPlan()">
+              <i class="fas fa-stop"></i> Parar Plan
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+    <!-- Tabla de Salida de Consulta -->
+    <div class="row">
+      <div class="col-md-10">
+        <div class="card">
+  <!--<app-lista-servicios-terminados></app-lista-servicios-terminados> -->
+        </div>
+      </div>
+  
+  <!-- Acciones Tabla de Salida -->
+  <div class="col-md-2">
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title"><i class="fas fa-cogs"></i> Acciones</h5>
+        <!-- Botones de acciones para la tabla de salida -->
+        <button class="btn btn-outline-success btn-block rounded-pill" (click)="cobrar()">
+          <i class="fas fa-money-check-alt"></i> Cobrar
+        </button>
+        <button class="btn btn-outline-info btn-block rounded-pill" (click)="venta()">
+          <i class="fas fa-shopping-cart"></i> Venta
+        </button>
+        <button class="btn btn-outline-warning btn-block rounded-pill" (click)="editar()">
+          <i class="fas fa-edit"></i> Editar
+        </button>
+        <button class="btn btn-outline-secondary btn-block rounded-pill" (click)="consultar()">
+          <i class="fas fa-search"></i> Consultar
+        </button>
+        <button class="btn btn-outline-danger btn-block rounded-pill" (click)="darSalida()">
+          <i class="fas fa-sign-out-alt"></i> Dar Salida
+        </button>
+      </div>
+    </div>
+  </div>
+  </div>
+  </div>
+  
+  
