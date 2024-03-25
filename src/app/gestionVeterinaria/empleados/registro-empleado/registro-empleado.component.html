@@ -1,0 +1,68 @@
+<div class="container">
+    <form [formGroup]="empleadoForm" (ngSubmit)="guardarEmpleado()">
+      <div class="row">
+        <div class="col-md-12">
+          <h2 class="mb-4">Registrar Nuevo Empleado</h2>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6">
+          <div class="mb-3">
+            <label for="idEmpleado" class="form-label">ID de Empleado</label>
+            <input type="text" class="form-control" id="idEmpleado" formControlName="idEmpleado" required>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="mb-3">
+            <label for="nombre" class="form-label">Nombre</label>
+            <input type="text" class="form-control" id="nombre" formControlName="nombre" required>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6">
+          <div class="mb-3">
+            <label for="direccion" class="form-label">Dirección</label>
+            <input type="text" class="form-control" id="direccion" formControlName="direccion" required>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="mb-3">
+            <label for="telefono" class="form-label">Teléfono</label>
+            <input type="text" class="form-control" id="telefono" formControlName="telefono" required>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6">
+          <div class="mb-3">
+            <label for="email" class="form-label">Correo Electrónico</label>
+            <input type="email" class="form-control" id="email" formControlName="email" required>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="mb-3">
+            <label for="fechaInicio" class="form-label">Fecha de Inicio</label>
+            <input type="date" class="form-control" id="fechaInicio" formControlName="fechaInicio" required>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6">
+          <div class="mb-3">
+            <label for="rol" class="form-label">Rol</label>
+            <select class="form-control" id="rol" formControlName="rol">
+              <option value="administrador">Administrador</option>
+              <option value="gerente">Gerente</option>
+              <option value="empleado">Empleado</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          <button type="submit" class="btn btn-primary">Registrar</button>
+        </div>
+      </div>
+    </form>
+  </div>

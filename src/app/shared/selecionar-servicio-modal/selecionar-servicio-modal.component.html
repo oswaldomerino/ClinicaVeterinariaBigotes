@@ -1,1 +1,73 @@
-<p>selecionar-servicio-modal works!</p>
+<div class="modal-header">
+    <h5 class="modal-title" id="planificacionListaEsperaModalLabel">Planificación de Lista de Espera</h5>
+    <button type="button" class="btn-close" aria-label="Cerrar" (click)="closeModal()"></button>
+</div>
+<div class="modal-body">
+    <form class="formGroup" [formGroup]="listaEsperaForm" (ngSubmit)="registrarLista()">
+        <!-- Nombre del cliente (información estática) -->
+        <div class="form-group">
+            <p class="form-control-static"><i class="fas fa-user"></i> {{ nombreCliente }} ({{ nombreMascota }})</p>
+        </div>
+
+        <!-- Servicio -->
+        <div class="form-group">
+            <label for="servicioSelect"><i class="fas fa-concierge-bell"></i> Servicio:</label>
+            <select class="form-control" id="servicioSelect" formControlName="servicio" (change)="toggleTallaField()">
+                <option *ngFor="let servicio of servicios" [value]="servicio.id">{{ servicio.nombre }}</option>
+            </select>
+        </div>
+
+<!-- Atendido por -->
+<div class="form-group">
+    <label for="atendidoPorSelect"><i class="fas fa-user"></i> Atendido por:</label>
+    <select class="form-control" id="atendidoPorSelect" formControlName="atendidoPor">
+        <option *ngFor="let empleado of empleados" [value]="empleado.nombre">{{ empleado.nombre }}</option>
+    </select>
+</div>
+
+
+
+
+        <!-- Descripción -->
+        <div class="mb-3">
+            <label for="descripcion" class="form-label"><i class="fas fa-pencil-alt"></i> Descripción de la visita:</label>
+            <ng-select class="form-control" [items]="descripciones" bindLabel="name" bindValue="id"
+              [loading]="loadingDescripciones" [clearable]="false" formControlName="descripciones" [multiple]="true"
+              [addTag]="addTagDescripcionPromise">
+          
+              <!-- Plantilla personalizada para la etiqueta de cada elemento seleccionado -->
+              <ng-template ng-label-tmp let-item="item" let-clear="clear">
+                <span class="ng-value-label">{{ item.name }}</span>
+                <span class="ng-value-icon right" (click)="clear(item)" aria-hidden="true">×</span>
+              </ng-template>
+          
+              <!-- Plantilla personalizada para cada opción en la lista desplegable -->
+              <ng-template ng-option-tmp let-item="item">
+                {{ item.name }}
+              </ng-template>
+            </ng-select>
+          </div>
+          
+
+        <!-- Campo de precio (oculto por defecto y deshabilitado) -->
+        <div class="form-group" *ngIf="mostrarPrecioCampo">
+            <label for="precio"><i class="fas fa-money-bill"></i> Precio:</label>
+            <input type="text" class="form-control" id="precio" placeholder="Precio" formControlName="precio"
+               >
+        </div>
+
+        <!-- Campo de talla de mascota (oculto por defecto) -->
+        <div class="form-group" *ngIf="mostrarTallaCampo">
+            <label for="peso"><i class="fas fa-ruler"></i> Peso de la mascota:</label>
+            <input type="text" class="form-control" id="peso" placeholder="Peso de la mascota" formControlName="peso" (change)="handlePesoChange($event)">
+          <!-- Texto con la fecha de registro del peso -->
+    <small class="text-muted">{{ textoFecha }}</small>
+        </div>
+    </form>
+</div>
+
+<div class="modal-footer">
+    <!-- Botón de cierre del modal -->
+    <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="closeModal()">Cancelar</button>
+    <button type="button" class="btn btn-primary" (click)="registrarLista()">Aceptar</button>
+</div>

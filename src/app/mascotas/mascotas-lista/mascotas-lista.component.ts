@@ -6,11 +6,12 @@ import { NgbModal, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { SharedDataService } from '../../servicios/shared-data.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MascotasModule } from '../mascotas.module';
 
 @Component({
   selector: 'app-mascotas-lista',
   standalone: true,
-  imports: [CommonModule,ReactiveFormsModule,FormsModule,NgbModule],
+  imports: [CommonModule,ReactiveFormsModule,FormsModule,NgbModule,MascotasModule],
   templateUrl: './mascotas-lista.component.html',
   styleUrl: './mascotas-lista.component.css'
 })

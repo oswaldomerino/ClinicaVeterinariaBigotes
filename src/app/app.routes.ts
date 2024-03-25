@@ -5,10 +5,14 @@ import { RegistroClienteMascotaComponentComponent } from './clientes/registro-cl
 import { AppComponent } from './app.component';
 import { ClientesListaComponent } from './clientes/clientes-lista/clientes-lista.component';
 import { RecepcionComponent } from './recepcion/recepcion.component';
+import { MascotasListaComponent } from './mascotas/mascotas-lista/mascotas-lista.component';
+import { CatalogoMedicamentoComponent } from './gestionVeterinaria/medicamento/catalogo-medicamento/catalogo-medicamento.component';
 
 export const routes: Routes = [
     { path: '', component: RegistroClienteMascotaComponentComponent }, // Ruta por defecto para el dashboard
     {path: 'registro', component: RegistroClienteMascotaComponentComponent},
     {path: 'clientes', component: ClientesListaComponent},
     {path: 'recepcion', component: RecepcionComponent},
+    {path: 'mascotas', component: MascotasListaComponent},
+    {path: 'catalogoMedicamentos', component: CatalogoMedicamentoComponent},
 ];

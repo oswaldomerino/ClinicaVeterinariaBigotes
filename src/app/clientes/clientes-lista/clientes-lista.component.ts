@@ -32,7 +32,7 @@ export class ClientesListaComponent {
   clientesFiltrados: any[] = [];
   filtros: any = {};
   filtroActivo = false;
-  clienteSelecionado!: Cliente; // Definir la propiedad clienteSeleccionado
+  clienteSelecionado!: any; // Definir la propiedad clienteSeleccionado
   showButtons = true;
   subscription: Subscription = new Subscription();
 
@@ -156,9 +156,11 @@ export class ClientesListaComponent {
   }
 
   seleccionarCliente(cliente: any, event: MouseEvent): void {
+
     this.clienteS.actualizarClienteId(cliente.id);
     this.clienteSelecionado = cliente;
     this.clienteS.editarCliente(cliente);
+    console.log(this.clienteSelecionado)
 
     // Verificar si se hizo clic en un botón de acción
     const targetButton = event.target as HTMLElement;

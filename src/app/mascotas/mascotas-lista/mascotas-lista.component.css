@@ -44,7 +44,7 @@
 .selected {
     background-color: #007bff; /* Color azul */
     color: #ffffff; /* Texto blanco */
-    padding: 1000px;
+   
 }
 
 .table tbody tr.selected {

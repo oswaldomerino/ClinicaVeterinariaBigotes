@@ -1,0 +1,40 @@
+<div class="container">
+    <div class="mb-3">
+        <input type="text" class="form-control" placeholder="Buscar medicamento..." [(ngModel)]="filtro">
+    </div>
+
+    <div class="table-responsive">
+        <table class="table table-hover">
+            <!-- Encabezado de la tabla -->
+            <thead class="thead-dark">
+                <tr>
+                    <th>Código de Barras</th>
+                    <th>Nombre de Vacuna</th>
+                    <th>Descripción</th>
+                    <th>Categoría</th>
+                    <th>Stock</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <!-- Cuerpo de la tabla con el filtro aplicado -->
+            <tbody>
+                <tr *ngFor="let medicamento of filtrarMedicamentos()">
+                    <td>{{ medicamento.codigoBarras }}</td>
+                    <td>{{ medicamento.nombreVacuna }}</td>
+                    <td>{{ medicamento.descripcion }}</td>
+                    <td>{{ medicamento.categoria }}</td>
+                    <td>{{ medicamento.stock }}</td>
+                    <!-- Botones de acción -->
+                    <td>
+                        <button class="btn btn-primary btn-sm" (click)="editarMedicamento(medicamento)">
+                            <i class="fas fa-edit"></i> Editar
+                        </button>
+                        <button class="btn btn-danger btn-sm" (click)="eliminarMedicamento(medicamento.id)">
+                            <i class="fas fa-trash-alt"></i> Eliminar
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

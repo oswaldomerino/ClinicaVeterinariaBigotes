@@ -1,0 +1,68 @@
+<div class="row">
+    <div class="col-md-12 mb-3">
+      <input type="text" class="form-control" placeholder="Buscar servicio..." [(ngModel)]="filtro">
+    </div>
+    <!-- Iterar sobre cada servicio -->
+    <div *ngFor="let servicio of filtrarServicios()" class="col-sm-12 col-md-6 col-lg-6">
+      <div class="card">
+        <!-- Nombre del servicio -->
+        <div class="card-header">
+          <h5 class="card-title">{{ servicio.nombre }}</h5>
+        </div>
+        <!-- Descripción del servicio -->
+        <div class="card-body">
+          <p class="card-text">{{ servicio.descripcion }}</p>
+        </div>
+        <!-- Mostrar precio unitario -->
+        <div class="card-body" *ngIf="servicio.tipoPrecio === 'unitario'">
+          <h6><i class="fas fa-dollar-sign"></i> Precio Unitario:</h6>
+          <p>{{ servicio.precioUnitario }}</p>
+        </div>
+        <!-- Mostrar tabla de precios por tallas -->
+        <div class="card-body" *ngIf="servicio.tipoPrecio === 'porPesoYtalla'">
+          <h6><i class="fas fa-ruler"></i> Precios por Tallas:</h6>
+          <table class="table table-sm">
+            <thead>
+              <tr>
+                <th scope="col">Talla</th>
+                <th scope="col">Peso</th>
+                <th scope="col">Precio</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let precio of servicio.precios">
+                <td>{{ precio.talla }}</td>
+                <td>{{ precio.rangoPesoInicio }} - {{ precio.rangoPesoFin }}</td>
+                <td>{{ precio.precio }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <!-- Tabla de costos extras -->
+        <div class="card-body" *ngIf="servicio.costosExtras.length > 0">
+          <h6><i class="fas fa-plus-circle"></i> Costos Extras:</h6>
+          <table class="table table-sm">
+            <thead>
+              <tr>
+                <th scope="col">Nombre</th>
+                <th scope="col">Precio</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let costoExtra of servicio.costosExtras">
+                <td>{{ costoExtra.nombre }}</td>
+                <td>{{ costoExtra.precio }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+    
+        <!-- Botones para eliminar y actualizar -->
+        <div class="card-footer d-flex justify-content-between">
+          <button type="button" class="btn btn-primary" (click)="editarServicio(servicio)"><i class="fas fa-edit"></i> Actualizar</button>
+          <button type="button" class="btn btn-danger" (click)="eliminarServicio(servicio.id!)"><i class="fas fa-trash-alt"></i> Eliminar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  

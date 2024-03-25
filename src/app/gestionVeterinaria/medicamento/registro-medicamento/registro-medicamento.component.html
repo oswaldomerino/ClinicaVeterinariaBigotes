@@ -1,0 +1,85 @@
+<div class="container">
+    <form [formGroup]="medicamentoForm" (ngSubmit)="guardarMedicamento()">
+      <div class="row">
+        <div class="col-md-12">
+          <h2 class="mb-4">Registrar Nuevo Medicamento</h2>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6">
+          <div class="mb-3">
+            <label for="codigoBarras" class="form-label">Código de Barras</label>
+            <input type="text" class="form-control" id="codigoBarras" formControlName="codigoBarras" required>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="mb-3">
+            <label for="nombreVacuna" class="form-label">Nombre de la Vacuna</label>
+            <input type="text" class="form-control" id="nombreVacuna" formControlName="nombreVacuna" required>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6">
+          <div class="mb-3">
+            <label for="categoria" class="form-label">Categoría</label>
+            <input type="text" class="form-control" id="categoria" formControlName="categoria" required>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="mb-3">
+            <label for="descripcion" class="form-label">Descripción</label>
+            <textarea class="form-control" id="descripcion" formControlName="descripcion"></textarea>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6">
+          <div class="mb-3">
+            <label for="periodicidad" class="form-label">Periodicidad</label>
+            <input type="number" class="form-control" id="periodicidad" formControlName="periodicidad" required>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="mb-3 form-check">
+            <input type="checkbox" class="form-check-input" id="proximaCita" formControlName="proximaCita">
+            <label class="form-check-label" for="proximaCita">Próxima Cita</label>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6">
+          <div class="mb-3">
+            <label for="laboratorio" class="form-label">Laboratorio</label>
+            <input type="text" class="form-control" id="laboratorio" formControlName="laboratorio">
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="mb-3">
+            <label for="precio" class="form-label">Precio</label>
+            <input type="number" class="form-control" id="precio" formControlName="precio">
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6">
+          <div class="mb-3">
+            <label for="stock" class="form-label">Stock</label>
+            <input type="number" class="form-control" id="stock" formControlName="stock">
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="mb-3">
+            <label for="fechaExpiracion" class="form-label">Fecha de Expiración</label>
+            <input type="text" class="form-control" id="fechaExpiracion" formControlName="fechaExpiracion">
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          <button type="submit" class="btn btn-primary">Registrar</button>
+        </div>
+      </div>
+    </form>
+  </div>
+  
