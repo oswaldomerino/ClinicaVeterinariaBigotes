@@ -3,15 +3,15 @@ import { NgbActiveModal, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { ToastrService } from 'ngx-toastr';
 import { Subscription } from 'rxjs';
-import { FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
-import { Servicio } from '../interfaces/servicios-veterinarios.interface';
-import { SharedDataService } from '../../servicios/shared-data.service';
-import { GestionVeterinariaService } from '../../servicios/gestion-veterinaria.service';
-import { SalaEsperaService } from '../../servicios/sala-espera.service';
-import { MascotaService } from '../../servicios/mascota.service';
+import { FormArray, FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Servicio } from '../../interfaces/servicios-veterinarios.interface';
+import { SharedDataService } from '../../../servicios/shared-data.service';
+import { GestionVeterinariaService } from '../../../servicios/gestion-veterinaria.service';
+import { SalaEsperaService } from '../../../servicios/sala-espera.service';
+import { MascotaService } from '../../../servicios/mascota.service';
 import { CommonModule } from '@angular/common';
 import { NgSelectModule } from '@ng-select/ng-select';
-import { Empleado } from '../interfaces/empleado.interface';
+import { Empleado } from '../../interfaces/empleado.interface';
 
 
 
@@ -24,7 +24,7 @@ interface PesoRegistro {
 @Component({
   selector: 'app-selecionar-servicio-modal',
   standalone: true,
-  imports: [ CommonModule,ReactiveFormsModule,FormsModule,NgbModule,NgSelectModule],
+  imports: [ CommonModule,ReactiveFormsModule,FormsModule,NgbModule,NgSelectModule,],
   templateUrl: './selecionar-servicio-modal.component.html',
   styleUrl: './selecionar-servicio-modal.component.css'
 })
@@ -35,6 +35,7 @@ export class SelecionarServicioModalComponent {
   cliente!: any
   mascota!: any
   empleados:Empleado[]=[]
+  listaEspera!:any
   listaEsperaForm: FormGroup;
   servicios: Servicio[] = []; // Asegúrate de tener una interfaz o clase Servicio
   precio: number=0;
@@ -49,6 +50,9 @@ export class SelecionarServicioModalComponent {
   descripciones: any[] = [];
   selectDescripciones: any[] = [];
   subscription: any;
+
+  costosExtras:any[] = [];
+  costosExtrasSeleccionados: any[] = [];
 
   constructor(
     public activeModal: NgbActiveModal,
@@ -68,13 +72,22 @@ export class SelecionarServicioModalComponent {
 
   ngOnInit(): void {
     this.cargarServicios()
+
     this.listaEsperaForm = this.formBuilder.group({
       servicio: [''],
       atendidoPor: [[]],
       descripciones: [[]],
       peso: [''],
-     precio:[{value:'',disabled:true}] 
+      precio: [{value:'', disabled:true}],
+      // Tus otros campos aquí...
+    costosExtras:[{}],
     });
+    
+
+  
+
+
+
 
 this.consultarDescripciones();
 this.cargarEmpleados();
@@ -116,7 +129,13 @@ this.cargarEmpleados();
       }, error => {
         this.toastr.error('Error al obtener los datos de la mascota.', 'Error');
       })
+      
+      
     );
+
+
+
+    
   }
   ngOnDestroy(): void {
     // Asegúrate de cancelar la suscripción cuando el componente se destruya
@@ -134,8 +153,9 @@ this.cargarEmpleados();
   toggleTallaField(): void {
     const { servicio } = this.listaEsperaForm.value;
     const servicioSeleccionado = this.servicios.find(serv => serv.id === servicio);
-
+   
     if(servicioSeleccionado){
+      this.cargarCostosExtras(servicioSeleccionado)
         if (servicioSeleccionado.tipoPrecio === 'unitario') {
             this.mostrarPrecioCampo=true;
             // Si es un precio unitario, tomar el precio directamente del servicio
@@ -246,23 +266,46 @@ if(servicioSeleccionado){
   registrarLista(): void {
 
     // Obtener los valores del formulario
-    const { atendidoPor, descripciones, servicio , peso, precio } = this.listaEsperaForm.value;
+    const { atendidoPor, descripciones, servicio , peso, precio, costosExtras } = this.listaEsperaForm.value;
+
+
+    const listaEspera= this.listaEsperaForm.value
 
     // Preparar los datos del cliente y la mascota
     const clienteData = { nombre: this.nombreCliente, id: this.cliente.id };
     const pesoMascota = this.mascota.peso !== undefined ? this.mascota.peso : 0;
     const mascotaData = { nombre: this.nombreMascota, id: this.mascota.id, peso:pesoMascota};
 
+    
     // Buscar el servicio seleccionado por su ID
     const servicioSeleccionado = this.servicios.find(serv => serv.id === servicio);
+ // Agregar los costos extras seleccionados al array de costosExtrasSeleccionados
+
+// Obtener la hora actual
+const horaActual = new Date();
 
 
-    // Obtener la hora actual
-    const horaActual = new Date();
+const costosExtrasSeleccionadosObj:any = {};
+this.costosExtrasSeleccionados.forEach((costoExtra:any, i) => {
+costosExtrasSeleccionadosObj[i] = costoExtra;
+});
+
+
+ listaEspera.cliente=clienteData
+ listaEspera.mascota=mascotaData
+ listaEspera.infoServicio=servicioSeleccionado
+ listaEspera.horaRecepcion= horaActual.toISOString()
+ listaEspera.status='en espera'
+ listaEspera.costosExtras= this.costosExtrasSeleccionados
+console.log('this.costosExtrasSeleccionados d ' , this.costosExtrasSeleccionados)
+    
+
+
  
     // Crear el objeto con los datos a enviar al servicio
     const listaEsperaItem = {
       servicio,
+      costosExtras:costosExtrasSeleccionadosObj, // Agregar los costos extras seleccionados
       cliente: clienteData,
       mascota: mascotaData,
       veterinario: atendidoPor, // Supongamos que atendidoPor se refiere al veterinario
@@ -277,7 +320,7 @@ if(servicioSeleccionado){
     };
 
     // Llamar al servicio para agregar el cliente a la lista de espera
-    this._listEspetaFB.agregarItemList(listaEsperaItem)
+    this._listEspetaFB.agregarItemList(listaEspera)
       .then(() => {
         this.toastr.success('Cliente registrado en lista de espera correctamente.', 'Éxito');
         const result={modal:'addListaEspera', valor:listaEsperaItem}
@@ -341,6 +384,36 @@ if(servicioSeleccionado){
       empleado => this.empleados = empleado,
       error => console.error('Error al obtener los empleados', error)
     );
+  }
+
+  cargarCostosExtras(servicio: Servicio): void {
+    // Busca el servicio con el id dado
+  
+
+    // Si el servicio existe y tiene costos extras, los carga
+    if (servicio && servicio.costosExtras) {
+      this.costosExtras = servicio.costosExtras;
+    } else {
+      // Si el servicio no existe o no tiene costos extras, limpia los costos extras
+      this.costosExtras = [];
+    }
+  }
+
+  seleccionarCostoExtra(costoExtra:any): void {
+    const index = this.costosExtrasSeleccionados.findIndex((costo) => costo.id === costoExtra.id);
+    if (index > -1) {
+      this.costosExtrasSeleccionados.splice(index, 1);
+    } else {
+      this.costosExtrasSeleccionados.push(costoExtra);
+    }
+  }
+
+  seleccionarCostoExtra1(costoExtra:any): void {
+    this.costosExtrasSeleccionados.push(costoExtra);
+    console.log('costoExtra',costoExtra)
+    console.log('this.costosExtrasSeleccionados',this.costosExtrasSeleccionados)
+
+
   }
   
 

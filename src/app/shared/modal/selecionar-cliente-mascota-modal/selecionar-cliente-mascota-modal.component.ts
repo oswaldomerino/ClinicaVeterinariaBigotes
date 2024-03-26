@@ -4,13 +4,13 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
 import { Subscription } from 'rxjs';
 import { ToastrService } from 'ngx-toastr';
-import { SharedDataService } from '../../servicios/shared-data.service';
-import { ClientesListaComponent } from '../../clientes/clientes-lista/clientes-lista.component';
-import { MascotaDetalleComponent } from '../../mascotas/mascota-detalle/mascota-detalle.component';
-import { MascotasListaComponent } from '../../mascotas/mascotas-lista/mascotas-lista.component';
-import { ModalService } from '../../servicios/modal.service';
+import { SharedDataService } from '../../../servicios/shared-data.service';
+import { ClientesListaComponent } from '../../../clientes/clientes-lista/clientes-lista.component';
+import { MascotaDetalleComponent } from '../../../mascotas/mascota-detalle/mascota-detalle.component';
+import { MascotasListaComponent } from '../../../mascotas/mascotas-lista/mascotas-lista.component';
+import { ModalService } from '../../../servicios/modal.service';
 import { FirestoreModule } from '@angular/fire/firestore';
-import { ClientesModule } from '../../clientes/clientes.module';
+import { ClientesModule } from '../../../clientes/clientes.module';
 
 @Component({
   selector: 'app-selecionar-cliente-mascota-modal',

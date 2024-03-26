@@ -8,9 +8,9 @@ import { ToastrService } from 'ngx-toastr';
 import { Subscription } from 'rxjs';
 import { ModalService } from '../servicios/modal.service';
 import { SalaEsperaService } from '../servicios/sala-espera.service';
-import { SharedDataService } from '../servicios/shared-data.service';import { SelecionarClienteMascotaModalComponent } from '../shared/selecionar-cliente-mascota-modal/selecionar-cliente-mascota-modal.component';
-import { SelecionarServicioModalComponent } from '../shared/selecionar-servicio-modal/selecionar-servicio-modal.component';
-import { SelecionarAplicacionModalComponent } from '../shared/selecionar-aplicacion-modal/selecionar-aplicacion-modal.component';
+import { SharedDataService } from '../servicios/shared-data.service';import { SelecionarClienteMascotaModalComponent } from '../shared/modal/selecionar-cliente-mascota-modal/selecionar-cliente-mascota-modal.component';
+import { SelecionarServicioModalComponent } from '../shared/modal/selecionar-servicio-modal/selecionar-servicio-modal.component';
+import { SelecionarAplicacionModalComponent } from '../shared/modal/selecionar-aplicacion-modal/selecionar-aplicacion-modal.component';
 
 
 @Component({

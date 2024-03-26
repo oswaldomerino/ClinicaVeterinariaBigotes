@@ -62,6 +62,7 @@ export class ListaEsperaComponent {
       //console.log(lista)
       if(lista){
         this.listaEspeta = lista.filter(item => item.status === 'en espera');
+        console.log(lista)
       }
       
   

@@ -42,16 +42,22 @@
     margin-bottom: 5px; /* Ajusta el margen inferior de los botones */
 }
 
+
 .selected {
-    background-color: #007bff; /* Color azul */
-    color: #ffffff; /* Texto blanco */
-}
+    background-color: #007bff !important; /* Color azul */
+    color: #ffffff !important; /* Texto blanco */
+  }
 
-tr.selected {
-    background-color: #007bff; /* Color azul */
-    color: #ffffff; /* Texto blanco */
-}
+  tr.selected {
+    background-color: #007bff !important; /* Color azul */
+    color: #ffffff !important; /* Texto blanco */
+   
+  }
 
+  table tr.selected {
+    background-color: #007bff !important; /* Color azul */
+    color: #ffffff !important; /* Texto blanco */
+  }
 
   
   tr{

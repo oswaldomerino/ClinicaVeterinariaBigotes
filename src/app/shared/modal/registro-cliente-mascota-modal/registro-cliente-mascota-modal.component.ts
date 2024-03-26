@@ -1,16 +1,16 @@
 import { Component } from '@angular/core';
-import { SharedDataService } from '../../servicios/shared-data.service';
+import { SharedDataService } from '../../../servicios/shared-data.service';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { Subscription } from 'rxjs';
-import { RegistroClienteMascotaComponentComponent } from '../../clientes/registro-cliente-mascota-component/registro-cliente-mascota-component.component';
+import { RegistroClienteMascotaComponentComponent } from '../../../clientes/registro-cliente-mascota-component/registro-cliente-mascota-component.component';
 import { CommonModule } from '@angular/common';
-import { ClientesListaComponent } from '../../clientes/clientes-lista/clientes-lista.component';
-import { ClientesModule } from '../../clientes/clientes.module';
-import { MascotasListaComponent } from '../../mascotas/mascotas-lista/mascotas-lista.component';
-import { MascotaFormularioComponent } from '../../mascotas/mascota-formulario/mascota-formulario.component';
-import { ClienteDetalleComponent } from '../../clientes/cliente-detalle/cliente-detalle.component';
-import { MascotaDetalleComponent } from '../../mascotas/mascota-detalle/mascota-detalle.component';
-import { MascotasModule } from '../../mascotas/mascotas.module';
+import { ClientesListaComponent } from '../../../clientes/clientes-lista/clientes-lista.component';
+import { ClientesModule } from '../../../clientes/clientes.module';
+import { MascotasListaComponent } from '../../../mascotas/mascotas-lista/mascotas-lista.component';
+import { MascotaFormularioComponent } from '../../../mascotas/mascota-formulario/mascota-formulario.component';
+import { ClienteDetalleComponent } from '../../../clientes/cliente-detalle/cliente-detalle.component';
+import { MascotaDetalleComponent } from '../../../mascotas/mascota-detalle/mascota-detalle.component';
+import { MascotasModule } from '../../../mascotas/mascotas.module';
 
 @Component({
   selector: 'app-registro-cliente-mascota-modal',

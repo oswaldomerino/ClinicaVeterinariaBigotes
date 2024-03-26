@@ -13,7 +13,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { ClientesModule } from '../clientes.module';
 import { FirestoreModule } from '@angular/fire/firestore';
-import { RegistroClienteMascotaModalComponent } from '../../shared/registro-cliente-mascota-modal/registro-cliente-mascota-modal.component';
+import { RegistroClienteMascotaModalComponent } from '../../shared/modal/registro-cliente-mascota-modal/registro-cliente-mascota-modal.component';
 import { MascotasListaComponent } from '../../mascotas/mascotas-lista/mascotas-lista.component';
 import { RegistroClienteMascotaComponentComponent } from '../registro-cliente-mascota-component/registro-cliente-mascota-component.component';
 
@@ -160,7 +160,8 @@ export class ClientesListaComponent {
     this.clienteS.actualizarClienteId(cliente.id);
     this.clienteSelecionado = cliente;
     this.clienteS.editarCliente(cliente);
-    console.log(this.clienteSelecionado)
+ 
+ 
 
     // Verificar si se hizo clic en un botón de acción
     const targetButton = event.target as HTMLElement;

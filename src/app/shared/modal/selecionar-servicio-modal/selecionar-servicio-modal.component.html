@@ -16,6 +16,7 @@
                 <option *ngFor="let servicio of servicios" [value]="servicio.id">{{ servicio.nombre }}</option>
             </select>
         </div>
+  
 
 <!-- Atendido por -->
 <div class="form-group">
@@ -63,8 +64,37 @@
           <!-- Texto con la fecha de registro del peso -->
     <small class="text-muted">{{ textoFecha }}</small>
         </div>
-    </form>
+        <div class="mb-3">
+            <label for="costosExtras" class="form-label"><i class="fas fa-dollar-sign"></i> Costos Extras:</label>
+            <ng-select [items]="costosExtras"
+                       bindLabel="nombre"
+                       bindValue="id"
+                       [multiple]="true"
+                       [closeOnSelect]="false"
+                       placeholder=""
+                       formControlName="costosExtras"
+                       (change)="seleccionarCostoExtra($event)">
+              <ng-template ng-option-tmp let-item="item" let-index="index">
+                <input type="checkbox" [checked]="costosExtrasSeleccionados.indexOf(item) > -1" /> {{item.nombre}} - {{item.precio}}
+              </ng-template>
+            </ng-select>
+            
+          </div>
+
+        
+        
+          
+          
+          
+          
+  </form>
+
+  
+  
 </div>
+
+
+  
 
 <div class="modal-footer">
     <!-- Botón de cierre del modal -->
