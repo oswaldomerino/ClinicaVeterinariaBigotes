@@ -125,50 +125,7 @@ export class ListaEsperaComponent {
   
   
   
-  openModal1(viewModal:any,size:string): void {
-    // Verificar si el modal ya está abierto
-    if (this.modalAbierto) {
-      //console.log('El modal ya está abierto.');
-      return;
-    }
-  
-  
-  
-    this.modalAbierto = true;
-    this.modalServiceCental.openModal(viewModal, size).subscribe(
-      (result) => {
-        // Aquí recibes el resultado del modal y puedes realizar acciones según sea necesario
-        //console.log('Resultado del modal:', result);
-        if (result) {
-          // Realizar acciones según el resultado del modal
-          switch(result.modal) {
-            case 'select':
-              if(result.valor){
-                this.modalAbierto = false; // Restablecer la bandera al cerrar el modal
-               // //console.log('El modal se ha cerrado.');
-                // Verificar si el modal ya está abierto antes de intentar abrirlo nuevamente
-                if (!this.modalAbierto) {
-                 // this.openModal(PlanificacionListaEsperaModalComponent,'');
-                }
-              }
-              break;
-            default:
-              // Código para manejar otros casos
-              break;
-          }
-        }
-        this.modalAbierto = false; // Restablecer la bandera al cerrar el modal
-      },
-      (error) => {
-        console.error('Error al abrir el modal:', error);
-      },
-      () => {
-        // Esta función se ejecuta cuando el modal se cierra
-        this.modalAbierto = false; // Restablecer la bandera al cerrar el modal
-        //console.log('El modal se ha cerrado.');
-      }
-    );
-  }
+
   
   
   

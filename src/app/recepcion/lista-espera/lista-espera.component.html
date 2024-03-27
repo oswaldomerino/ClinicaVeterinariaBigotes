@@ -20,12 +20,12 @@
                 <tr *ngFor="let item of listaEspeta">
                     <td>{{ item.cliente.nombre }}</td>
                     <td>{{ item.mascota.nombre }}</td>
-                    <td>{{ item.veterinario }}</td>
+                    <td>{{ item.atendidoPor }}</td>
                     <td>{{ item.horaRecepcion }}</td>
                     <td>{{ item.horaCita }}</td>
-                    <td>{{ item.descripcion }}</td>
+                    <td>{{ item.descripciones }}</td>
                     <td>{{ item.peso }}</td>
-                    <td>{{ item.precio }}</td>
+                    <td>{{ item.costoTotal }}</td>
                 </tr>
                 <!-- Aquí se añadirían más filas según los datos de la lista de espera -->
             </tbody>

@@ -69,19 +69,19 @@ export class RecepcionComponent {
   openModal(viewModal:any,size:string): Promise<void> {
     return new Promise((resolve, reject) => {
       if (this.modalAbierto) {
-        console.log('El modal ya está abierto.');
+      
         reject('El modal ya está abierto.');
       } else {
         this.modalAbierto = true;
         this.modalServiceCental.openModal(viewModal, size).subscribe(
           (result) => {
-            console.log('Resultado del modal:', result);
+            
             if (result) {
               switch(result.modal) {
                 case 'select':
                   if(result.valor){
                     this.modalAbierto = false;
-                    console.log('El modal se ha cerrado.');
+                  
                     resolve();
                   }
                   break;
@@ -108,50 +108,7 @@ export class RecepcionComponent {
   
   
   
-  openModal1(viewModal:any,size:string): void {
-    // Verificar si el modal ya está abierto
-    if (this.modalAbierto) {
-      console.log('El modal ya está abierto.');
-      return;
-    }
-  
-  
-  
-    this.modalAbierto = true;
-    this.modalServiceCental.openModal(viewModal, size).subscribe(
-      (result) => {
-        // Aquí recibes el resultado del modal y puedes realizar acciones según sea necesario
-        console.log('Resultado del modal:', result);
-        if (result) {
-          // Realizar acciones según el resultado del modal
-          switch(result.modal) {
-            case 'select':
-              if(result.valor){
-                this.modalAbierto = false; // Restablecer la bandera al cerrar el modal
-                console.log('El modal se ha cerrado.');
-                // Verificar si el modal ya está abierto antes de intentar abrirlo nuevamente
-                if (!this.modalAbierto) {
-                  this.openModal(SelecionarServicioModalComponent,'');
-                }
-              }
-              break;
-            default:
-              // Código para manejar otros casos
-              break;
-          }
-        }
-        this.modalAbierto = false; // Restablecer la bandera al cerrar el modal
-      },
-      (error) => {
-        console.error('Error al abrir el modal:', error);
-      },
-      () => {
-        // Esta función se ejecuta cuando el modal se cierra
-        this.modalAbierto = false; // Restablecer la bandera al cerrar el modal
-        console.log('El modal se ha cerrado.');
-      }
-    );
-  }
+
   
   
   
@@ -165,7 +122,7 @@ export class RecepcionComponent {
     // Luego puedes usarlo así:
   this.openModal(SelecionarClienteMascotaModalComponent,'xl').then(() => {
     // Aquí puedes abrir el siguiente modal si es necesario
-    this.openModal(SelecionarServicioModalComponent, '');
+    this.openModal(SelecionarServicioModalComponent, 'xl');
   }).catch((error) => {
     console.error('Error al abrir el modal:', error);
   });

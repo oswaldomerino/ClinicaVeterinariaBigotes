@@ -50,9 +50,13 @@ export class SelecionarServicioModalComponent {
   descripciones: any[] = [];
   selectDescripciones: any[] = [];
   subscription: any;
+  mostrarCostrosExtras: boolean = false; // Inicializar como false si deseas que el campo esté inicialmente deshabilitado
+  selectedCostoExtra: any[]=[];
+    itemsCostoExtra:any = [];
 
-  costosExtras:any[] = [];
-  costosExtrasSeleccionados: any[] = [];
+    totalCostoExtra = 0;
+
+
 
   constructor(
     public activeModal: NgbActiveModal,
@@ -285,10 +289,7 @@ if(servicioSeleccionado){
 const horaActual = new Date();
 
 
-const costosExtrasSeleccionadosObj:any = {};
-this.costosExtrasSeleccionados.forEach((costoExtra:any, i) => {
-costosExtrasSeleccionadosObj[i] = costoExtra;
-});
+
 
 
  listaEspera.cliente=clienteData
@@ -296,8 +297,11 @@ costosExtrasSeleccionadosObj[i] = costoExtra;
  listaEspera.infoServicio=servicioSeleccionado
  listaEspera.horaRecepcion= horaActual.toISOString()
  listaEspera.status='en espera'
- listaEspera.costosExtras= this.costosExtrasSeleccionados
-console.log('this.costosExtrasSeleccionados d ' , this.costosExtrasSeleccionados)
+ listaEspera.costosExtras= this.selectedCostoExtra
+ listaEspera.precio= this.precio
+ listaEspera.costoTotal = this.totalCostoExtra + this.precio
+listaEspera.atendidoPor=atendidoPor
+console.log('this.selectedCostoExtra d ' , this.selectedCostoExtra)
     
 
 
@@ -305,7 +309,7 @@ console.log('this.costosExtrasSeleccionados d ' , this.costosExtrasSeleccionados
     // Crear el objeto con los datos a enviar al servicio
     const listaEsperaItem = {
       servicio,
-      costosExtras:costosExtrasSeleccionadosObj, // Agregar los costos extras seleccionados
+      costosExtras:this.selectedCostoExtra, // Agregar los costos extras seleccionados
       cliente: clienteData,
       mascota: mascotaData,
       veterinario: atendidoPor, // Supongamos que atendidoPor se refiere al veterinario
@@ -387,34 +391,63 @@ console.log('this.costosExtrasSeleccionados d ' , this.costosExtrasSeleccionados
   }
 
   cargarCostosExtras(servicio: Servicio): void {
-    // Busca el servicio con el id dado
-  
-
     // Si el servicio existe y tiene costos extras, los carga
     if (servicio && servicio.costosExtras) {
-      this.costosExtras = servicio.costosExtras;
+      this.itemsCostoExtra = servicio.costosExtras;
+      this.mostrarCostrosExtras=true
     } else {
       // Si el servicio no existe o no tiene costos extras, limpia los costos extras
-      this.costosExtras = [];
+      this.itemsCostoExtra = [];
+      this.mostrarCostrosExtras=false
     }
   }
+
+
+  
+
+onClear() {
+ 
+}
 
   seleccionarCostoExtra(costoExtra:any): void {
-    const index = this.costosExtrasSeleccionados.findIndex((costo) => costo.id === costoExtra.id);
+
+    
+  }
+
+  onAddCostoExtra(costoExtra:any){
+    // Comprueba si el costo extra ya ha sido seleccionado
+    if (this.selectedCostoExtra.some(item => item.nombre === costoExtra.nombre)) {
+      // Si ya ha sido seleccionado, muestra un mensaje toast y no hagas nada más
+      this.toastr.warning('Este costo extra ya ha sido seleccionado');
+      return;
+  }
+
+  // Si no ha sido seleccionado, agrégalo a la lista y actualiza el total
+  this.selectedCostoExtra.push(costoExtra);
+  console.log('add',this.selectedCostoExtra)
+  this.totalCostoExtra += costoExtra.precio;
+  }
+
+  onARemoveCostoExtra(costoExtra:any){
+
+    const index = this.selectedCostoExtra.indexOf(costoExtra);
     if (index > -1) {
-      this.costosExtrasSeleccionados.splice(index, 1);
-    } else {
-      this.costosExtrasSeleccionados.push(costoExtra);
+      this.selectedCostoExtra.splice(index, 1);
+      this.totalCostoExtra -= costoExtra.precio;
     }
+    console.log('remove',this.selectedCostoExtra)
+  
+    
   }
 
-  seleccionarCostoExtra1(costoExtra:any): void {
-    this.costosExtrasSeleccionados.push(costoExtra);
-    console.log('costoExtra',costoExtra)
-    console.log('this.costosExtrasSeleccionados',this.costosExtrasSeleccionados)
-
-
+  eliminarCostoExtra(index:any) {
+    let item = this.selectedCostoExtra[index];
+    this.totalCostoExtra -= item.precio;
+    this.selectedCostoExtra.splice(index, 1);
   }
+  
+
+
   
 
 }

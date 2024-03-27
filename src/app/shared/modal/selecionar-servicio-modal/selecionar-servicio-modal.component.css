@@ -1,0 +1,125 @@
+::ng-deep .ng-select {
+    display: inline-block;
+    width: 100%;
+  }
+  
+  
+  /* Estilos para las opciones desplegadas */
+  ::ng-deep .ng-dropdown-panel {
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+    box-shadow: none;
+    background-color: white;
+  }
+  
+  /* Estilos para las opciones individuales */
+  ::ng-deep .ng-option {
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+  }
+  
+  /* Estilos para las opciones cuando están resaltadas */
+  ::ng-deep .ng-option.ng-option-marked {
+    background-color: #f8f9fa;
+  }
+
+  /* Estilo para el encabezado del modal */
+.modal-header {
+    background-color: #007bff;
+    color: #fff;
+    border-bottom: 1px solid #dee2e6;
+    padding: 1rem;
+}
+
+/* Estilo para el título del modal */
+.modal-title {
+    margin: 0;
+    font-size: 1.25rem;
+}
+
+/* Estilo para el cuerpo del modal */
+.modal-body {
+    padding: 1rem;
+}
+
+/* Estilo para los íconos en las etiquetas */
+.form-label i {
+    margin-right: 0.5rem;
+}
+
+/* Estilo para los campos de entrada */
+.form-group {
+    margin-bottom: 1rem;
+}
+
+/* Estilo para los botones en el pie del modal */
+.modal-footer {
+    background-color: #f8f9fa;
+    border-top: 1px solid #dee2e6;
+    padding: 1rem;
+    justify-content: space-between;
+}
+
+/* Estilo para los botones */
+.btn {
+    cursor: pointer;
+}
+
+/* Estilo para el botón de Aceptar */
+.btn-primary {
+    background-color: #007bff;
+    color: #fff;
+    border: 1px solid #007bff;
+}
+
+/* Estilo para el botón de Cancelar */
+.btn-secondary {
+    background-color: #6c757d;
+    color: #fff;
+    border: 1px solid #6c757d;
+}
+
+/* Estilo para el botón de cierre */
+.btn-close {
+    color: #fff;
+}
+
+/* Estilo para la tabla de costos extras */
+.table {
+    width: 100%;
+    margin-bottom: 0;
+}
+
+/* Estilo para el icono de eliminar en la tabla */
+.fa-trash {
+    color: red;
+    cursor: pointer;
+}
+
+
+/* Estilo para la fila con las dos columnas */
+.row {
+    margin-left: -15px;
+    margin-right: -15px;
+}
+
+/* Estilo para cada columna */
+.col-md-6 {
+    position: relative;
+    width: 100%;
+    min-height: 1px;
+    padding-left: 15px;
+    padding-right: 15px;
+    flex: 0 0 50%;
+    max-width: 50%;
+}
+
+/* Estilo para el formulario en la primera columna */
+.col-md-6:nth-child(1) {
+    float: left;
+}
+
+/* Estilo para la selección de costos extras en la segunda columna */
+.col-md-6:nth-child(2) {
+    float: right;
+}
