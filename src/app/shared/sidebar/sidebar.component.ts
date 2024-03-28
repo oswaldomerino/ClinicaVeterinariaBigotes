@@ -34,6 +34,8 @@ export class SidebarComponent {
     { routerLink: '/mascotas', iconClass: 'fas fa-paw card-icon', text: 'Mascotas' },
     { routerLink: '/veterinarians', iconClass: 'fas fa-user-md card-icon', text: 'Veterinarios' },
     { routerLink: '/consultorio', iconClass: 'fas fa-notes-medical card-icon', text: 'Consultas' },
+    { routerLink: '/atencionestetica', iconClass: 'fas fa-spa card-icon', text: 'Estetica' },
+
     { routerLink: '/catalogoMedicamentos', iconClass: 'fas fa-prescription-bottle-alt card-icon', text: 'Medicamentos' }
   ];
 

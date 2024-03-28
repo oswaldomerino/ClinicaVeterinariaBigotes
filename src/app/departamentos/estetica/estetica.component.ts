@@ -1,26 +1,23 @@
 import { Component } from '@angular/core';
-import { NgbModal, NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { ToastrService } from 'ngx-toastr';
 import { Subscription } from 'rxjs';
-
-import { CommonModule } from '@angular/common';
-
-import { format } from 'date-fns';
+import { SharedDataService } from '../../servicios/shared-data.service';
+import { ToastrService } from 'ngx-toastr';
+import { NgbModal, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ModalService } from '../../servicios/modal.service';
 import { SalaEsperaService } from '../../servicios/sala-espera.service';
-import { SharedDataService } from '../../servicios/shared-data.service';
-import { RecepcionModule } from '../recepcion.module';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-
+import { format } from 'date-fns';
+import { CommonModule } from '@angular/common';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { RecepcionModule } from '../../recepcion/recepcion.module';
 
 @Component({
-  selector: 'app-lista-espera',
+  selector: 'app-estetica',
   standalone: true,
   imports: [RecepcionModule,CommonModule,ReactiveFormsModule,FormsModule,NgbModule],
-  templateUrl: './lista-espera.component.html',
-  styleUrl: './lista-espera.component.css'
+  templateUrl: './estetica.component.html',
+  styleUrl: './estetica.component.css'
 })
-export class ListaEsperaComponent {
+export class EsteticaComponent {
 
 
   listaEspeta:any[]=[]
@@ -48,7 +45,6 @@ export class ListaEsperaComponent {
     // Cancelar la suscripción al observable para evitar pérdidas de memoria
     this.sharedDataService.toggleButtons(true);
 
-
       if (this.subscription) {
         this.subscription.unsubscribe();
       }
@@ -59,14 +55,12 @@ export class ListaEsperaComponent {
   
   cargarLista(): void {
     this._listEspetaFB.getAllListasConEstatus('en espera').subscribe(lista => {
-      // Filtrar la lista para mostrar solo los elementos con estado "en espera"
-      //console.log(lista)
+      // Filtrar la lista para mostrar solo los elementos con estado "en espera" y categoría "estetica y baños"
       if(lista){
-        this.listaEspeta = lista.filter(item => item.status === 'en espera');
+        this.listaEspeta = lista.filter(item => item.status === 'en espera' && item.infoServicio.categoria === 'estetica'  ||  item.infoServicio.categoria === 'baños'  );
         console.log(lista)
       }
       
-  
       // Ordenar la lista de espera por horaRecepcion de forma descendente (del más antiguo al más reciente)
       this.listaEspeta.sort((a, b) => {
         const horaRecepcionA = new Date(a.horaRecepcion).getTime();
@@ -82,8 +76,18 @@ export class ListaEsperaComponent {
       });
     });
   }
+
+  agregarObservacion(serv:any){
+
+  }
+
+  agregarTemperamento(erv:any){
+
+  }
   
-  
+  finalizarServicio(erv:any){
+
+  }
   openModal(viewModal:any,size:string): Promise<void> {
     return new Promise((resolve, reject) => {
       if (this.modalAbierto) {
@@ -122,82 +126,4 @@ export class ListaEsperaComponent {
       }
     });
   }
-  
-  
-  
-  
-
-  
-  
-  
-  
-  // Función para agregar un nuevo cliente
-  SelecionarClienteMascota() {
-    this.sharedDataService.actualizarMascotaSeleccionada(null);
-    this.sharedDataService.actualizarCliente(null);
-    // Lógica para agregar un nuevo cliente a la lista de espera
-  
-
-    /*
-    // Luego puedes usarlo así:
-  this.openModal(SelecionarClienteMascotaSalaEsperaComponent,'xl').then(() => {
-    // Aquí puedes abrir el siguiente modal si es necesario
-    this.openModal(PlanificacionListaEsperaModalComponent, '');
-  }).catch((error) => {
-    console.error('Error al abrir el modal:', error);
-  });
-  */
-  // this.openModal(SelecionarClienteMascotaSalaEsperaComponent,'xl')
-  }
-  
-  // Función para agregar una visita
-  agregarVisita() {
-    // Lógica para agregar una visita a la lista de espera
-    //console.log('Agregando visita...');
-  }
-  
-  // Función para añadir peso
-  agregarPeso() {
-    //this.openModal(RegistrarPesoModalComponent,'')
-    // Lógica para añadir peso a una mascota en espera
-    //console.log('Añadiendo peso...');
-  }
-  
-  // Función para parar el plan
-  pararPlan() {
-    // Lógica para detener el plan de un cliente
-    //console.log('Parando plan...');
-  }
-  
-  // Función para cobrar
-  cobrar() {
-    // Lógica para realizar el cobro de una consulta
-    //console.log('Cobrando...');
-  }
-  
-  // Función para venta
-  venta() {
-    // Lógica para realizar una venta
-    //console.log('Venta...');
-  }
-  
-  // Función para editar
-  editar() {
-    // Lógica para editar una consulta
-    //console.log('Editando...');
-  }
-  
-  // Función para consultar
-  consultar() {
-    // Lógica para consultar una consulta
-    //console.log('Consultando...');
-  }
-  
-  // Función para dar salida
-  darSalida() {
-    // Lógica para dar salida a una consulta
-    //console.log('Dando salida...');
-  }
-  
-  
 }

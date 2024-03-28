@@ -3,7 +3,7 @@ import { NgbActiveModal, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { ToastrService } from 'ngx-toastr';
 import { Subscription } from 'rxjs';
-import { FormArray, FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+
 import { Servicio } from '../../interfaces/servicios-veterinarios.interface';
 import { SharedDataService } from '../../../servicios/shared-data.service';
 import { GestionVeterinariaService } from '../../../servicios/gestion-veterinaria.service';
@@ -12,6 +12,7 @@ import { MascotaService } from '../../../servicios/mascota.service';
 import { CommonModule } from '@angular/common';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { Empleado } from '../../interfaces/empleado.interface';
+import { ReactiveFormsModule, FormsModule, FormGroup, FormBuilder } from '@angular/forms';
 
 
 
@@ -293,7 +294,7 @@ const horaActual = new Date();
 
 
  listaEspera.cliente=clienteData
- listaEspera.mascota=mascotaData
+ listaEspera.mascota=this.mascota
  listaEspera.infoServicio=servicioSeleccionado
  listaEspera.horaRecepcion= horaActual.toISOString()
  listaEspera.status='en espera'

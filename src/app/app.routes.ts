@@ -1,4 +1,4 @@
-import { Routes } from '@angular/router';
+
 import { ClienteFormularioComponent } from './clientes/cliente-formulario/cliente-formulario.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { RegistroClienteMascotaComponentComponent } from './clientes/registro-cliente-mascota-component/registro-cliente-mascota-component.component';
@@ -7,6 +7,8 @@ import { ClientesListaComponent } from './clientes/clientes-lista/clientes-lista
 import { RecepcionComponent } from './recepcion/recepcion.component';
 import { MascotasListaComponent } from './mascotas/mascotas-lista/mascotas-lista.component';
 import { CatalogoMedicamentoComponent } from './gestionVeterinaria/medicamento/catalogo-medicamento/catalogo-medicamento.component';
+import { EsteticaComponent } from './departamentos/estetica/estetica.component';
+import { Routes } from '@angular/router';
 
 export const routes: Routes = [
     { path: '', component: RegistroClienteMascotaComponentComponent }, // Ruta por defecto para el dashboard
@@ -15,4 +17,5 @@ export const routes: Routes = [
     {path: 'recepcion', component: RecepcionComponent},
     {path: 'mascotas', component: MascotasListaComponent},
     {path: 'catalogoMedicamentos', component: CatalogoMedicamentoComponent},
+    {path: 'atencionestetica', component: EsteticaComponent},
 ];
