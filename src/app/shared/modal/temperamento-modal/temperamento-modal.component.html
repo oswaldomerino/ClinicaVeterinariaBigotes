@@ -1,0 +1,34 @@
+<div class="modal-header">
+    <h4 class="modal-title">Agregar Temperamento</h4>
+    <button type="button" class="close" aria-label="Close" (click)=" closeModal()">
+      <span aria-hidden="true">×</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <p>Nombre de la mascota: {{ mascota.nombre }}</p>
+    <div class="mb-3">
+        <label for="temperamentos" class="form-label">Temperamentos:</label>
+        <ng-select [items]="temperamentos" Class="form-control" bindLabel="name" bindValue="id" id="temperamentos"
+          [loading]="loadingTemperamento" [clearable]="false" [multiple]="true"
+          [addTag]="addTagTemperamentoPromise"
+          [(ngModel)]="selectedTemperamentos">
+      
+          <!-- Plantilla personalizada para la etiqueta de cada elemento seleccionado -->
+          <ng-template ng-label-tmp let-item="item" let-clear="clear">
+            <span class="ng-value-label">{{ item.name }}</span>
+            <span class="ng-value-icon right" (click)="clear(item)" aria-hidden="true">×</span>
+          </ng-template>
+      
+          <!-- Plantilla personalizada para cada opción en la lista desplegable -->
+          <ng-template ng-option-tmp let-item="item">
+            {{ item.name }}
+          </ng-template>
+      
+        </ng-select>
+      </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-secondary" (click)=" closeModal()">Cancelar</button>
+    <button type="button" class="btn btn-primary" (click)="agregarTemperamento()">Aceptar</button>
+  </div>
+  

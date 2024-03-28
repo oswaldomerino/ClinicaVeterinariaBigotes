@@ -35,6 +35,11 @@ export class MascotaService {
     }) as Observable<any[]>;
   }
 
+  getMascotaById(idMascota: string): Observable<any | null> {
+    const mascotaDoc = doc(this.firestore, 'mascotas', idMascota);
+    return docData(mascotaDoc, { idField: 'id' }) as Observable<any>;
+  }
+
   getAllRazas():Observable<any | null>{
     const clientesCollection = collection(this.firestore, 'razas');
     return collectionData(clientesCollection, {

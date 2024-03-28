@@ -1,0 +1,34 @@
+<div class="modal-header">
+    <h4 class="modal-title">Agregar Temperamento</h4>
+    <button type="button" class="close" aria-label="Close" (click)=" closeModal()">
+      <span aria-hidden="true">×</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <p>Nombre de la mascota: {{ listaEspera.mascota.nombre }}</p>
+                <!-- Descripción de la visita -->
+                <div class="mb-3">
+                    <label for="descripcion" class="form-label"><i class="fas fa-pencil-alt"></i> Descripción de la
+                        visita:</label>
+                    <ng-select class="form-control" [items]="descripciones" bindLabel="name" bindValue="id"
+                        [loading]="loadingDescripciones" [clearable]="false"  [multiple]="true"
+                        [addTag]="addTagDescripcionPromise"
+                        [(ngModel)]="selectDescripciones">
+        
+                        <ng-template ng-label-tmp let-item="item" let-clear="clear">
+                            <span class="ng-value-label">{{ item.name }}</span>
+                            <span class="ng-value-icon right" (click)="clear(item)" aria-hidden="true"><i
+                                    class="fas fa-times"></i></span>
+                        </ng-template>
+        
+                        <ng-template ng-option-tmp let-item="item">
+                            {{ item.name }}
+                        </ng-template>
+                    </ng-select>
+                </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-secondary" (click)=" closeModal()">Cancelar</button>
+    <button type="button" class="btn btn-primary" (click)="agregarDescripcion()">Aceptar</button>
+  </div>
+  

@@ -9,6 +9,10 @@ import { format } from 'date-fns';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { RecepcionModule } from '../../recepcion/recepcion.module';
+import { MascotaService } from '../../servicios/mascota.service';
+import { TemperamentoModalComponent } from '../../shared/modal/temperamento-modal/temperamento-modal.component';
+import { DescripcionActividadModalComponent } from '../../shared/modal/descripcion-actividad-modal/descripcion-actividad-modal.component';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-estetica',
@@ -28,7 +32,8 @@ export class EsteticaComponent {
   
   constructor(private sharedDataService: SharedDataService,
     private modalService: NgbModal, private toasterService: ToastrService,private toastr: ToastrService,
-    private _listEspetaFB: SalaEsperaService,private modalServiceCental: ModalService
+    private _listEspetaFB: SalaEsperaService,private modalServiceCental: ModalService,
+    private mascotasService: MascotaService,
     ){
   
   }
@@ -54,12 +59,18 @@ export class EsteticaComponent {
   
   
   cargarLista(): void {
-    this._listEspetaFB.getAllListasConEstatus('en espera').subscribe(lista => {
+    this._listEspetaFB.getAllListasConEstatus('en espera').subscribe((lista:any) => {
       // Filtrar la lista para mostrar solo los elementos con estado "en espera" y categoría "estetica y baños"
       if(lista){
-        this.listaEspeta = lista.filter(item => item.status === 'en espera' && item.infoServicio.categoria === 'estetica'  ||  item.infoServicio.categoria === 'baños'  );
-        console.log(lista)
+        this.listaEspeta = lista.filter((item:any) => item.status === 'en espera' && item.infoServicio.categoria === 'estetica'  ||  item.infoServicio.categoria === 'baños'  );
+       // console.log(lista)
+
+
+
+       
       }
+
+
       
       // Ordenar la lista de espera por horaRecepcion de forma descendente (del más antiguo al más reciente)
       this.listaEspeta.sort((a, b) => {
@@ -68,26 +79,62 @@ export class EsteticaComponent {
         return horaRecepcionA - horaRecepcionB;
       });
   
-      // Formatear la fecha en un formato legible y agregar unidades al peso y precio
-      this.listaEspeta.forEach(item => {
-        item.horaRecepcion = format(new Date(item.horaRecepcion), 'dd/MM/yyyy HH:mm'); // Ejemplo de formato: 20/03/2024 14:30
-        item.peso += ' kg'; // Agregar unidades al peso
-        item.precio = '$' + item.precio // Agregar unidades al precio (asumiendo que es en pesos colombianos)
-      });
+ // Consultar la información de cada mascota y agregar el temperamento a cada elemento de la lista
+ this.listaEspeta = this.listaEspeta.map((item:any) => {
+  this.mascotasService.getMascotaById(item.mascota.id).subscribe((mascota:any) => {
+    item.mascota.temperamentos = mascota.temperamentos;
+  });
+  return item;
+ })
+
+
+     
     });
+  
+
   }
 
   agregarObservacion(serv:any){
-
+    const modalRef = this.modalService.open(DescripcionActividadModalComponent);
+    modalRef.componentInstance.listaEspera = serv; // Pasar la mascota al modal
   }
 
   agregarTemperamento(erv:any){
-
+   
+    const modalRef = this.modalService.open(TemperamentoModalComponent);
+    modalRef.componentInstance.mascota = erv.mascota; // Pasar la mascota al modal
+    
   }
   
-  finalizarServicio(erv:any){
+  finalizarServicio(servAtendido: any): void {
+    Swal.fire({
+      title: '¿Estás seguro?',
+      text: `Estás a punto de finalizar el servicio para la mascota ${servAtendido.mascota.nombre}. Esta mascota tiene la categoría ${servAtendido.infoServicio.categoria} y los siguientes complementos: ${servAtendido.costosExtras.nombre}.`,
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Sí, finalizar servicio',
+      cancelButtonText: 'No, cancelar'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        // Aquí puedes agregar la lógica para editar el status de la lista en "atendido"
+        // ...
+  this.updateStatus(servAtendido)
 
+      }
+    });
   }
+
+  updateStatus(servAtendido:any){
+    this._listEspetaFB.updateListaEspera(servAtendido.id, { status: 'atendido' }).subscribe(() => {
+      // Cerrar el modal y pasar la mascota actualizada
+      Swal.fire(
+        '¡Servicio finalizado!',
+        'El servicio para la mascota ha sido finalizado exitosamente.',
+        'success'
+      );
+    });
+  }
+
   openModal(viewModal:any,size:string): Promise<void> {
     return new Promise((resolve, reject) => {
       if (this.modalAbierto) {
