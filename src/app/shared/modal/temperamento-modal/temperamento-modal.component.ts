@@ -10,7 +10,7 @@ import { MascotasModule } from '../../../mascotas/mascotas.module';
 @Component({
   selector: 'app-temperamento-modal',
   standalone: true,
-  imports: [NgSelectModule, CommonModule,ReactiveFormsModule,FormsModule,NgbModule,MascotasModule],
+  imports: [NgSelectModule,FormsModule],
   templateUrl: './temperamento-modal.component.html',
   styleUrl: './temperamento-modal.component.css'
 })

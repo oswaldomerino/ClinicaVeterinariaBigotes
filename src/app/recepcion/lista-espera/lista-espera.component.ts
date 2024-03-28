@@ -16,7 +16,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 @Component({
   selector: 'app-lista-espera',
   standalone: true,
-  imports: [RecepcionModule,CommonModule,ReactiveFormsModule,FormsModule,NgbModule],
+  imports: [CommonModule],
   templateUrl: './lista-espera.component.html',
   styleUrl: './lista-espera.component.css'
 })

@@ -1,16 +1,17 @@
 import { Component } from '@angular/core';
-import { NgbActiveModal, NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
 import { GestionVeterinariaService } from '../../../servicios/gestion-veterinaria.service';
 import { SalaEsperaService } from '../../../servicios/sala-espera.service';
-import { CommonModule } from '@angular/common';
-import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+
+import {  FormsModule } from '@angular/forms';
 import { NgSelectModule } from '@ng-select/ng-select';
-import { MascotasModule } from '../../../mascotas/mascotas.module';
+import { CommonModule } from '@angular/common';
+
 
 @Component({
   selector: 'app-descripcion-actividad-modal',
   standalone: true,
-  imports: [NgSelectModule, CommonModule,ReactiveFormsModule,FormsModule,NgbModule,MascotasModule],
+  imports: [NgSelectModule,FormsModule, CommonModule],
   templateUrl: './descripcion-actividad-modal.component.html',
   styleUrl: './descripcion-actividad-modal.component.css'
 })

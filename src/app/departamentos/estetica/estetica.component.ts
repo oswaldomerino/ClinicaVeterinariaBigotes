@@ -5,19 +5,18 @@ import { ToastrService } from 'ngx-toastr';
 import { NgbModal, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ModalService } from '../../servicios/modal.service';
 import { SalaEsperaService } from '../../servicios/sala-espera.service';
-import { format } from 'date-fns';
-import { CommonModule } from '@angular/common';
-import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+
 import { RecepcionModule } from '../../recepcion/recepcion.module';
 import { MascotaService } from '../../servicios/mascota.service';
 import { TemperamentoModalComponent } from '../../shared/modal/temperamento-modal/temperamento-modal.component';
 import { DescripcionActividadModalComponent } from '../../shared/modal/descripcion-actividad-modal/descripcion-actividad-modal.component';
 import Swal from 'sweetalert2';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-estetica',
   standalone: true,
-  imports: [RecepcionModule,CommonModule,ReactiveFormsModule,FormsModule,NgbModule],
+  imports: [RecepcionModule,NgbModule, CommonModule],
   templateUrl: './estetica.component.html',
   styleUrl: './estetica.component.css'
 })
