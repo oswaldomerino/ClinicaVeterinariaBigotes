@@ -125,7 +125,10 @@ export class EsteticaComponent {
   }
 
   updateStatus(servAtendido:any){
-    this._listEspetaFB.updateListaEspera(servAtendido.id, { status: 'atendido' }).subscribe(() => {
+
+    const horaActual = new Date();
+
+    this._listEspetaFB.updateListaEspera(servAtendido.id, { status: 'atendido' , horaTerminoAtencion : horaActual.toISOString()}).subscribe(() => {
       // Cerrar el modal y pasar la mascota actualizada
       Swal.fire(
         '¡Servicio finalizado!',
