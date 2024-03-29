@@ -1,13 +1,13 @@
 import { Component } from '@angular/core';
-import { ClientesModule } from '../clientes.module';
+
 
 import { Subscription } from 'rxjs';
 import { ClienteService } from '../../servicios/cliente.service';
 import { SharedDataService } from '../../servicios/shared-data.service';
-import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
-import { CommonModule } from '@angular/common';
-import { ToastrModule, ToastrService } from 'ngx-toastr';
-import { AppModule } from '../../app.module';
+import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+
+import {  ToastrService } from 'ngx-toastr';
+
 import { Cliente } from '../../shared/interfaces/cliente.interface';
 
 
@@ -17,7 +17,6 @@ import { Cliente } from '../../shared/interfaces/cliente.interface';
   selector: 'app-cliente-formulario',
   standalone: false,
 
-  providers:[ToastrService ],
   templateUrl: './cliente-formulario.component.html',
   styleUrl: './cliente-formulario.component.css'
 })

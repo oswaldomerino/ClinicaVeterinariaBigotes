@@ -11,12 +11,14 @@ import { SalaEsperaService } from '../../servicios/sala-espera.service';
 import { SharedDataService } from '../../servicios/shared-data.service';
 import { RecepcionModule } from '../recepcion.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FirebaseModule } from '../../firebase/firebase.module';
 
 
 @Component({
   selector: 'app-lista-espera',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule,FirebaseModule],
+  providers:[ToastrService,],
   templateUrl: './lista-espera.component.html',
   styleUrl: './lista-espera.component.css'
 })
@@ -63,7 +65,7 @@ export class ListaEsperaComponent {
       //console.log(lista)
       if(lista){
         this.listaEspeta = lista.filter(item => item.status === 'en espera');
-        console.log(lista)
+       // console.log(lista)
       }
       
   

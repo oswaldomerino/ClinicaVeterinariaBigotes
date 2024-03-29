@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { SharedDataMedicamentoService } from './shared-data-gestion-veterinaria.service';
+import { SharedDataGestionVeterinariaService } from './shared-data-gestion-veterinaria.service';
 
 describe('SharedDataMedicamentoService', () => {
-  let service: SharedDataMedicamentoService;
+  let service: SharedDataGestionVeterinariaService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(SharedDataMedicamentoService);
+    service = TestBed.inject(SharedDataGestionVeterinariaService);
   });
 
   it('should be created', () => {

@@ -6,11 +6,12 @@ import { SharedDataGestionVeterinariaService } from '../../../servicios/shared-d
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { FirebaseModule } from '../../../firebase/firebase.module';
 
 @Component({
   selector: 'app-empleados-lista',
   standalone: true,
-  imports: [CommonModule,FormsModule,NgbModule],
+  imports: [CommonModule,FormsModule,NgbModule,FirebaseModule],
   templateUrl: './empleados-lista.component.html',
   styleUrl: './empleados-lista.component.css'
 })

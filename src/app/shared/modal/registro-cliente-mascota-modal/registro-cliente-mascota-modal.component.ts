@@ -11,6 +11,8 @@ import { MascotaFormularioComponent } from '../../../mascotas/mascota-formulario
 import { ClienteDetalleComponent } from '../../../clientes/cliente-detalle/cliente-detalle.component';
 import { MascotaDetalleComponent } from '../../../mascotas/mascota-detalle/mascota-detalle.component';
 import { MascotasModule } from '../../../mascotas/mascotas.module';
+import { ToastrService } from 'ngx-toastr';
+import { FirebaseModule } from '../../../firebase/firebase.module';
 
 @Component({
   selector: 'app-registro-cliente-mascota-modal',
@@ -18,6 +20,7 @@ import { MascotasModule } from '../../../mascotas/mascotas.module';
   imports: [CommonModule ,
 RegistroClienteMascotaComponentComponent
        ],
+       providers:[ToastrService,FirebaseModule,   { provide: NgbActiveModal, useValue: {} }],
   templateUrl: './registro-cliente-mascota-modal.component.html',
   styleUrl: './registro-cliente-mascota-modal.component.css'
 })

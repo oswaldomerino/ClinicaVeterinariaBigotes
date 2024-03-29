@@ -6,11 +6,12 @@ import { SharedDataGestionVeterinariaService } from '../../../servicios/shared-d
 import { CommonModule } from '@angular/common';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule } from '@angular/forms';
+import { MascotasModule } from '../../../mascotas/mascotas.module';
 
 @Component({
   selector: 'app-medicamentos-lista',
   standalone: true,
-  imports: [CommonModule,FormsModule,NgbModule],
+  imports: [CommonModule,FormsModule,NgbModule, MascotasModule],
   templateUrl: './medicamentos-lista.component.html',
   styleUrl: './medicamentos-lista.component.css'
 })

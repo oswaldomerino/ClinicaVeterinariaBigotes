@@ -13,6 +13,7 @@ import { CommonModule } from '@angular/common';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { Empleado } from '../../interfaces/empleado.interface';
 import { ReactiveFormsModule, FormsModule, FormGroup, FormBuilder } from '@angular/forms';
+import { FirebaseModule } from '../../../firebase/firebase.module';
 
 
 
@@ -26,6 +27,7 @@ interface PesoRegistro {
   selector: 'app-selecionar-servicio-modal',
   standalone: true,
   imports: [ CommonModule,ReactiveFormsModule,FormsModule,NgbModule,NgSelectModule,],
+  providers:[ToastrService,FirebaseModule],
   templateUrl: './selecionar-servicio-modal.component.html',
   styleUrl: './selecionar-servicio-modal.component.css'
 })
@@ -277,7 +279,7 @@ if(servicioSeleccionado){
     const listaEspera= this.listaEsperaForm.value
 
     // Preparar los datos del cliente y la mascota
-    const clienteData = { nombre: this.nombreCliente, id: this.cliente.id };
+    const clienteData = { nombre: this.nombreCliente, id: this.cliente.id ,telefonos: this.cliente.telefonos};
     const pesoMascota = this.mascota.peso !== undefined ? this.mascota.peso : 0;
     const mascotaData = { nombre: this.nombreMascota, id: this.mascota.id, peso:pesoMascota};
 

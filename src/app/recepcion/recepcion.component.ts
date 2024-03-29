@@ -11,12 +11,14 @@ import { SalaEsperaService } from '../servicios/sala-espera.service';
 import { SharedDataService } from '../servicios/shared-data.service';import { SelecionarClienteMascotaModalComponent } from '../shared/modal/selecionar-cliente-mascota-modal/selecionar-cliente-mascota-modal.component';
 import { SelecionarServicioModalComponent } from '../shared/modal/selecionar-servicio-modal/selecionar-servicio-modal.component';
 import { SelecionarAplicacionModalComponent } from '../shared/modal/selecionar-aplicacion-modal/selecionar-aplicacion-modal.component';
+import { ServiciosAtendidosComponent } from './servicios-atendidos/servicios-atendidos.component';
+
 
 
 @Component({
   selector: 'app-recepcion',
   standalone: true,
-  imports: [RecepcionModule,CommonModule,ReactiveFormsModule,FormsModule,NgbModule,ListaEsperaComponent],
+  imports: [RecepcionModule,CommonModule,ReactiveFormsModule,FormsModule,NgbModule,ListaEsperaComponent, ServiciosAtendidosComponent],
   templateUrl: './recepcion.component.html',
   styleUrl: './recepcion.component.css'
 })

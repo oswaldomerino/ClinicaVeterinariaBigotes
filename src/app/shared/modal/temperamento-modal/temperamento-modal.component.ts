@@ -6,11 +6,15 @@ import Swal from 'sweetalert2';
 import { FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { MascotasModule } from '../../../mascotas/mascotas.module';
+import { ModalService } from '../../../servicios/modal.service';
+import { ToastrModule, ToastrService } from 'ngx-toastr';
+import { FirebaseModule } from '../../../firebase/firebase.module';
 
 @Component({
   selector: 'app-temperamento-modal',
   standalone: true,
-  imports: [NgSelectModule,FormsModule],
+  imports: [NgSelectModule,FormsModule,FirebaseModule,ToastrModule],
+  providers:[ToastrService],
   templateUrl: './temperamento-modal.component.html',
   styleUrl: './temperamento-modal.component.css'
 })
@@ -25,6 +29,7 @@ export class TemperamentoModalComponent {
   constructor(
     public activeModal: NgbActiveModal,
     private mascotaService: MascotaService,
+    private toastr: ToastrService // Inyecta ToastrService
 
   ) { }
 
@@ -68,31 +73,27 @@ consultarTemperamentos(): void {
 
 
 
-  addTagTemperamentoPromise = (name: string) => {
-    return new Promise((resolveTemperamentos) => {
-      this.loadingTemperamento = true;
-      // Simular una llamada a la base de datos para agregar el nuevo temperamento
-      setTimeout(() => {
-        // Crear el objeto del temperamento con el nombre proporcionado
-        const temperamento = { nombre: name }; // Objeto con la estructura adecuada
-        console.log('Temperamento a agregar:', temperamento); // Verificar el temperamento que se va a agregar
-        // Agregar el nuevo temperamento a Firebase utilizando el servicio
-        console.log('Antes de agregar el temperamento a Firebase');
-        this.mascotaService.addTemperamento(temperamento)
-          .then((doc: any) => {
-            console.log('Temperamento agregado a Firebase:', doc); // Verificar la respuesta de Firebase
-            Swal.fire('Temperamento agregado!', 'El temperamento se ha agregado correctamente.', 'success');
-            // Resuelve la promesa con un objeto que contiene el ID del nuevo temperamento y su nombre
-            resolveTemperamentos({ id: name, name: name, valid: true });
-            this.loadingTemperamento = false;
-          })
-          .catch((error: any) => {
-            console.error('Error al agregar temperamento a la base de datos:', error);
-            Swal.fire('¡Error!', 'Hubo un error al agregar el temperamento. Por favor, inténtalo de nuevo más tarde.', 'error');
-          });
-      }, 1000);
-    });
-  };
+addTagTemperamentoPromise = (name: string) => {
+  return new Promise((resolveTemperamentos) => {
+    this.loadingTemperamento = true;
+    setTimeout(() => {
+      const temperamento = { nombre: name };
+      console.log('Temperamento a agregar:', temperamento);
+      console.log('Antes de agregar el temperamento a Firebase');
+      this.mascotaService.addTemperamento(temperamento)
+        .then((doc: any) => {
+          console.log('Temperamento agregado a Firebase:', doc);
+          this.toastr.success('El temperamento se ha agregado correctamente.', 'Temperamento agregado!'); // Cambia Swal.fire() a toastr.success()
+          resolveTemperamentos({ id: name, name: name, valid: true });
+          this.loadingTemperamento = false;
+        })
+        .catch((error: any) => {
+          console.error('Error al agregar temperamento a la base de datos:', error);
+          this.toastr.error('Hubo un error al agregar el temperamento. Por favor, inténtalo de nuevo más tarde.', '¡Error!'); // Cambia Swal.fire() a toastr.error()
+        });
+    }, 1000);
+  });
+};
 
 
   closeModal() {
@@ -103,6 +104,8 @@ consultarTemperamentos(): void {
     this.mascotaService.updateMascota(this.mascota.id, { temperamentos: this.selectedTemperamentos }).subscribe(() => {
       // Cerrar el modal y pasar la mascota actualizada
       this.activeModal.close(this.mascota);
+      // Mostrar una alerta de éxito
+      this.toastr.success('El temperamento se ha agregado correctamente a la mascota.', '¡Temperamento agregado!');
     });
   }
   

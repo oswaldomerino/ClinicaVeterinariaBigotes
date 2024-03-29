@@ -1,0 +1,38 @@
+<table>
+    <thead>
+        <tr>
+            <th><table class="table">
+    <thead>
+        <tr>
+            <th><i class="fas fa-user"></i> Cliente</th>
+            <th><i class="fas fa-dog"></i> Mascota</th>
+            <th><i class="fas fa-user-md"></i> Atendido por</th>
+            <th><i class="far fa-clock"></i> Hora de Recepción</th>
+          
+            <th><i class="far fa-clock"></i> Hora de Termino</th>
+            <th><i class="fas fa-comment"></i> Mensaje</th>
+            <th><i class="fas fa-weight"></i> Peso</th>
+            <th><i class="fas fa-money-bill-alt"></i> Precio</th>
+        </tr>
+    </thead>
+    <tbody>
+        <!-- Aquí se mostrarían las filas de los servicios atendidos -->
+        <tr *ngFor="let item of serviciosAtendidos">
+            <td>{{ item.cliente.nombre }}</td>
+            <td>{{ item.mascota.nombre }}</td>
+            <td>{{ item.atendidoPor }}</td>
+            <td>{{ item.horaRecepcion }}</td>
+       
+            <td>{{ item.horaTerminoAtencion }}</td>
+            <td>{{ item.descripciones }}</td>
+            <td>{{ item.peso }}</td>
+            <td>{{ item.precio }}</td>
+            <td>
+                <a href="https://wa.me/{{item.cliente.telefonos}}?text=Su+mascota+{{item.mascota.nombre}}+está+lista+para+que+pase+por+ella." target="_blank">
+                    <button type="button">Avisar por WhatsApp</button>
+                </a>
+            </td>
+        </tr>
+    </tbody>
+
+</table>

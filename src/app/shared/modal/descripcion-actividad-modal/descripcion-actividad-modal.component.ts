@@ -2,105 +2,108 @@ import { Component } from '@angular/core';
 import { NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
 import { GestionVeterinariaService } from '../../../servicios/gestion-veterinaria.service';
 import { SalaEsperaService } from '../../../servicios/sala-espera.service';
-
-import {  FormsModule } from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { CommonModule } from '@angular/common';
+import { ToastrService } from 'ngx-toastr';
 
+// Definición de la interfaz para las descripciones
+interface Descripcion {
+  id: string;
+  name: string;
+}
 
 @Component({
   selector: 'app-descripcion-actividad-modal',
   standalone: true,
   imports: [NgSelectModule,FormsModule, CommonModule],
+  providers:[ToastrService],
   templateUrl: './descripcion-actividad-modal.component.html',
   styleUrl: './descripcion-actividad-modal.component.css'
 })
 export class DescripcionActividadModalComponent {
   
-  listaEspera!:any
-  loadingDescripciones = false; // Indicador de carga de descripciones
-  descripciones: any[] = [];
-  selectDescripciones: any[] = [];
-  toastr: any;
+  listaEspera!:any // Variable para almacenar la lista de espera
+  descripciones: Descripcion[] = []; // Array para almacenar las descripciones
+  selectDescripciones: Descripcion[] = []; // Array para almacenar las descripciones seleccionadas
+  loadingDescripciones: boolean = false; // Variable para controlar el indicador de carga
+  // Método para seleccionar una descripción
+  selectDescripcion(descripcion: Descripcion): void {
+    if (!this.selectDescripciones.find(d => d.id === descripcion.id)) {
+      this.selectDescripciones.push(descripcion);
+    }
+  }
 
+  // Método para deseleccionar una descripción
+  deselectDescripcion(descripcion: Descripcion): void {
+    this.selectDescripciones = this.selectDescripciones.filter(d => d.id !== descripcion.id);
+  }
 
+  // Método para verificar si una descripción está seleccionada
+  isDescripcionSelected(descripcion: Descripcion): boolean {
+    return this.selectDescripciones.some(d => d.id === descripcion.id);
+  }
+  // Constructor con los servicios necesarios inyectados
   constructor(
     public activeModal: NgbActiveModal,
     private _listEspetaFB: SalaEsperaService,
     private descripcionService:GestionVeterinariaService,
-  ) {
-  }
+    private toastr: ToastrService
+  ) {}
 
-
-  
+  // Método que se ejecuta al iniciar el componente
   ngOnInit(): void {
-    this.consultarDescripciones()
+    this.consultarDescripciones() // Llama al método para consultar las descripciones
   }
 
-
+  // Método para consultar las descripciones
   consultarDescripciones(): void {
-    // Consultar las descripciones desde Firebase
-    this.descripcionService.getAllDescripciones().subscribe(descripciones => {
-        // Verificar si descripciones es un array
+    this.descripcionService.getAllDescripciones().subscribe(
+      descripciones => {
         if (Array.isArray(descripciones)) {
-            // Mapear las descripciones obtenidas para asignarles un ID único
-            this.descripciones = descripciones.map((descripcion: any, index: number) => ({ id: descripcion.nombre, name: descripcion.nombre }));
-            console.log(this.descripciones);
-            this.cargarDatosListaSeleccionada()
-        } else {
-            console.error('El valor de "descripciones" no es un array:', descripciones);
+          this.descripciones = descripciones.map((descripcion: any) => ({ id: descripcion.nombre, name: descripcion.nombre }));
+          this.cargarDatosListaSeleccionada(); // Llama al método para cargar los datos de la lista seleccionada
         }
-    });
+      },
+      error => {
+        this.toastr.error('¡Error!', 'Hubo un error al cargar las descripciones. Por favor, inténtalo de nuevo más tarde.');
+      }
+    );
   }
-  
 
+  // Método para cargar los datos de la lista seleccionada
   cargarDatosListaSeleccionada(): void {
     if (this.listaEspera && this.listaEspera.descripciones) {
-      this.selectDescripciones = this.listaEspera.descripciones
-      console.log(this.selectDescripciones);
+      this.selectDescripciones = this.listaEspera.descripciones;
     } else {
-      console.error('Mascota o temperamentos de la mascota son undefined o null');
+      this.toastr.error('¡Error!', 'Mascota o temperamentos de la mascota son undefined o null');
     }
-}
+  }
 
+  // Método para agregar una descripción
   addTagDescripcionPromise = (name: string) => {
     return new Promise((resolveDescripcion) => {
-      this.loadingDescripciones = true;
-      // Simular una llamada a la base de datos para agregar la nueva descripción
-      setTimeout(() => {
-        // Crear el objeto de la descripción con el nombre proporcionado
-        const descripcion = { nombre: name }; // Objeto con la estructura adecuada
-        console.log('Descripción a agregar:', descripcion); // Verificar la descripción que se va a agregar
-        // Agregar la nueva descripción a Firebase utilizando el servicio
-        console.log('Antes de agregar la descripción a Firebase');
-        this.descripcionService.addDescripcion(descripcion)
-          .then((doc) => {
-           // this.listaEsperaForm.controls['descripciones'].setValue(descripcion);
-            console.log('Descripción agregada a Firebase:', doc); // Verificar la respuesta de Firebase
-            this.toastr.success('Descripción agregada!', 'La descripción se ha agregado correctamente.');
-            // Resuelve la promesa con un objeto que contiene el ID de la nueva descripción y su nombre
-            resolveDescripcion({ id: name, name: name, valid: true });
-            this.loadingDescripciones = false;
-          })
-          .catch(error => {
-            console.error('Error al agregar descripción a la base de datos:', error);
-            this.toastr.error('¡Error!', 'Hubo un error al agregar la descripción. Por favor, inténtalo de nuevo más tarde.');
-          });
-      }, 1000);
+      const descripcion = { nombre: name };
+      this.descripcionService.addDescripcion(descripcion)
+        .then(() => {
+          resolveDescripcion({ id: name, name: name, valid: true });
+        })
+        .catch(error => {
+          this.toastr.error('¡Error!', 'Hubo un error al agregar la descripción. Por favor, inténtalo de nuevo más tarde.');
+        });
     });
   };
 
-
-  
+  // Método para cerrar el modal
   closeModal() {
-    this.activeModal.close(); // Cierra el modal
+    this.activeModal.close();
   }
 
+  // Método para agregar una descripción
   agregarDescripcion(){
     this._listEspetaFB.updateListaEspera(this.listaEspera.id, { descripciones: this.selectDescripciones }).subscribe(() => {
-      // Cerrar el modal y pasar la mascota actualizada
       this.activeModal.close(this.listaEspera);
+      this.toastr.success('La descripción se ha actualizado correctamente.', '¡Descripción actualizada!');
     });
   }
-
 }

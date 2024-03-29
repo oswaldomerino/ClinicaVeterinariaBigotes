@@ -27,8 +27,7 @@ import { FormsModule } from '@angular/forms';
     BrowserModule,
     
     BrowserAnimationsModule,
-    ClientesModule,
-    MascotasModule,
+
     NoopAnimationsModule,
     
     

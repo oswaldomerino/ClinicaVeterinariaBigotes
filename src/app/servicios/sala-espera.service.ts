@@ -15,7 +15,7 @@ import { Observable } from 'rxjs';
 import { getDocs, onSnapshot, query } from 'firebase/firestore';
 
 @Injectable({
-  providedIn: 'any'
+  providedIn: 'any' 
 })
 export class SalaEsperaService {
   private esperaCollection: CollectionReference<DocumentData>;
