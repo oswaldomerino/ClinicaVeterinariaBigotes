@@ -124,4 +124,18 @@ export class GestionVeterinariaService {
 
   }
 
+  insertVacunas(mascotaId: string, data: Partial<any>): Observable<void> {
+    const mascotaCollection = collection(this.firestore, 'mascotas');
+    const clienteDocRef = doc(mascotaCollection, mascotaId);
+
+    return new Observable(observer => {
+      updateDoc(clienteDocRef, data)
+        .then(() => {
+          observer.next();
+          observer.complete();
+        })
+        .catch(error => observer.error(error));
+    });
+  }
+
 }

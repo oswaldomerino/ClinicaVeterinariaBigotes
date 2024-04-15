@@ -1,0 +1,83 @@
+<div class="container">
+  <!-- Sección de Selección de Cliente y Detalles de Venta -->
+  <div class="seccion-venta">
+    <h3>Detalles de la Venta</h3>
+    <hr>
+    <div class="form-row">
+      <div class="form-group col-md-4">
+        <label for="clienteSelect"><i class="fas fa-user"></i> Cliente:</label>
+        <ng-select class="form-control" id="clienteSelect" (change)="obtenerMascotasPorCliente($event)" [items]="clientes" bindLabel="nombres" bindValue="id"></ng-select>
+      </div>
+      <div class="form-group col-md-4">
+        <label for="mascotaSelect"><i class="fas fa-paw"></i> Mascotas:</label>
+        <ng-select class="form-control" id="mascotaSelect" [items]="mascotas" bindLabel="nombre" bindValue="id"></ng-select>
+      </div>
+      <div class="form-group col-md-4">
+        <label for="empleadoSelect"><i class="fas fa-user-tie"></i> Responsable:</label>
+        <ng-select class="form-control" id="empleadoSelect" [items]="empleados" bindLabel="nombre" bindValue="id"></ng-select>
+      </div>
+      <div class="form-group col-md-3">
+        <label for="fechaVenta"><i class="fas fa-calendar-alt"></i> Fecha:</label>
+        <input type="date" id="fechaVenta" class="form-control">
+      </div>
+      <div class="form-group col-md-3">
+        <label for="tarifaSelect"><i class="fas fa-dollar-sign"></i> Tarifa:</label>
+        <ng-select class="form-control" id="tarifaSelect" bindLabel="nombre" bindValue="id"></ng-select>
+      </div>
+    </div>
+  </div>
+
+  <!-- Sección de Tabla de Productos a Vender -->
+  <div class="seccion-tabla">
+    <h3>Productos a Vender</h3>
+    <hr>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Código</th>
+          <th>Descripción</th>
+          <th>Cantidad</th>
+          <th>Precio</th>
+          <th>Descuento</th>
+          <th>IVA</th>
+          <th>Total</th>
+          <th>Eliminar</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Aquí se listarán dinámicamente los productos -->
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Sección de Descripción del Total y Opciones de Pago -->
+  <div class="seccion-total">
+    <h3>Total de la Venta</h3>
+    <hr>
+    <div class="descripcion-total row">
+      <div class="col-md-12">
+        <table class="table">
+          <tbody>
+            <tr>
+              <td>Total:</td>
+              <td>${{ total }}</td>
+              <td>Descuento:</td>
+              <td>${{ descuento }}</td>
+              <td>IVA:</td>
+              <td>${{ iva }}</td>
+              <td>Subtotal:</td>
+              <td>${{ subtotal }}</td>
+              <td>Total a Pagar:</td>
+              <td>${{ totalPagar }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="opciones-pago">
+      <button class="btn btn-primary"><i class="fas fa-credit-card"></i> Pagar a Crédito</button>
+      <button class="btn btn-success"><i class="fas fa-cash-register"></i> Cobrar</button>
+      <button class="btn btn-danger"><i class="fas fa-times"></i> Cancelar Venta</button>
+    </div>
+  </div>
+</div>

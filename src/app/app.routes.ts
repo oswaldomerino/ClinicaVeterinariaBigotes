@@ -9,6 +9,7 @@ import { MascotasListaComponent } from './mascotas/mascotas-lista/mascotas-lista
 import { CatalogoMedicamentoComponent } from './gestionVeterinaria/medicamento/catalogo-medicamento/catalogo-medicamento.component';
 import { EsteticaComponent } from './departamentos/estetica/estetica.component';
 import { Routes } from '@angular/router';
+import { TiendaComponent } from './departamentos/tienda/tienda.component';
 
 export const routes: Routes = [
     { path: '', component: RegistroClienteMascotaComponentComponent }, // Ruta por defecto para el dashboard
@@ -18,4 +19,5 @@ export const routes: Routes = [
     {path: 'mascotas', component: MascotasListaComponent},
     {path: 'catalogoMedicamentos', component: CatalogoMedicamentoComponent},
     {path: 'atencionestetica', component: EsteticaComponent},
+    {path: 'inicio', component: TiendaComponent},
 ];

@@ -1,1 +1,139 @@
-<p>selecionar-aplicacion works!</p>
+<div class="modal-body">
+    <div class="row">
+        <!-- Información del cliente y de la mascota -->
+        <div class="col-md-6">
+            <app-cliente-detalle></app-cliente-detalle>
+            <app-mascota-detalle></app-mascota-detalle>
+        </div>
+
+        <!-- Formulario de vacuna o medicamento -->
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <form [formGroup]="formulario" class="mt-4">
+                        <!-- Selección de Vacuna o Medicamento -->
+                        <div class="form-group mb-3">
+                            <label for="medicamentoVacuna">
+                                <i class="fas fa-syringe"></i> Selección de Vacuna o Medicamento:
+                            </label>
+                            <ng-select class="form-control" [items]="opcionesMedicamentosVacunas" bindLabel="label"
+                                bindValue="value" [clearable]="false" formControlName="medicamentoVacuna">
+                                <ng-template #optionTemplate let-item="item">
+                                    <div class="custom-option">
+                                        {{ item.label }}
+                                    </div>
+                                </ng-template>
+                            </ng-select>
+                        </div>
+
+                        <!-- Fecha de Aplicación, Periodicidad y Próxima Cita -->
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group mb-3">
+                                    <label for="fechaAplicacion">
+                                        <i class="far fa-calendar-alt"></i> Fecha de Aplicación:
+                                    </label>
+                                    <input type="date" class="form-control" id="fechaAplicacion"
+                                        formControlName="fechaAplicacion">
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group mb-3">
+                                    <label for="periodicidad">
+                                        <i class="far fa-clock"></i> Periodicidad (en días):
+                                    </label>
+                                    <input type="text" class="form-control" id="periodicidad"
+                                        formControlName="periodicidad">
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group mb-3">
+                                    <label for="proximaCita">
+                                        <i class="far fa-calendar-alt"></i> Próxima Cita:
+                                    </label>
+                                    <input type="text" class="form-control" id="proximaCita"
+                                        formControlName="proximaCita">
+                                </div>
+                            </div>
+                        </div>
+
+
+
+                        <!-- Peso de la Mascota y Precio de la Vacuna -->
+                        <div class="row">
+                            <div class="col-md-6">
+                                <!-- Campo de peso de la mascota -->
+                                <div class="form-group" *ngIf="mostrarTallaCampo">
+                                    <label for="peso"><i class="fas fa-ruler"></i> Peso de la mascota:</label>
+                                    <input type="text" class="form-control" id="peso" placeholder="Peso de la mascota"
+                                        formControlName="peso" (change)="handlePesoChange($event)">
+                                    <small class="text-muted">{{ textoFecha }}</small>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group mb-3">
+                                    <label for="precioVacuna">
+                                        <i class="fas fa-money-bill"></i> Precio de la Vacuna:
+                                    </label>
+                                    <input type="number" class="form-control" id="precioVacuna"
+                                        formControlName="precioVacuna">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Campo para determinar el estado -->
+                        <div class="form-group mb-3">
+                            <label for="estadoVacuna">
+                                <i class="fas fa-check-circle"></i> Estado de la Vacuna:
+                            </label>
+                            <select class="form-control" id="estadoVacuna" formControlName="estadoVacuna">
+                                <option value="aplicada">Aplicada</option>
+                                <option value="en_espera">En espera</option>
+                            </select>
+                        </div>
+
+                        <!-- Selección de personal -->
+                        <div class="form-group">
+                            <label for="atendidoPorSelect"><i class="fas fa-user"></i> Atendido por:</label>
+                            <select class="form-control" id="atendidoPorSelect" formControlName="atendidoPor">
+                                <option *ngFor="let empleado of empleados" [value]="empleado.nombre">{{ empleado.nombre
+                                    }}</option>
+                            </select>
+                        </div>
+
+                        <!-- Descripción de la visita -->
+                        <div class="mb-3">
+                            <label for="descripcion" class="form-label"><i class="fas fa-pencil-alt"></i> Descripción de
+                                la
+                                visita:</label>
+                            <ng-select class="form-control" [items]="descripciones" bindLabel="name" bindValue="id"
+                                [loading]="loadingDescripciones" [clearable]="false" formControlName="descripciones"
+                                [multiple]="true" [addTag]="addTagDescripcionPromise">
+
+                                <ng-template ng-label-tmp let-item="item" let-clear="clear">
+                                    <span class="ng-value-label">{{ item.name }}</span>
+                                    <span class="ng-value-icon right" (click)="clear(item)" aria-hidden="true"><i
+                                            class="fas fa-times"></i></span>
+                                </ng-template>
+
+                                <ng-template ng-option-tmp let-item="item">
+                                    {{ item.name }}
+                                </ng-template>
+                            </ng-select>
+                        </div>
+
+                        <!-- Botones de acción -->
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="closeModal()">
+                                <i class="fas fa-times"></i> Cancelar
+                            </button>
+                            <button type="button" class="btn btn-primary" (click)="guardarVacuna()">
+                                <i class="fas fa-save"></i> Guardar
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

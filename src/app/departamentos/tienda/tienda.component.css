@@ -1,0 +1,49 @@
+/* Estilos para las tarjetas */
+.card {
+    margin-bottom: 20px;
+  }
+  
+  .card-header {
+    background-color: #007bff;
+    color: white;
+    padding: 10px 20px;
+  }
+  
+  .card-title {
+    margin-bottom: 0;
+  }
+  
+  .card-body {
+    padding: 20px;
+  }
+  
+  /* Estilos para los íconos */
+  .card-header i {
+    margin-right: 10px;
+  }
+  
+  /* Estilos para los botones */
+  .btn {
+    margin-right: 10px;
+  }
+  
+  /* Estilos para la tabla */
+  .table {
+    margin-bottom: 0;
+  }
+  
+  /* Estilos para la sección de total */
+  .seccion-total {
+    background-color: #f8f9fa;
+    border: 1px solid #dee2e6;
+    border-radius: 5px;
+  }
+  
+  .descripcion-total {
+    padding: 20px;
+  }
+  
+  .opciones-pago {
+    padding: 20px;
+  }
+  

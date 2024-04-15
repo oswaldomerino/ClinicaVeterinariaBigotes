@@ -26,6 +26,12 @@ export class SidebarComponent {
     return this.subMenuState[option];
   }
 
+
+  // sidebar.component.ts
+toggleSidebar(): void {
+  this.isSmallSidebar = !this.isSmallSidebar;
+}
+
   // Define los elementos del menú del sidebar
   menuItems = [
     { routerLink: '/recepcion', iconClass: 'fas fa-sign-in-alt card-icon', text: 'Recepción' },

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { SharedDataService } from '../../../servicios/shared-data.service';
-import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+
 import { Subscription } from 'rxjs';
 import { RegistroClienteMascotaComponentComponent } from '../../../clientes/registro-cliente-mascota-component/registro-cliente-mascota-component.component';
 import { CommonModule } from '@angular/common';
@@ -13,6 +13,7 @@ import { MascotaDetalleComponent } from '../../../mascotas/mascota-detalle/masco
 import { MascotasModule } from '../../../mascotas/mascotas.module';
 import { ToastrService } from 'ngx-toastr';
 import { FirebaseModule } from '../../../firebase/firebase.module';
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-registro-cliente-mascota-modal',
@@ -20,7 +21,7 @@ import { FirebaseModule } from '../../../firebase/firebase.module';
   imports: [CommonModule ,
 RegistroClienteMascotaComponentComponent
        ],
-       providers:[ToastrService,FirebaseModule,   { provide: NgbActiveModal, useValue: {} }],
+       providers:[ToastrService,FirebaseModule, ],
   templateUrl: './registro-cliente-mascota-modal.component.html',
   styleUrl: './registro-cliente-mascota-modal.component.css'
 })
