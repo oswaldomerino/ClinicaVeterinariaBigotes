@@ -10,14 +10,22 @@ import { CatalogoMedicamentoComponent } from './gestionVeterinaria/medicamento/c
 import { EsteticaComponent } from './departamentos/estetica/estetica.component';
 import { Routes } from '@angular/router';
 import { TiendaComponent } from './departamentos/tienda/tienda.component';
+import { ConsultasComponent } from './departamentos/consultas/consultas.component';
+import { InfoClienteMascotaComponent } from './clientes/info-cliente-mascota/info-cliente-mascota.component';
+import { CanDeactivateGuard } from './servicios/can-deactivate-guard.service';
+import { EstadisticasVeterinariaComponent } from './dashboard/estadisticas-veterinaria/estadisticas-veterinaria.component';
 
 export const routes: Routes = [
-    { path: '', component: RegistroClienteMascotaComponentComponent }, // Ruta por defecto para el dashboard
+    { path: '', component: EstadisticasVeterinariaComponent }, // Ruta por defecto para el dashboard
     {path: 'registro', component: RegistroClienteMascotaComponentComponent},
     {path: 'clientes', component: ClientesListaComponent},
     {path: 'recepcion', component: RecepcionComponent},
     {path: 'mascotas', component: MascotasListaComponent},
     {path: 'catalogoMedicamentos', component: CatalogoMedicamentoComponent},
     {path: 'atencionestetica', component: EsteticaComponent},
-    {path: 'inicio', component: TiendaComponent},
+    {path: 'inicio', component: InfoClienteMascotaComponent},
+    {path: 'consultas', component: ConsultasComponent},
+    {path: 'venta-mostrador', component: TiendaComponent, canDeactivate: [CanDeactivateGuard]},
+    { path: 'estadisticas', component: EstadisticasVeterinariaComponent }, // Ruta por defecto para el dashboard
+    { path: '**', redirectTo: '/estadisticas'  }, // Ruta por defecto para el dashboard
 ];

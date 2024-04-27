@@ -114,5 +114,15 @@ export class SharedDataService {
       this.showButtons.next(show);
     }
 
+
+    private atendidoSource = new BehaviorSubject(null);
+    atendidoActual = this.atendidoSource.asObservable();
+
+    cambiarAtendido(atendido: any) {
+      this.atendidoSource.next(atendido);
+    }
+
+    
+
     
   }

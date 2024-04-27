@@ -12,6 +12,7 @@ import { SharedDataService } from '../servicios/shared-data.service';import { Se
 import { SelecionarServicioModalComponent } from '../shared/modal/selecionar-servicio-modal/selecionar-servicio-modal.component';
 import { SelecionarAplicacionModalComponent } from '../shared/modal/selecionar-aplicacion-modal/selecionar-aplicacion-modal.component';
 import { ServiciosAtendidosComponent } from './servicios-atendidos/servicios-atendidos.component';
+import { Router } from '@angular/router';
 
 
 
@@ -24,7 +25,7 @@ import { ServiciosAtendidosComponent } from './servicios-atendidos/servicios-ate
 })
 export class RecepcionComponent {
 
-
+  atendidoSelecionado: any;
   listaEspeta:any[]=[]
   modalAbierto = false;
   // Declara una variable para almacenar la suscripción
@@ -32,7 +33,7 @@ export class RecepcionComponent {
   
   constructor(private sharedDataService: SharedDataService,
     private modalService: NgbModal, private toastr: ToastrService,
-    private _listEspetaFB: SalaEsperaService,private modalServiceCental: ModalService
+    private _listEspetaFB: SalaEsperaService,private modalServiceCental: ModalService,private router: Router
     ){
   
   }
@@ -41,6 +42,8 @@ export class RecepcionComponent {
   
     this.sharedDataService.toggleButtons(false);
     this.cargarLista();
+    this.sharedDataService.atendidoActual.subscribe(atendido => this.atendidoSelecionado = atendido);
+  
   
   }
   
@@ -55,14 +58,8 @@ export class RecepcionComponent {
   cargarLista(): void {
     this._listEspetaFB.getListaEspera().subscribe(lista => {
       // Filtrar la lista para mostrar solo los elementos con estado "en espera"
-      this.listaEspeta = lista.filter(item => item.status === 'en espera');
-  
-      // Ordenar la lista de espera por horaRecepcion de forma descendente (del más antiguo al más reciente)
-      this.listaEspeta.sort((a, b) => {
-        const horaRecepcionA = new Date(a.horaRecepcion).getTime();
-        const horaRecepcionB = new Date(b.horaRecepcion).getTime();
-        return horaRecepcionA - horaRecepcionB;
-      });
+      this.listaEspeta = lista;
+
     });
   }
   
@@ -165,14 +162,32 @@ export class RecepcionComponent {
   
   // Función para cobrar
   cobrar() {
-    // Lógica para realizar el cobro de una consulta
-    console.log('Cobrando...');
+    if (this.atendidoSelecionado) {
+// Obtén el ID del cliente del servicio seleccionado
+const clienteId = this.atendidoSelecionado.cliente.id;
+
+// Busca en la lista de espera si hay algún servicio del mismo cliente que no haya sido pagado
+const servicioNoPagado = this.listaEspeta.find(servicio => servicio.cliente.id === clienteId && !servicio.pagado);
+
+if (servicioNoPagado) {
+  // Si hay un servicio no pagado, redirige al usuario a la página de "venta-mostrador"
+  this.router.navigate(['/venta-mostrador']);
+} else {
+  // Si todos los servicios han sido pagados, redirige al usuario a la página de "entregar mascota"
+ // this.router.navigate(['/entregar-mascota']);
+}
+
+    } else {
+      this.toastr.error('Necesita seleccionar un cliente en la lista');
+    }
   }
-  
   // Función para venta
   venta() {
-    // Lógica para realizar una venta
-    console.log('Venta...');
+    if (this.atendidoSelecionado) {
+      this.router.navigate(['/venta-mostrador']);
+    } else {
+      this.toastr.error('Necesita seleccionar un cliente en la lista');
+    }
   }
   
   // Función para editar
@@ -187,14 +202,51 @@ export class RecepcionComponent {
     console.log('Consultando...');
   }
   
-  // Función para dar salida
-  darSalida() {
-    // Lógica para dar salida a una consulta
-    console.log('Dando salida...');
+// Función para dar salida
+darSalida() {
+  if (this.atendidoSelecionado) {
+    // Obtén el ID del cliente y de la mascota del servicio seleccionado
+    const clienteId = this.atendidoSelecionado.cliente.id;
+    const mascotaId = this.atendidoSelecionado.mascota.id;
+    
+// Busca en la lista de espera si hay algún servicio de la misma mascota que no haya sido pagado o no haya terminado
+const serviciosMascotaPendientes = this.listaEspeta.filter(servicio => 
+  servicio.mascota.id === mascotaId && servicio.cliente.id === clienteId && (!servicio.pagado || servicio.status !== 'atendido'));
+    if (serviciosMascotaPendientes.length > 0) {
+      // Si hay servicios de la mascota pendientes, muestra un error y redirige al usuario si es necesario
+      const servicioNoPagado = serviciosMascotaPendientes.find(servicio => !servicio.pagado);
+      if (servicioNoPagado) {
+        this.router.navigate(['/venta-mostrador']);
+        this.toastr.error('Hay servicios de la mascota que aún no han sido pagados.');
+      } else {
+        this.toastr.error('Hay servicios de la mascota que aún no han terminado.');
+      }
+      console.log(serviciosMascotaPendientes);
+    } else {
+      // Si todos los servicios de la mascota han sido pagados y terminados, da salida a todos los servicios de la mascota
+      this.darSalidaMascota(this.atendidoSelecionado);
+    }
+  } else {
+    this.toastr.error('Necesita seleccionar un cliente en la lista');
   }
-  
-  
-  
+}
+
+// Función para dar salida a la mascota
+darSalidaMascota(serv:any) {
+  // Aquí va tu lógica para dar salida a la mascota
+  const horaActual = new Date();
+
+  // Actualiza todos los servicios de la mascota a 'entregado'
+  this.listaEspeta.filter(servicio => servicio.mascota.id === serv.mascota.id && servicio.cliente.id === serv.cliente.id)
+    .forEach(servicio => {
+      this._listEspetaFB.updateListaEspera(servicio.id, { status: 'entregado' , horaEntregaMascota : horaActual.toISOString()}).subscribe(() => {
+        // Cerrar el modal y pasar la mascota actualizada
+        this.toastr.success(`La mascota ${serv.mascota.nombre} ha sido dada de alta.`);
+      });
+    });
+}
+
+
   
   }
   

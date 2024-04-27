@@ -1,0 +1,70 @@
+<div class="modal-dialog">
+    <div class="modal-content">
+
+      <div class="modal-body" style="max-height: 100vh; overflow-y: auto;">
+        <!-- Card para la caja y la fecha -->
+        <div class="card mb-3">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6 form-group">
+                        <label for="caja"><i class="fas fa-cash-register"></i> Caja</label>
+                        <select id="caja" class="form-control" [(ngModel)]="cajaSeleccionada">
+                            <!-- Aquí van tus opciones de caja -->
+                        </select>
+                    </div>
+                    <div class="col-md-6 form-group">
+                        <label for="fechaVenta"><i class="fas fa-calendar-alt"></i> Fecha:</label>
+                        <input type="date" id="fechaVenta" class="form-control" [value]="fechaActual">
+                    </div>
+                </div>
+            </div>
+        </div>
+  
+        <!-- Card para la forma de pago -->
+        <div class="card mb-3">
+          <div class="card-body">
+
+            <div class="form-group">
+              <label for="efectivo"><i class="fas fa-money-bill-wave"></i> Efectivo</label>
+              <input [(ngModel)]="pagoEfectivo" (ngModelChange)="actualizarTotalEntregado()" type="number" class="form-control" id="pagoEfectivo" placeholder="0.00">
+            </div>
+            <div class="form-group">
+              <label for="tarjeta"><i class="fas fa-credit-card"></i> Tarjeta</label>
+              <input [(ngModel)]="pagoTarjeta" (ngModelChange)="actualizarTotalEntregado()" type="number" class="form-control" id="pagoTarjeta" placeholder="0.00">
+            </div>
+            <div class="form-group">
+              <label for="transferencia"><i class="fas fa-exchange-alt"></i> Transferencia</label>
+              <input [(ngModel)]="pagoTransferencia" (ngModelChange)="actualizarTotalEntregado()" type="number" class="form-control" id="pagoTransferencia" placeholder="0.00">
+            </div>
+          </div>
+        </div>
+  
+        <!-- Card para el monto a cobrar, entregado y cambio -->
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Monto a cobrar</h5>
+                <p class="card-text display-4">{{ totalPagar | currency }}</p>
+            </div>
+        </div>
+        
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Entregado</h5>
+                <p class="card-text display-4">{{ montoEntregado | currency }}</p>
+            </div>
+        </div>
+        
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Cambio</h5>
+                <p class="card-text display-4">{{ cambio | currency }}</p>
+            </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="closeModal()"><i class="fas fa-times"></i> Cancelar</button>
+        <button type="button" class="btn btn-primary" (click)="realizarCobro()"><i class="fas fa-check"></i> Cobrar</button>
+      </div>
+    </div>
+  </div>
+  

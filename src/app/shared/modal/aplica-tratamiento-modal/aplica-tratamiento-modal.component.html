@@ -1,13 +1,5 @@
-<div class="modal-body">
-    <div class="row">
-        <!-- Información del cliente y de la mascota -->
-        <div class="col-md-6">
-            <app-cliente-detalle></app-cliente-detalle>
-            <app-mascota-detalle></app-mascota-detalle>
-        </div>
-
         <!-- Formulario de vacuna o medicamento -->
-        <div class="col-md-6">
+        <div class="col-md-12">
             <div class="card">
                 <div class="card-body">
                     <form [formGroup]="formulario" class="mt-4">
@@ -16,14 +8,7 @@
                             <label for="medicamentoVacuna">
                                 <i class="fas fa-syringe"></i> Selección de Vacuna o Medicamento:
                             </label>
-                            <ng-select class="form-control" [items]="opcionesMedicamentosVacunas" bindLabel="label"
-                                bindValue="value" [clearable]="false" formControlName="medicamentoVacuna">
-                                <ng-template #optionTemplate let-item="item">
-                                    <div class="custom-option">
-                                        {{ item.label }}
-                                    </div>
-                                </ng-template>
-                            </ng-select>
+                            <input type="text" id="medicamentoVacuna" class="form-control" formControlName="medicamentoVacuna">
                         </div>
 
                         <!-- Fecha de Aplicación, Periodicidad y Próxima Cita -->
@@ -126,12 +111,10 @@
                                 <i class="fas fa-times"></i> Cancelar
                             </button>
                             <button type="button" class="btn btn-primary" (click)="guardarVacuna()">
-                                <i class="fas fa-save"></i> Guardar
+                                <i class="fas fa-save"></i> Aplicar Tratamiento
                             </button>
                         </div>
                     </form>
                 </div>
             </div>
         </div>
-    </div>
-</div>

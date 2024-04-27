@@ -37,6 +37,7 @@ export class MascotaDetalleComponent {
  edadMascota:string | null=null;
  nombreMascota:string | null=null;
  subscription: Subscription = new Subscription;
+ pesoMascota: number = 0;
 
  constructor(
    private mascotaService: SharedDataService,
@@ -60,33 +61,54 @@ export class MascotaDetalleComponent {
    }
  }
 
- // Método para obtener información detallada de una mascota
- infoMascota(mascota: any): void {
-   if (mascota) {
+// Método para obtener información detallada de una mascota
+infoMascota(mascota: any): void {
+  if (mascota) {
+    this.nombreMascota = mascota.nombre;
+    this.calcularEdadMascota(mascota.fechaNacimiento);
+    this.pesoMascota = mascota.peso || 0;
 
-     this.nombreMascota=mascota.nombre
-     this.calcularEdadMascota(mascota.fechaNacimiento)
-     // Actualizar el temperamento y observaciones de la mascota
-     this.temperamento = mascota.temperamentos || ['Amigable'];
-     this.observaciones = mascota.observaciones || 'sin datos';
+    // Actualizar el temperamento y observaciones de la mascota
+    this.temperamento = mascota.temperamentos || ['Amigable'];
+    this.observaciones = mascota.observaciones || 'sin datos';
 
-     // Verificar si la mascota tiene vacunas
-     if (mascota.vacunas) {
-       this.vacunas = mascota.vacunas;
-       this.planSalud = true; // La mascota tiene un plan de salud
+    // Verificar si la mascota tiene vacunas
+    if (mascota.vacunas) {
+      this.vacunas = this.obtenerUltimaVacunaPorId(mascota.vacunas);
+      this.planSalud = true; // La mascota tiene un plan de salud
 
-       // Verificar si el plan de salud de la mascota está vigente
-       this.planSaludVigente = this.verificarPlanSalud(this.vacunas[0]);
-       this.proximaCita = this.planSaludVigente ? this.vacunas[0].proximaCita : '';
-     } else {
-       // La mascota no tiene un plan de salud
-       this.vacunas = [];
-       this.planSalud = false;
-       this.planSaludVigente = false;
-       this.proximaCita = '';
-     }
-   }
- }
+      // Verificar si el plan de salud de la mascota está vigente
+      this.planSaludVigente = this.verificarPlanSalud(this.vacunas[0]);
+      this.proximaCita = this.planSaludVigente ? this.vacunas[0].proximaCita : '';
+    } else {
+      // La mascota no tiene un plan de salud
+      this.vacunas = [];
+      this.planSalud = false;
+      this.planSaludVigente = false;
+      this.proximaCita = '';
+    }
+  }
+}
+
+// Función para obtener solo la última vacuna aplicada por cada ID de medicamento
+obtenerUltimaVacunaPorId(vacunas: any[]): any[] {
+  // Crear un mapa para almacenar las vacunas por ID de medicamento y su fecha de aplicación
+  const vacunasPorId = new Map();
+  vacunas.forEach(vacuna => {
+    // Si no hay ninguna vacuna almacenada para este ID de medicamento o la fecha de aplicación de esta vacuna es más reciente,
+    // actualiza la vacuna almacenada para este ID de medicamento con la vacuna actual
+    if (!vacunasPorId.has(vacuna.idMedicamento) || new Date(vacuna.fechaAplicacion) > new Date(vacunasPorId.get(vacuna.idMedicamento).fechaAplicacion)) {
+      vacunasPorId.set(vacuna.idMedicamento, vacuna);
+    }
+  });
+
+  // Convertir las vacunas del mapa a un array y devolverlo
+  return Array.from(vacunasPorId.values());
+}
+
+
+
+
 
  // Método privado para verificar si el plan de salud de la mascota está vigente
  private verificarPlanSalud(vacuna: Vacuna): boolean {

@@ -1,84 +1,76 @@
 <div class="container">
-    <div class="card mb-4" style="box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.1);">
+    <div class="card mb-6" style="box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.1);">
         <div class="card-body">
             <h5 class="card-title"><i class="fas fa-paw"></i> Información de la Mascota</h5>
             <div class="row">
-                <div class="col-md-6">
+                <div class="col-md-4">
                     <div class="form-group">
-                        <label>Nombre:</label>
-                        <p>{{ nombreMascota }}</p>
+                        <label><i class="fas fa-dog"></i> Nombre:</label>
+                        <p class="font-weight-bold">{{ nombreMascota }}</p>
                     </div>
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-4">
                     <div class="form-group">
-                        <label>Edad:</label>
-                        <p>{{ edadMascota }}</p>
+                        <label><i class="fas fa-birthday-cake"></i> Edad:</label>
+                        <p class="font-weight-bold">{{ edadMascota }}</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label><i class="fas fa-weight"></i> Peso:</label>
+                        <p class="font-weight-bold">{{ pesoMascota }} kg</p>
                     </div>
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-6">
                     <div class="form-group">
-                        <label>Plan de Salud:</label>
+                        <label><i class="fas fa-heartbeat"></i> Plan de Salud:</label>
                         <p>
                             <span class="status" [ngClass]="{ 'vigente': planSaludVigente, 'vencido': !planSaludVigente }">
-                                {{ planSaludVigente ? 'Plan vigente' : 'Plan vencido' }}
+                                {{ planSaludVigente ? 'Vigente' : 'Vencido' }}
                             </span>
                         </p>
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
-                        <label>Próxima Cita:</label>
-                        <p *ngIf="proximaCita">{{ proximaCita }}</p>
-                        <p *ngIf="!proximaCita">No hay citas programadas</p>
+                        <label><i class="far fa-calendar-alt"></i> Próxima Cita:</label>
+                        <p class="font-weight-bold" *ngIf="proximaCita; else noCita">{{ proximaCita }}</p>
+                        <ng-template #noCita>
+                            <p>No hay citas programadas</p>
+                        </ng-template>
                     </div>
                 </div>
             </div>
+            <div class="row mt-4">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label><i class="fas fa-bone"></i> Temperamento:</label>
+                        <p class="font-italic">{{ temperamento }}</p>
+                    </div>
+                </div>
+            </div>
+            <hr>
             <div class="row">
-                <div class="col-md-6">
+                <div class="col-md-12">
                     <div class="form-group">
-                        <label>Vacunas:</label>
-                        <ul>
-                            <li *ngFor="let vacuna of vacunas"><i class="fas fa-syringe"></i> {{ vacuna.medicamento }}</li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="form-group">
-                        <label>Últimos Tratamientos:</label>
-                        <ul>
-                            <li *ngFor="let tratamiento of tratamientos"><i class="fas fa-prescription-bottle"></i> {{ tratamiento }}</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-6">
-                    <div class="form-group">
-                        <label>Temperamento:</label>
-                        <p>{{ temperamento }}</p>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="form-group">
-                        <label>Observaciones:</label>
-                        <ul>
-                            <li><i class="fas fa-barking"></i> {{ observaciones }}</li>
-                        </ul>
+                        <label><i class="fas fa-syringe"></i> Vacunas:</label>
+                        <div class="vacuna-cards">
+                            <div class="row">
+                                <div class="col-md-6" *ngFor="let vacuna of vacunas">
+                                    <div class="card mb-3">
+                                        <div class="card-body">
+                                            <h6 class="card-title">{{ vacuna.medicamento }}</h6>
+                                            <p class="card-text">Próxima Aplicación: {{ vacuna.proximaCita }}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-md-6">
-                    <div class="form-group">
-                        <label>Situación Económica:</label>
-                        <p>Estable</p>
-                    </div>
-                </div>
-                <!-- Agrega más columnas según sea necesario -->
-            </div>
-            <!-- Agrega más información según sea necesario -->
         </div>
     </div>
 </div>

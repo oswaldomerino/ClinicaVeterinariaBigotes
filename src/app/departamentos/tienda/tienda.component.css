@@ -1,49 +1,34 @@
-/* Estilos para las tarjetas */
-.card {
-    margin-bottom: 20px;
-  }
-  
-  .card-header {
-    background-color: #007bff;
-    color: white;
-    padding: 10px 20px;
-  }
-  
-  .card-title {
-    margin-bottom: 0;
-  }
-  
-  .card-body {
-    padding: 20px;
-  }
-  
-  /* Estilos para los íconos */
-  .card-header i {
-    margin-right: 10px;
-  }
-  
-  /* Estilos para los botones */
-  .btn {
-    margin-right: 10px;
-  }
-  
-  /* Estilos para la tabla */
-  .table {
-    margin-bottom: 0;
-  }
-  
-  /* Estilos para la sección de total */
-  .seccion-total {
-    background-color: #f8f9fa;
-    border: 1px solid #dee2e6;
-    border-radius: 5px;
-  }
-  
-  .descripcion-total {
-    padding: 20px;
-  }
-  
-  .opciones-pago {
-    padding: 20px;
-  }
-  
+/* Estilos para el contenedor del ng-select */
+::ng-deep .ng-select {
+  display: inline-block;
+  width: 100%;
+}
+
+
+/* Estilos para las opciones desplegadas */
+::ng-deep .ng-dropdown-panel {
+  border: 1px solid #ced4da;
+  border-radius: 4px;
+  box-shadow: none;
+  background-color: white;
+}
+
+/* Estilos para las opciones individuales */
+::ng-deep .ng-option {
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+}
+
+/* Estilos para las opciones cuando están resaltadas */
+::ng-deep .ng-option.ng-option-marked {
+  background-color: #f8f9fa;
+}
+
+h3.total-label {
+  margin-right: 20px;
+}
+
+.input-group.total-input {
+  font-size: 1.75rem;
+  font-weight: bold;
+}

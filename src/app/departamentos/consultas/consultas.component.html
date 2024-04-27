@@ -1,0 +1,90 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-6" *ngFor="let item of listaEspera;  let i = index">
+      <div class="card mb-3">
+        <div class="card-header d-flex justify-content-between align-items-center" style="background-color: #007bff; color: white;">
+          <h5 class="card-title mb-0"><i class="fas fa-user"></i> {{ item.cliente.nombre | uppercase }}</h5>
+          <span class="badge badge-secondary">{{ i + 1 }}</span>
+        </div>
+        <div class="card-body">
+          <div class="d-flex justify-content-between align-items-center mb-3">
+            <h5 class="card-title" style="color: #007bff;"><i class="fas fa-dog"></i> {{ item.mascota.nombre | uppercase }}</h5>
+            <p class="card-text" style="color: #28a745;"><i class="fas fa-notes-medical"></i> {{ item.infoServicio.categoria | uppercase }}</p>
+          </div>
+          <p class="card-text"><i class="fas fa-calendar-alt"></i> <strong>EDAD:</strong> {{ calcularEdad(item.mascota.fechaNacimiento) }}</p>
+          <p class="card-text"><i class="fas fa-phone"></i> <strong>TELÉFONO:</strong> {{ item.cliente.telefonos[0] }}</p>
+          <hr>
+          <p class="card-text"><i class="fas fa-stethoscope"></i> <strong>SERVICIO:</strong> {{ item.infoServicio.descripcion | uppercase }}</p>
+          <p class="card-text"><i class="fas fa-clock"></i> <strong>HORA RECEPCIÓN:</strong> {{ item.horaRecepcion }}</p>
+          <hr>
+          <p class="card-text"><i class="fas fa-comment"></i> <strong>COMENTARIOS:</strong> {{ item.descripciones[0] | uppercase }}</p>
+          <hr>
+          <p class="card-text"><i class="fas fa-paw"></i> <strong>RAZA:</strong> {{ item.mascota.raza | uppercase }}</p>
+          <p class="card-text"><i class="fas fa-venus-mars"></i> <strong>SEXO:</strong> {{ item.mascota.sexo | uppercase }}</p>
+          <p class="card-text"><i class="fas fa-weight"></i> <strong>PESO:</strong> {{ item.peso }}</p>
+          <p class="card-text"><i class="fas fa-tag"></i> <strong>PRECIO:</strong> {{ item.costoTotal }}</p>
+        </div>
+        <div class="card-footer">
+          <div class="d-flex justify-content-end">
+            <button class="btn btn-primary mr-2" (click)="finalizarServicio(item)">
+              <i class="fas fa-check"></i>
+            </button>
+            <button class="btn btn-secondary mr-2" (click)="agregarTemperamento(item)">
+              <i class="fas fa-fire"></i> 
+            </button>
+            <button class="btn btn-secondary" (click)="agregarObservacion(item)">
+              <i class="fas fa-comment-alt"></i> 
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<div class="card-body">
+    <h5 class="card-title"><i class="fas fa-clock"></i> Lista de Espera para consulta</h5>
+    <!-- Aquí va el contenido de la lista de espera -->
+    <div class="table-container">
+        <table class="table table-hover">
+            <thead>
+              <tr>
+                <th>Cliente</th>
+                <th>Mascota</th>
+                <th>Categoría</th>
+                <th>Hora de Recepción</th>
+                <th>Hora de la Cita</th>
+                <th>Mensaje</th>
+                <th>Peso</th>
+
+                <th>Comportamiento</th>
+
+                <th>Acciones</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- Aquí se iteraría sobre los registros de clientes y mascotas -->
+              <tr *ngFor="let registro of listaEspera">
+                <td>{{ registro.cliente.nombre }}</td>
+                <td>{{ registro.mascota.nombre }}</td>
+                <td>{{ registro.infoServicio.categoria }}</td>
+                <td>{{ registro.horaRecepcion }}</td>
+                <td>{{ registro.horaCita }}</td>
+                <td>{{ registro.descripcion }}</td>
+                <td>{{ registro.peso }}</td>
+
+                <td>{{ registro.mascota.temperamento }}</td>
+
+                <td>
+                  <button type="button" class="btn btn-primary" (click)="atenderMascota(registro)">
+                    Atender
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          
+    </div>
+</div>

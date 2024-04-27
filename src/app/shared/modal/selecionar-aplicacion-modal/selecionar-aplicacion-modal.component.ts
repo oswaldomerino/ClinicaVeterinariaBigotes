@@ -120,6 +120,8 @@ modoedicion:boolean=false;
       }
     });
 
+    
+
   }
 
   ngOnDestroy(): void {
@@ -163,6 +165,7 @@ modoedicion:boolean=false;
     this.cargarOpcionesMedicamentosVacunas();
     this.consultarDescripciones();
 this.cargarEmpleados();
+
 
   }
   cargarOpcionesMedicamentosVacunas() {
@@ -219,11 +222,11 @@ this.cargarEmpleados();
           this.modoedicion=true;
           this.idServicio=serv.id;
 
-          console.log(this.idServicio +'  ' +  this.modoedicion)
+        //  console.log(this.idServicio +' ---> ' +  this.modoedicion)
           // Utiliza patchValue para actualizar los valores del formulario
           this.formulario.patchValue({
             filtroMedicamentoVacuna: serv.infoServicio.medicamento,
-            medicamentoVacuna: serv.infoServicio.medica,
+            medicamentoVacuna: serv.infoServicio.medicamento,
             fechaAplicacion: serv.infoServicio.fechaAplicacion, // Asegúrate de que la fecha esté en el formato correcto
             periodicidad: serv.infoServicio.periodicidad,
             proximaCita: serv.infoServicio.proximaCita,
@@ -306,6 +309,7 @@ actualizarListaEspera() {
 
       const datosVacuna = {
         idMedicamento: this.medicamentoSeleccionado.id,
+        descripcion: this.medicamentoSeleccionado.nombreVacuna,
         medicamento: this.medicamentoSeleccionado.nombreVacuna,
         fechaAplicacion: this.formulario.get('fechaAplicacion')?.value,
         periodicidad: this.medicamentoSeleccionado.periodicidad,
@@ -360,6 +364,7 @@ actualizarListaEspera() {
     console.log('modo edicion y que debo modif',this.idServicio +'  ' +  this.modoedicion)
     const datosVacuna = {
       idMedicamento: this.medicamentoSeleccionado.id,
+      descripcion: this.medicamentoSeleccionado.nombreVacuna,
       medicamento: this.medicamentoSeleccionado.nombreVacuna,
       fechaAplicacion: this.formulario.get('fechaAplicacion')?.value,
       periodicidad: this.medicamentoSeleccionado.periodicidad,
@@ -385,7 +390,9 @@ actualizarListaEspera() {
     // Preparar los datos del cliente y la mascota
     const clienteData = { nombre: this.nombreCliente, id: this.cliente.id ,telefonos: this.cliente.telefonos};
     const pesoMascota = this.mascota.peso !== undefined ? this.mascota.peso : 0;
-    const mascotaData = { nombre: this.nombreMascota, id: this.mascota.id, peso:pesoMascota};
+    const mascotaData=this.mascota
+
+     mascotaData.peso = pesoMascota;
 
 
     // Buscar el servicio seleccionado por su ID
@@ -400,6 +407,7 @@ actualizarListaEspera() {
       servicio:this.medicamentoSeleccionado.id,
       cliente: clienteData,
       mascota: mascotaData,
+      descripcion:this.medicamentoSeleccionado.nombreVacuna,
       veterinario:'', // Supongamos que atendidoPor se refiere al veterinario
       descripciones: descripciones,
       horaRecepcion: horaActual.toISOString(), // Convertir la hora a una cadena ISO

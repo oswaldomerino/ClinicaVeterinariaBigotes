@@ -1,0 +1,62 @@
+<div class="seccion-estadisticas">
+    <h3>Estadísticas del Día</h3>
+    <div class="row">
+        <!-- Tarjeta de Baños -->
+        <div class="col-md-3">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title"><i class="fas fa-shower"></i> Baños Realizados</h5>
+                    <p class="card-text">Cantidad: {{ cantidadBanios }}</p>
+                    <p class="card-text">Ingresos: {{ ingresosBanios | currency }}</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Tarjeta de Estéticas -->
+        <div class="col-md-3">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title"><i class="fas fa-cut"></i> Estéticas Realizadas</h5>
+                    <p class="card-text">Cantidad: {{ cantidadEsteticas }}</p>
+                    <p class="card-text">Ingresos: {{ ingresosEsteticas | currency }}</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Tarjeta de Consultas -->
+        <div class="col-md-3">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title"><i class="fas fa-stethoscope"></i> Consultas Realizadas</h5>
+                    <p class="card-text">Cantidad: {{ cantidadConsultas }}</p>
+                    <p class="card-text">Ingresos: {{ ingresosConsultas | currency }}</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tarjeta de Aplicaciones de Vacunas -->
+        <div class="col-md-3">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title"><i class="fas fa-syringe"></i> Aplicaciones de Vacunas</h5>
+                    <p class="card-text">Cantidad: {{ cantidadAplicaciones }}</p>
+                    <p class="card-text">Ingresos: {{ ingresosAplicaciones | currency }}</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tarjeta de Productos Vendidos -->
+        <div class="col-md-3">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title"><i class="fas fa-shopping-cart"></i> Productos Vendidos</h5>
+                    <p class="card-text">Cantidad: {{ cantidadProductos }}</p>
+                    <p class="card-text">Ingresos: {{ ingresosProductos | currency }}</p>
+                </div>
+            </div>
+        </div>
+      
+        <!-- Otras Tarjetas para las demás categorías -->
+      
+    </div>
+</div>

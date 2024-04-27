@@ -1,56 +1,170 @@
-<div class="container">
+
+<div class="row">
   <!-- Sección de Selección de Cliente y Detalles de Venta -->
-  <div class="seccion-venta">
-    <h3>Detalles de la Venta</h3>
-    <hr>
-    <div class="form-row">
-      <div class="form-group col-md-4">
-        <label for="clienteSelect"><i class="fas fa-user"></i> Cliente:</label>
-        <ng-select class="form-control" id="clienteSelect" (change)="obtenerMascotasPorCliente($event)" [items]="clientes" bindLabel="nombres" bindValue="id"></ng-select>
-      </div>
-      <div class="form-group col-md-4">
-        <label for="mascotaSelect"><i class="fas fa-paw"></i> Mascotas:</label>
-        <ng-select class="form-control" id="mascotaSelect" [items]="mascotas" bindLabel="nombre" bindValue="id"></ng-select>
-      </div>
-      <div class="form-group col-md-4">
-        <label for="empleadoSelect"><i class="fas fa-user-tie"></i> Responsable:</label>
-        <ng-select class="form-control" id="empleadoSelect" [items]="empleados" bindLabel="nombre" bindValue="id"></ng-select>
-      </div>
-      <div class="form-group col-md-3">
-        <label for="fechaVenta"><i class="fas fa-calendar-alt"></i> Fecha:</label>
-        <input type="date" id="fechaVenta" class="form-control">
-      </div>
-      <div class="form-group col-md-3">
-        <label for="tarifaSelect"><i class="fas fa-dollar-sign"></i> Tarifa:</label>
-        <ng-select class="form-control" id="tarifaSelect" bindLabel="nombre" bindValue="id"></ng-select>
+  <div class="col">
+    <div class="card">
+      <div class="card-body">
+        <div class="seccion-venta">
+          <h3 class="card-title">Detalles de la Venta</h3>
+          <hr>
+          <div class="form-row">
+            <!-- Cliente y Mascota en el mismo row -->
+            <div class="row">
+              <div class="form-group col-md-6">
+                <label for="clienteSelect"><i class="fas fa-user"></i> Cliente:</label>
+                <ng-select class="form-control" id="clienteSelect" (change)="obtenerMascotasPorCliente($event)" [(ngModel)]="clienteSeleccionado" [items]="clientes" bindLabel="label" bindValue="id"></ng-select>
+              </div>
+              <div class="form-group col-md-6">
+                <label for="mascotaSelect"><i class="fas fa-paw"></i> Mascotas:</label>
+                <ng-select class="form-control" id="mascotaSelect" [(ngModel)]="mascotaSeleccionada" [items]="mascotas" bindLabel="nombre" (change)="infoMascota($event)" bindValue="id"></ng-select>
+              </div>
+            </div>
+            <!-- Responsable y Fecha en el mismo row -->
+            <div class="row">
+              <div class="form-group col-md-6">
+                <label for="empleadoSelect"><i class="fas fa-user-tie"></i> Responsable:</label>
+                <ng-select class="form-control" id="empleadoSelect" [items]="empleados" bindLabel="nombre" bindValue="id"></ng-select>
+              </div>
+              <div class="form-group col-md-6">
+                <label for="fechaVenta"><i class="fas fa-calendar-alt"></i> Fecha:</label>
+                <input type="date" id="fechaVenta" class="form-control" [value]="fechaVenta">
+              </div>
+            </div>
+            <!-- Tarifa -->
+            <div class="form-group col-md-6">
+              <label for="tarifaSelect"><i class="fas fa-dollar-sign"></i> Tarifa:</label>
+              <ng-select class="form-control" id="tarifaSelect" bindLabel="nombre" bindValue="id"></ng-select>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
 
-  <!-- Sección de Tabla de Productos a Vender -->
-  <div class="seccion-tabla">
-    <h3>Productos a Vender</h3>
-    <hr>
-    <table class="table">
-      <thead>
-        <tr>
-          <th>Código</th>
-          <th>Descripción</th>
-          <th>Cantidad</th>
-          <th>Precio</th>
-          <th>Descuento</th>
-          <th>IVA</th>
-          <th>Total</th>
-          <th>Eliminar</th>
-        </tr>
-      </thead>
-      <tbody>
-        <!-- Aquí se listarán dinámicamente los productos -->
-      </tbody>
-    </table>
+  <!-- Información de la Mascota -->
+  <div class="col">
+    <div class="container">
+      <div class="card mb-6" style="box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.1);">
+          <div class="card-body">
+              <h5 class="card-title"><i class="fas fa-paw"></i> Información de la Mascota</h5>
+              <div class="row">
+  
+  
+  
+              </div>
+              <div class="row">
+                  <div class="col-md-6">
+                      <div class="form-group">
+                          <label><i class="fas fa-heartbeat"></i> Plan de Salud:</label>
+                          <p>
+                              <span class="status" [ngClass]="{ 'vigente': planSaludVigente, 'vencido': !planSaludVigente }">
+                                  {{ planSaludVigente ? 'Vigente' : 'Vencido' }}
+                              </span>
+                          </p>
+                      </div>
+                  </div>
+                  <div class="col-md-6">
+                      <div class="form-group">
+                          <label><i class="far fa-calendar-alt"></i> Próxima Cita:</label>
+                          <p class="font-weight-bold" *ngIf="proximaCita; else noCita">{{ proximaCita }}</p>
+                          <ng-template #noCita>
+                              <p>No hay citas programadas</p>
+                          </ng-template>
+                      </div>
+                  </div>
+              </div>
+  
+              <hr>
+              <div class="row">
+                  <div class="col-md-12">
+                      <div class="form-group">
+                          <label><i class="fas fa-syringe"></i> Vacunas:</label>
+                          <div class="vacuna-cards">
+                              <div class="row">
+                                  <div class="col-md-6" *ngFor="let vacuna of vacunas">
+                                      <div class="card mb-3">
+                                          <div class="card-body">
+                                              <h6 class="card-title">{{ vacuna.medicamento }}</h6>
+                                              <p class="card-text">Próxima Aplicación: {{ vacuna.proximaCita }}</p>
+                                          </div>
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+    </div>
   </div>
 
-  <!-- Sección de Descripción del Total y Opciones de Pago -->
+ 
+ 
+ <!-- Sección de Selección de Cliente y Detalles de Venta -->
+ <div class="seccion-tabla">
+  <hr>
+  <label for="">Seleciona </label>
+  <ng-select [items]="medicamentos"
+  bindLabel="nombreVacuna"
+  bindValue="codigoBarras"
+  groupBy="categoria"
+ class="form-control"
+ [(ngModel)]="productoSeleccionado"
+  (change)="actualizarProducto($event)">
+ </ng-select>
+ <hr>
+ <div class="card">
+  <div class="card-body">
+    <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>Código</th>
+            <th>Descripción</th>
+            <th>Cantidad</th>
+            <th>Precio</th>
+            <th>Descuento</th>
+            <th>IVA</th>
+            <th>Total</th>
+            <th>Eliminar</th>
+          </tr>
+        </thead>
+        <div  *ngIf="isLoading" class="spinner-border m-5" role="status">
+          <span class="sr-only">Loading...</span>
+        </div>
+    
+        <tbody *ngIf="!isLoading">
+          <tr *ngFor="let producto of productos; let i=index">
+            <td>{{ producto.codigo }}</td>
+            <td>{{ producto.descripcion }}</td>
+            <td><input type="number" [(ngModel)]="producto.cantidad" (change)="producto.total = calcularTotal(producto)"></td>
+            <td>{{ producto.precio | currency:'$':'symbol'}}</td>
+            <td>{{ producto.descuento }}</td>
+            <td>{{ calcularIVA(producto) | currency:'$':'symbol'}}</td>
+            <td>{{ producto.total | currency:'$':'symbol'}}</td>
+            <td><button class="btn btn-danger" (click)="eliminarProducto(i)"><i class="fa fa-trash"></i></button></td>
+          </tr>
+        </tbody>
+
+      </table>
+
+     </div>
+
+</div>
+<div>
+  <div class="d-flex justify-content-end align-items-center">
+    <h3 class="total-label d-flex align-items-center mb-0">TOTAL</h3>
+    <div class="input-group mt-3 w-auto total-input">
+      <input type="text" class="form-control h3 " readonly [value]="totalPagar | currency:'$':'symbol'" style="font-size: 1.75rem;">
+    </div>
+  </div>
+  
+  
+  
+
+  
+  <!-- Sección de Total de la Venta -->
   <div class="seccion-total">
     <h3>Total de la Venta</h3>
     <hr>
@@ -60,11 +174,11 @@
           <tbody>
             <tr>
               <td>Total:</td>
-              <td>${{ total }}</td>
+              <td>${{ totalVenta }}</td>
               <td>Descuento:</td>
-              <td>${{ descuento }}</td>
+              <td>${{ descuentoTotal }}</td>
               <td>IVA:</td>
-              <td>${{ iva }}</td>
+              <td>${{ ivaTotal }}</td>
               <td>Subtotal:</td>
               <td>${{ subtotal }}</td>
               <td>Total a Pagar:</td>
@@ -76,8 +190,8 @@
     </div>
     <div class="opciones-pago">
       <button class="btn btn-primary"><i class="fas fa-credit-card"></i> Pagar a Crédito</button>
-      <button class="btn btn-success"><i class="fas fa-cash-register"></i> Cobrar</button>
-      <button class="btn btn-danger"><i class="fas fa-times"></i> Cancelar Venta</button>
+      <button class="btn btn-success" (click)="cobrar()"><i class="fas fa-cash-register"></i> Cobrar</button>
+      <button class="btn btn-danger" (click)="cancelarVenta()"><i class="fas fa-times"></i> Cancelar Venta</button>
     </div>
-  </div>
-</div>
+
+  
