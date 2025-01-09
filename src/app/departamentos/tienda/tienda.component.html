@@ -1,40 +1,65 @@
-
-<div class="row">
-  <!-- Sección de Selección de Cliente y Detalles de Venta -->
-  <div class="col">
-    <div class="card">
+<div class="row g-4">
+  <!-- Sección de Detalles de Venta -->
+  <div class="col-lg-6">
+    <div class="card shadow-sm">
+      <div class="card-header bg-primary text-white">
+        <h5 class="mb-0"><i class="fas fa-cash-register"></i> Detalles de la Venta</h5>
+      </div>
       <div class="card-body">
-        <div class="seccion-venta">
-          <h3 class="card-title">Detalles de la Venta</h3>
-          <hr>
-          <div class="form-row">
-            <!-- Cliente y Mascota en el mismo row -->
-            <div class="row">
-              <div class="form-group col-md-6">
-                <label for="clienteSelect"><i class="fas fa-user"></i> Cliente:</label>
-                <ng-select class="form-control" id="clienteSelect" (change)="obtenerMascotasPorCliente($event)" [(ngModel)]="clienteSeleccionado" [items]="clientes" bindLabel="label" bindValue="id"></ng-select>
-              </div>
-              <div class="form-group col-md-6">
-                <label for="mascotaSelect"><i class="fas fa-paw"></i> Mascotas:</label>
-                <ng-select class="form-control" id="mascotaSelect" [(ngModel)]="mascotaSeleccionada" [items]="mascotas" bindLabel="nombre" (change)="infoMascota($event)" bindValue="id"></ng-select>
-              </div>
-            </div>
-            <!-- Responsable y Fecha en el mismo row -->
-            <div class="row">
-              <div class="form-group col-md-6">
-                <label for="empleadoSelect"><i class="fas fa-user-tie"></i> Responsable:</label>
-                <ng-select class="form-control" id="empleadoSelect" [items]="empleados" bindLabel="nombre" bindValue="id"></ng-select>
-              </div>
-              <div class="form-group col-md-6">
-                <label for="fechaVenta"><i class="fas fa-calendar-alt"></i> Fecha:</label>
-                <input type="date" id="fechaVenta" class="form-control" [value]="fechaVenta">
-              </div>
-            </div>
-            <!-- Tarifa -->
-            <div class="form-group col-md-6">
-              <label for="tarifaSelect"><i class="fas fa-dollar-sign"></i> Tarifa:</label>
-              <ng-select class="form-control" id="tarifaSelect" bindLabel="nombre" bindValue="id"></ng-select>
-            </div>
+        <div class="row mb-3">
+          <!-- Selección de Cliente y Mascota -->
+          <div class="col-md-6">
+            <label for="clienteSelect" class="form-label"><i class="fas fa-user"></i> Cliente:</label>
+            <ng-select
+              class="form-control"
+              id="clienteSelect"
+              (change)="obtenerMascotasPorCliente($event)"
+              [(ngModel)]="clienteSeleccionado"
+              [items]="clientes"
+              bindLabel="label"
+              bindValue="id">
+            </ng-select>
+          </div>
+          <div class="col-md-6">
+            <label for="mascotaSelect" class="form-label"><i class="fas fa-paw"></i> Mascota:</label>
+            <ng-select
+              class="form-control"
+              id="mascotaSelect"
+              [(ngModel)]="mascotaSeleccionada"
+              [items]="mascotas"
+              bindLabel="nombre"
+              (change)="infoMascota($event)"
+              bindValue="id">
+            </ng-select>
+          </div>
+        </div>
+        <div class="row mb-3">
+          <!-- Responsable y Fecha -->
+          <div class="col-md-6">
+            <label for="empleadoSelect" class="form-label"><i class="fas fa-user-tie"></i> Responsable:</label>
+            <ng-select
+              class="form-control"
+              id="empleadoSelect"
+              [items]="empleados"
+              bindLabel="nombre"
+              bindValue="id">
+            </ng-select>
+          </div>
+          <div class="col-md-6">
+            <label for="fechaVenta" class="form-label"><i class="fas fa-calendar-alt"></i> Fecha:</label>
+            <input type="date" id="fechaVenta" class="form-control" [value]="fechaVenta" />
+          </div>
+        </div>
+        <div class="row mb-3">
+          <!-- Tarifa -->
+          <div class="col-md-12">
+            <label for="tarifaSelect" class="form-label"><i class="fas fa-dollar-sign"></i> Tarifa:</label>
+            <ng-select
+              class="form-control"
+              id="tarifaSelect"
+              bindLabel="nombre"
+              bindValue="id">
+            </ng-select>
           </div>
         </div>
       </div>
@@ -42,61 +67,44 @@
   </div>
 
   <!-- Información de la Mascota -->
-  <div class="col">
-    <div class="container">
-      <div class="card mb-6" style="box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.1);">
-          <div class="card-body">
-              <h5 class="card-title"><i class="fas fa-paw"></i> Información de la Mascota</h5>
-              <div class="row">
-  
-  
-  
-              </div>
-              <div class="row">
-                  <div class="col-md-6">
-                      <div class="form-group">
-                          <label><i class="fas fa-heartbeat"></i> Plan de Salud:</label>
-                          <p>
-                              <span class="status" [ngClass]="{ 'vigente': planSaludVigente, 'vencido': !planSaludVigente }">
-                                  {{ planSaludVigente ? 'Vigente' : 'Vencido' }}
-                              </span>
-                          </p>
-                      </div>
-                  </div>
-                  <div class="col-md-6">
-                      <div class="form-group">
-                          <label><i class="far fa-calendar-alt"></i> Próxima Cita:</label>
-                          <p class="font-weight-bold" *ngIf="proximaCita; else noCita">{{ proximaCita }}</p>
-                          <ng-template #noCita>
-                              <p>No hay citas programadas</p>
-                          </ng-template>
-                      </div>
-                  </div>
-              </div>
-  
-              <hr>
-              <div class="row">
-                  <div class="col-md-12">
-                      <div class="form-group">
-                          <label><i class="fas fa-syringe"></i> Vacunas:</label>
-                          <div class="vacuna-cards">
-                              <div class="row">
-                                  <div class="col-md-6" *ngFor="let vacuna of vacunas">
-                                      <div class="card mb-3">
-                                          <div class="card-body">
-                                              <h6 class="card-title">{{ vacuna.medicamento }}</h6>
-                                              <p class="card-text">Próxima Aplicación: {{ vacuna.proximaCita }}</p>
-                                          </div>
-                                      </div>
-                                  </div>
-                              </div>
-                          </div>
-                      </div>
-                  </div>
-              </div>
-          </div>
+  <div class="col-lg-6">
+    <div class="card shadow-sm">
+      <div class="card-header bg-info text-white">
+        <h5 class="mb-0"><i class="fas fa-info-circle"></i> Información de la Mascota</h5>
       </div>
-  </div>
+      <div class="card-body">
+        <div class="row mb-3">
+          <div class="col-md-6">
+            <label><i class="fas fa-heartbeat"></i> Plan de Salud:</label>
+            <p>
+              <span
+                class="badge"
+                [ngClass]="{ 'bg-success': planSaludVigente, 'bg-danger': !planSaludVigente }">
+                {{ planSaludVigente ? 'Vigente' : 'Vencido' }}
+              </span>
+            </p>
+          </div>
+          <div class="col-md-6">
+            <label><i class="fas fa-calendar-alt"></i> Próxima Cita:</label>
+            <p *ngIf="proximaCita; else noCita">{{ proximaCita }}</p>
+            <ng-template #noCita>
+              <p class="text-muted">Sin citas programadas</p>
+            </ng-template>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <label><i class="fas fa-syringe"></i> Vacunas:</label>
+            <div class="d-flex flex-wrap">
+              <div
+                *ngFor="let vacuna of vacunas"
+                class="badge bg-primary text-white me-2 mb-2">
+                {{ vacuna.medicamento }} - {{ vacuna.proximaCita }}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 

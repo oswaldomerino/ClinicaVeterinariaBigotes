@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { importProvidersFrom, NgModule } from '@angular/core';
 import { BrowserModule, provideClientHydration } from '@angular/platform-browser';
 import { provideFirestore, getFirestore } from '@angular/fire/firestore';
 
@@ -16,6 +16,11 @@ import { environment } from '../environments/environment';
 import { ToastrModule } from 'ngx-toastr';
 import { FormsModule } from '@angular/forms';
 
+// Angular Material Modules
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
 
 
 
@@ -30,7 +35,10 @@ import { FormsModule } from '@angular/forms';
 
     NoopAnimationsModule,
     
-    
+    MatToolbarModule,
+    MatIconModule,
+    MatButtonModule,
+    MatCardModule,
 
     FormsModule,
     provideFirebaseApp(() => initializeApp(environment.firebase)),
@@ -44,7 +52,12 @@ import { FormsModule } from '@angular/forms';
   ],
   providers: [
     provideClientHydration(),
-    
+    importProvidersFrom(BrowserAnimationsModule),
+    importProvidersFrom(ToastrModule.forRoot({
+      timeOut: 3000,
+      positionClass: 'toast-top-right',
+      preventDuplicates: true
+    }))
   ],
   bootstrap: [
   ]

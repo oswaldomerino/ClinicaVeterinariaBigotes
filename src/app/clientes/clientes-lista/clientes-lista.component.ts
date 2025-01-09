@@ -6,6 +6,7 @@ import { Cliente } from '../../shared/interfaces/cliente.interface';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import Swal from 'sweetalert2';
+
 import { NgbModal, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ClienteFormularioComponent } from '../cliente-formulario/cliente-formulario.component';
 import { CommonModule } from '@angular/common';

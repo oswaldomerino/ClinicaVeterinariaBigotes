@@ -1,0 +1,69 @@
+/* Ajustes generales */
+.container {
+    max-width: 700px;
+    margin: auto;
+  }
+  
+  .card {
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .card-header {
+    padding: 15px;
+    font-size: 1.2rem;
+  }
+  
+  .card-body {
+    padding: 20px;
+  }
+  
+  /* Estilos para las listas */
+  .list-group-item {
+    border: none;
+    padding: 8px 10px;
+    background-color: #f8f9fa;
+    margin-bottom: 5px;
+  }
+  
+  /* Badges */
+  .badge {
+    font-size: 0.9rem;
+    padding: 8px 10px;
+    border-radius: 8px;
+  }
+  
+  /* Botones */
+  .btn-sm {
+    font-size: 0.9rem;
+    padding: 8px 12px;
+  }
+  
+  .btn-light {
+    border: 1px solid #e0e0e0;
+    color: #333;
+  }
+  
+  .btn-light:hover {
+    background-color: #f8f9fa;
+  }
+  
+  .btn-success {
+    background-color: #28a745;
+    color: white;
+  }
+  
+  .btn-success:hover {
+    background-color: #218838;
+  }
+  
+  .btn-danger {
+    background-color: #dc3545;
+    color: white;
+  }
+  
+  .btn-danger:hover {
+    background-color: #c82333;
+  }
+  

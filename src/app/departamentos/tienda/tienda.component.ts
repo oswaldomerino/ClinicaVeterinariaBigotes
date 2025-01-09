@@ -514,89 +514,171 @@ this.cancelarVenta();
   }
 
   imprimirTicket(venta: any) {
-    let cliente = this.clientes.find(cliente => cliente.id === this.clienteSeleccionado);
-    let nombreCliente = cliente ? cliente.nombres[0] : 'Cliente no encontrado';
+    const cliente = this.clientes.find(cliente => cliente.id === this.clienteSeleccionado);
+    const nombreCliente = cliente ? cliente.nombres[0] : 'Cliente no encontrado';
+    const direccionCliente = cliente?.direccion || 'Dirección no proporcionada';
 
     // Calcular el cambio
-    let cambio = venta.totalPagado - venta.total;
+    const cambio = (venta.montoEntregado || 0) - venta.total;
 
-    // Crear una nueva ventana y mostrar el ticket
-    let mywindow = window.open('', 'PRINT', 'height=600,width=800');
-    if (mywindow) {
-        mywindow.document.write('<html><head><title>' + document.title  + '</title>');
-        mywindow.document.write('<style>');
-        mywindow.document.write('body { font-family: Arial, sans-serif; }');
-        mywindow.document.write('.container { max-width: 800px; margin: 0 auto; }');
-        mywindow.document.write('.header { text-align: center; margin-bottom: 20px; }');
-        mywindow.document.write('.details { display: flex; justify-content: space-between; }');
-        mywindow.document.write('.card { flex: 0 0 48%; border: 1px solid #ccc; padding: 10px; margin-bottom: 10px; }');
-        mywindow.document.write('.card h2 { margin-bottom: 10px; }');
-        mywindow.document.write('.card p { margin: 5px 0; }');
-        mywindow.document.write('table { width: 100%; border-collapse: collapse; }');
-        mywindow.document.write('th, td { border: 1px solid #000; padding: 8px; text-align: left; }');
-        mywindow.document.write('</style>');
-        mywindow.document.write('</head><body>');
+    // Crear una nueva ventana para mostrar el ticket
+    const mywindow = window.open('', 'PRINT', 'height=600,width=800');
 
-        // Contenedor principal
-        mywindow.document.write('<div class="container">');
+    if (mywindow!) {
+        // Encabezado del documento HTML
+        mywindow!.document.write(`
+            <html>
+            <head>
+                <title>Factura - Clinica Vet. Bigotes</title>
+                <style>
+                    body {
+                        font-family: 'Arial', sans-serif;
+                        margin: 0;
+                        padding: 0;
+                        background-color: #f3f4f6;
+                        color: #333;
+                    }
+                    .container {
+                        max-width: 800px;
+                        margin: 20px auto;
+                        background: #ffffff;
+                        padding: 20px;
+                        border-radius: 8px;
+                        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+                    }
+                    .header {
+                        text-align: center;
+                        margin-bottom: 20px;
+                    }
+                    .header img {
+                        max-width: 120px;
+                        margin-bottom: 10px;
+                    }
+                    .header h1 {
+                        font-size: 1.8rem;
+                        color: #015d52;
+                        margin: 0;
+                    }
+                    .header p {
+                        font-size: 1rem;
+                        color: #666;
+                    }
+                    .details {
+                        display: flex;
+                        justify-content: space-between;
+                        margin-bottom: 20px;
+                    }
+                    .card {
+                        flex: 0 0 48%;
+                        border: 1px solid #dee2e6;
+                        border-radius: 8px;
+                        padding: 10px;
+                        background: #f9f9f9;
+                    }
+                    .card h2 {
+                        font-size: 1.1rem;
+                        margin-bottom: 10px;
+                        color: #015d52;
+                    }
+                    .card p {
+                        margin: 5px 0;
+                        font-size: 0.9rem;
+                    }
+                    table {
+                        width: 100%;
+                        border-collapse: collapse;
+                        margin-bottom: 20px;
+                    }
+                    table th, table td {
+                        border: 1px solid #dee2e6;
+                        padding: 10px;
+                        text-align: left;
+                        font-size: 0.9rem;
+                    }
+                    table th {
+                        background-color: #015d52;
+                        color: #ffffff;
+                        font-weight: bold;
+                    }
+                    .footer {
+                        text-align: right;
+                        font-size: 1rem;
+                        font-weight: bold;
+                        color: #015d52;
+                    }
+                </style>
+            </head>
+            <body>
+                <div class="container">
+                    <!-- Encabezado con logo y datos de la clínica -->
+                    <div class="header">
+                        <img src="assets/image.png" alt="Logo Veterinaria">
+                        <h1>Clinica Vet. Bigotes</h1>
+                        <p>Morelia 203, Col. Roma, Piedras Negras, México</p>
+                        <p>Teléfono: 878 782 3342</p>
+                    </div>
 
-        // Encabezado
-        mywindow.document.write('<div class="header">');
-        mywindow.document.write('<h1>VET PLUS</h1>');
-        mywindow.document.write('<p>Magnolia 106, Guillén, 26080 Piedras Negras, Coah.</p>');
-        mywindow.document.write('<p>878 783 3847</p>');
-        mywindow.document.write('</div>');
+                    <!-- Detalles de la venta y del cliente -->
+                    <div class="details">
+                        <!-- Detalles de la venta -->
+                        <div class="card">
+                            <h2>Detalles de la Venta</h2>
+                            <p><strong>ID de la venta:</strong> ${venta.id || 'N/A'}</p>
+                            <p><strong>Fecha:</strong> ${venta.fecha || 'N/A'}</p>
+                            <p><strong>Forma de pago:</strong> ${venta.formasPago || 'Efectivo'}</p>
+                            <p><strong>Total pagado:</strong> $${(venta.montoEntregado || 0).toFixed(2)}</p>
+                        </div>
 
-        // Detalles de la venta y del cliente
-        mywindow.document.write('<div class="details">');
+                        <!-- Detalles del cliente -->
+                        <div class="card">
+                            <h2>Detalles del Cliente</h2>
+                            <p><strong>Nombre:</strong> ${nombreCliente}</p>
+                            <p><strong>Dirección:</strong> ${direccionCliente}</p>
+                        </div>
+                    </div>
 
-        // Detalles de la venta
-        mywindow.document.write('<div class="card">');
-        mywindow.document.write('<h2>Detalles de la venta</h2>');
-        mywindow.document.write('<p>ID de la venta: ' + venta.id + '</p>');
-        mywindow.document.write('<p>Fecha de la venta: ' + venta.fecha + '</p>');
-        mywindow.document.write('<p>Forma de pago: ' + venta.formasPago + '</p>');
-        mywindow.document.write('<p>Total pagado: ' + venta.total + '</p>');
-        mywindow.document.write('</div>');
+                    <!-- Tabla de productos -->
+                    <h2>Productos</h2>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Producto</th>
+                                <th>Cantidad</th>
+                                <th>Precio</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+        `);
 
-        // Detalles del cliente
-        mywindow.document.write('<div class="card">');
-        mywindow.document.write('<h2>Detalles del cliente</h2>');
-        mywindow.document.write('<p>Nombre del cliente: ' + nombreCliente + '</p>');
-        mywindow.document.write('<p>Dirección del cliente: ' + (cliente ? cliente.direccion : '') + '</p>');
-        mywindow.document.write('</div>');
-
-        mywindow.document.write('</div>'); // Cierre de detalles de venta y cliente
-
-        // Productos
-        mywindow.document.write('<div>');
-        mywindow.document.write('<h2>Productos</h2>');
-        mywindow.document.write('<table>');
-        mywindow.document.write('<thead><tr><th>Producto</th><th>Cantidad</th><th>Precio</th></tr></thead>');
-        mywindow.document.write('<tbody>');
+        // Iterar sobre los productos y añadir filas a la tabla
         venta.productos.forEach((producto: any) => {
-            mywindow?.document.write('<tr>');
-            mywindow?.document.write('<td>' + producto.descripcion + '</td>');
-            mywindow?.document.write('<td>' + producto.cantidad + '</td>');
-            mywindow?.document.write('<td>' + producto.precio + '</td>');
-            mywindow?.document.write('</tr>');
+            mywindow!.document.write(`
+                <tr>
+                    <td>${producto.descripcion}</td>
+                    <td>${producto.cantidad}</td>
+                    <td>$${producto.precio.toFixed(2)}</td>
+                </tr>
+            `);
         });
-        mywindow.document.write('</tbody>');
-        mywindow.document.write('</table>');
-        mywindow.document.write('</div>');
 
-        // Mostrar el cambio
-        mywindow.document.write('<div>');
-        mywindow.document.write('<h2>Cambio</h2>');
-        mywindow.document.write('<p>' + cambio + '</p>');
-        mywindow.document.write('</div>');
+        // Finalizar la tabla y añadir el total y el cambio
+        mywindow!.document.write(`
+                        </tbody>
+                    </table>
 
-        mywindow.document.write('</div>'); // Cierre del contenedor principal
-        mywindow.document.write('</body></html>');
+                    <!-- Total y cambio -->
+                    <div class="footer">
+                        <p><strong>Total:</strong> $${venta.total.toFixed(2)}</p>
+                        <p><strong>Cambio:</strong> $${(cambio > 0 ? cambio.toFixed(2) : '0.00')}</p>
+                    </div>
+                </div>
+            </body>
+            </html>
+        `);
 
-        mywindow.document.close();
+        // Cerrar y abrir la ventana de impresión
+        mywindow!.document.close();
         mywindow.focus();
-
         mywindow.print();
         mywindow.close();
 
@@ -604,6 +686,8 @@ this.cancelarVenta();
     }
     return false;
 }
+
+
 
 
 

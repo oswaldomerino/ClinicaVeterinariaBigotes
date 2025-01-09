@@ -1,0 +1,50 @@
+/* Ajustes generales del modal */
+.modal-xl {
+    max-width: 95%;
+  }
+  
+  .modal-body {
+    padding: 20px;
+    overflow-y: auto;
+    height: calc(100vh - 150px); /* Ajusta la altura para evitar desbordes */
+  }
+  
+  .container-fluid {
+    padding: 0;
+  }
+  
+  .row {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  
+  .col-lg-6,
+  .col-md-12 {
+    padding: 10px;
+  }
+  
+  /* Ajustes para el formulario y la lista */
+  .app-cliente-formulario,
+  .app-cliente-detalle,
+  .app-mascota-formulario,
+  .app-mascotas-lista {
+    background-color: #f9f9f9;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 15px;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+    margin-bottom: 15px;
+  }
+  
+  h2.card-title {
+    font-size: 1.5rem;
+    color: #004d40;
+  }
+  
+  .btn-close {
+    background: none;
+    border: none;
+    color: #fff;
+    font-size: 1.5rem;
+  }
+  

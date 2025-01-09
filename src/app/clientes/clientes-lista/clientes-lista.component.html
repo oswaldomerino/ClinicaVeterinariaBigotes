@@ -1,47 +1,35 @@
 <div class="card mb-3" style="box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.1);">
-    <div class="card-body">
-      <!-- Formulario de filtrado de clientes -->
-      <div class="row mb-3">
-        <div class="col">
-          <label for="codigo">ID</label>
-          <input type="text" id="codigo" class="form-control input-android" [(ngModel)]="filtros.codigo"
-            (input)="aplicarFiltro()" placeholder="">
-        </div>
-        <div class="col">
-          <label for="nombre">Propietario</label>
-          <input type="text" id="nombre" class="form-control input-android" [(ngModel)]="filtros.nombre"
-            (input)="aplicarFiltro()" placeholder="">
-        </div>
-        <div class="col">
-          <label for="direccion">Dirección</label>
-          <input type="text" id="direccion" class="form-control input-android" [(ngModel)]="filtros.direccion"
-            (input)="aplicarFiltro()" placeholder="">
-        </div>
-        <div class="col">
-          <label for="telefono">Teléfonos</label>
-          <input type="text" id="telefono" class="form-control input-android" [(ngModel)]="filtros.telefono"
-            (input)="aplicarFiltro()" placeholder="">
-        </div>
-        <div class="col">
-          <!-- Botón para limpiar filtros -->
-          <button type="button" class="btn btn-secondary form-control" (click)="resetFiltros()">Limpiar Filtros</button>
-        </div>
-      </div>
+  <div class="card-body d-flex flex-wrap justify-content-between align-items-center gap-3">
+    <!-- Filtros de búsqueda -->
+    <div class="d-flex flex-wrap gap-2">
+      <input type="text" id="codigo" class="form-control input-android" [(ngModel)]="filtros.codigo" (input)="aplicarFiltro()" placeholder="Buscar por ID" style="width: 180px;">
+      <input type="text" id="nombre" class="form-control input-android" [(ngModel)]="filtros.nombre" (input)="aplicarFiltro()" placeholder="Buscar por Propietario" style="width: 180px;">
+      <input type="text" id="direccion" class="form-control input-android" [(ngModel)]="filtros.direccion" (input)="aplicarFiltro()" placeholder="Buscar por Dirección" style="width: 180px;">
+      <input type="text" id="telefono" class="form-control input-android" [(ngModel)]="filtros.telefono" (input)="aplicarFiltro()" placeholder="Buscar por Teléfono" style="width: 180px;">
+      <button type="button" class="btn btn-secondary" (click)="resetFiltros()">Limpiar</button>
     </div>
+
+    <!-- Botón Nuevo Cliente -->
+    <button type="button" class="btn btn-primary btn-sm btn-new-client" (click)="nuevoCliente()">
+      <i class="fas fa-user-plus"></i> Nuevo Cliente
+    </button>
   </div>
-  
-  <div class="card" style="box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.1);">
-    <div class="card-body">
-      <!-- Tabla de clientes -->
-      <div class="table-responsive">
-        <table class="table table-hover table-sm">
-          <thead>
+</div>
+
+<div class="card" style="box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.1);">
+  <div class="card-body">
+    <!-- Tabla de clientes -->
+    <div class="table-responsive">
+      <table class="table table-hover table-sm">
+        <thead>
             <tr>
               <th>ID</th>
               <th>Propietario</th>
               <th>Dirección</th>
               <th>Teléfonos</th>
-            
+            <th></th>
+            <th></th>
+            <th></th>
             </tr>
           </thead>
           <tbody>
@@ -62,7 +50,7 @@
                             </li>
                         </ng-container>
                     </ng-container>
-                </ul>
+                  </ul>
                 </td>
                 <td>
                   {{ cliente.direcciones[0] }}
@@ -82,34 +70,42 @@
                     </li>
                   </ul>
                 </td>
-                <td>
+                <td >
                   <!-- Iconos para bonos y advertencias -->
-                  <ng-container *ngIf="cliente.bonos && cliente.bonos.length > 0">
-                    <button type="button" class="btn btn-info btn-sm"
-                      (mouseenter)="tooltipBono.open()" (mouseleave)="tooltipBono.close()"
-                      #tooltipBono="ngbTooltip" [ngbTooltip]="cliente.bonos[0]"
-                      (touchstart)="tooltipBono.open()" (touchend)="tooltipBono.close()"
-                      (touchcancel)="tooltipBono.close()">
-                      <i class="fas fa-star text-warning"></i>
-                    </button>
-                  </ng-container>
-                  <ng-container *ngIf="cliente.advertencias && cliente.advertencias.length > 0">
-                    <button type="button" class="btn btn-warning btn-sm"
-                      (mouseenter)="tooltipAdvertencia.open()" (mouseleave)="tooltipAdvertencia.close()"
-                      #tooltipAdvertencia="ngbTooltip" [ngbTooltip]="cliente.advertencias[0]"
-                      (touchstart)="tooltipAdvertencia.open()" (touchend)="tooltipAdvertencia.close()"
-                      (touchcancel)="tooltipAdvertencia.close()">
-                      <i class="fas fa-eye text-danger"></i>
-                    </button>
-                  </ng-container>
-                  <!-- Botones de editar y eliminar -->
-                </td>
-                <td *ngIf="showButtons">
-                  <button type="button" class="btn btn-primary btn-sm" >
-                    <i class="fas fa-edit"></i> Editar
+                  <td>
+                    <!-- Icono de bonos -->
+                    <ng-container *ngIf="cliente.bonos && cliente.bonos.length > 0">
+                      <button
+                        type="button"
+                        class="btn btn-icon btn-bono"
+                        [ngbTooltip]="cliente.bonos[0]"
+                        container="body"
+                        triggers="mouseenter:mouseleave click:blur"
+                      >
+                        <i class="fas fa-star text-warning"></i>
+                      </button>
+                    </ng-container>
+                  
+                    <!-- Icono de advertencias -->
+                    <ng-container *ngIf="cliente.advertencias && cliente.advertencias.length > 0">
+                      <button
+                        type="button"
+                        class="btn btn-icon btn-advertencia"
+                        [ngbTooltip]="cliente.advertencias[0]"
+                        container="body"
+                        triggers="mouseenter:mouseleave click:blur"
+                      >
+                        <i class="fas fa-exclamation-circle text-danger"></i>
+                      </button>
+                    </ng-container>
+                  </td>
+                
+                <td class="action-buttons" *ngIf="showButtons">
+                  <button type="button" class="btn btn-icon btn-edit" (click)="editarCliente(cliente)">
+                    <i class="fas fa-edit"></i>
                   </button>
-                  <button type="button" class="btn btn-danger btn-sm" (click)="eliminarCliente(cliente.id)">
-                    <i class="fas fa-trash-alt"></i> Eliminar
+                  <button type="button" class="btn btn-icon btn-delete" (click)="eliminarCliente(cliente.id)">
+                    <i class="fas fa-trash-alt"></i>
                   </button>
                 </td>
               </tr>

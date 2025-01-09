@@ -31,4 +31,26 @@ h3.total-label {
 .input-group.total-input {
   font-size: 1.75rem;
   font-weight: bold;
+  
+}
+
+.card {
+  border-radius: 10px;
+}
+
+.card-header {
+  font-weight: bold;
+}
+
+.table-hover tbody tr:hover {
+  background-color: #f8f9fa;
+}
+
+.badge {
+  font-size: 0.9rem;
+  padding: 0.5rem 1rem;
+}
+
+.row.g-4 > * {
+  margin-bottom: 20px;
 }

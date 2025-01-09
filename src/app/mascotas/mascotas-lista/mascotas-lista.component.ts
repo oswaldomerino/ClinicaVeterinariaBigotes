@@ -24,6 +24,13 @@ export class MascotasListaComponent {
   subscription: Subscription = new Subscription();
   showButtons:boolean=true;
 
+  tableView: boolean = true;
+
+  // Método para alternar entre vista de tabla y tarjetas
+  toggleView(): void {
+    this.tableView = !this.tableView;
+  }
+
   constructor(
     private mascotasService: MascotaService,
     private modalService: NgbModal,
@@ -110,4 +117,22 @@ export class MascotasListaComponent {
   servicios(mascota:any){
 
   }
+
+  getEspecieIcon(especie: string): string {
+    switch (especie.toLowerCase()) {
+      case 'canino':
+        return 'fas fa-dog';
+      case 'FELINO':
+        return 'fas fa-cat';
+      case 'pájaro':
+        return 'fas fa-dove';
+      case 'tortuga':
+        return 'fas fa-turtle';
+      case 'pez':
+        return 'fas fa-fish';
+      default:
+        return 'fas fa-paw';
+    }
+  }
+  
 }

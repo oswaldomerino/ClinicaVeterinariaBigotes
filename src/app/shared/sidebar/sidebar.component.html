@@ -1,16 +1,11 @@
-<!-- sidebar.component.html -->
-<div class="sidebar" [ngClass]="{'small-sidebar': isSmallSidebar, 'active': !isSmallSidebar}">
-    <div class="toggle-btn" (click)="toggleSidebar()">
-        <span></span>
-        <span></span>
-        <span></span>
-    </div>
+<div class="sidebar" [ngClass]="{'small-sidebar': isSmallSidebar, 'sidebar-open': isSidebarOpen}">
     <ul class="nav flex-column">
-        <li class="nav-item" *ngFor="let menuItem of menuItems">
-            <a class="nav-link" [routerLink]="menuItem.routerLink">
-                <i [class]="menuItem.iconClass"></i>
-                <span class="icon-text" *ngIf="!isSmallSidebar">{{ menuItem.text }}</span>
-            </a>
-        </li>
+      <li class="nav-item" *ngFor="let menuItem of menuItems">
+        <a class="nav-link" [routerLink]="menuItem.routerLink" (click)="closeSidebarOnMobile()">
+          <i [class]="menuItem.iconClass"></i>
+          <span class="icon-text" *ngIf="!isSmallSidebar">{{ menuItem.text }}</span>
+        </a>
+      </li>
     </ul>
-</div>
+  </div>
+  

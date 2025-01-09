@@ -1,31 +1,76 @@
-
-<div class="card" style="box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.1);" >
-    <div class="card-body">
-
-        <table class="table table-hover">
-            <thead>
-                <tr>
-                    <th scope="col">Nombre</th>
-                    <th scope="col">Placa</th>
-                    <th scope="col">Chip</th>
-                    <th scope="col" *ngIf="showButtons">Acciones</th>
-                </tr>
-            </thead>
-            <tbody>
-                <ng-container *ngFor="let mascota of mascotas">
-                    <tr   (click)="selectMascota(mascota, $event)" (dblclick)="servicios(mascota)"
-                        [ngClass]="{ 'selected': mascotaSeleccionada === mascota }"
-                        (mouseover)="mascota.hover = true" (mouseout)="mascota.hover = false">
-                        <td>{{ mascota.nombre }}</td>
-                        <td>{{ mascota.placa }}</td>
-                        <td>{{ mascota.chip }}</td>
-                        <td *ngIf="showButtons">
-                            <button class="btn btn-primary btn-sm" (click)="editarMascota(mascota)">Editar</button>
-                             <button class="btn btn-danger btn-sm" (click)="eliminarMascota(mascota.id)">Eliminar</button> 
-                        </td>
-                    </tr>
-                </ng-container>
-            </tbody>
-        </table>
+<!-- Card de Lista de Mascotas con Botón de Cambio de Vista -->
+<div class="card mb-3">
+    <div class="card-header d-flex justify-content-between align-items-center">
+      <h5 class="mb-0"><i class="fas fa-paw"></i> Lista de Mascotas</h5>
+      <button class="btn btn-sm btn-outline-secondary" (click)="toggleView()">
+        <i [class.fas]="tableView ? 'fa-th-large' : 'fa-list'"></i> {{ tableView ? 'Vista Cards' : 'Vista Tabla' }}
+      </button>
     </div>
-</div>
+  
+    <!-- Vista en Tabla -->
+    <div *ngIf="tableView" class="card-body p-2">
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th>Nombre</th>
+            <th>Placa</th>
+            <th>Chip</th>
+            <th class="text-center">Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <ng-container *ngFor="let mascota of mascotas">
+            <tr (click)="selectMascota(mascota, $event)" [ngClass]="{ 'selected': mascotaSeleccionada === mascota }">
+              <td>{{ mascota.nombre }}</td>
+              <td>{{ mascota.placa }}</td>
+              <td>{{ mascota.chip }}</td>
+              <td class="text-center">
+                <button class="btn btn-outline-primary btn-sm" (click)="editarMascota(mascota)">
+                  <i class="fas fa-edit"></i>
+                </button>
+                <button class="btn btn-outline-danger btn-sm" (click)="eliminarMascota(mascota.id)">
+                  <i class="fas fa-trash-alt"></i>
+                </button>
+              </td>
+            </tr>
+          </ng-container>
+        </tbody>
+      </table>
+    </div>
+  
+    <!-- Vista en Cards -->
+    <div *ngIf="!tableView" class="card-body d-flex flex-wrap">
+      <div
+        *ngFor="let mascota of mascotas"
+        class="card m-2 card-hover"
+        (click)="selectMascota(mascota, $event)"
+        [ngClass]="{ 'selected': mascotaSeleccionada === mascota }"
+        style="width: 18rem; border: none; border-radius: 12px; box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);"
+      >
+        <div class="card-body p-4 d-flex flex-column align-items-center text-center">
+          <!-- Icono de Especie -->
+          <div class="icon-container mb-3">
+            <i [ngClass]="getEspecieIcon(mascota.especie)" class="especie-icon"></i>
+          </div>
+          <!-- Detalles de la Mascota -->
+          <h5 class="card-title text-uppercase mb-1">{{ mascota.nombre }}</h5>
+          <p class="text-muted mb-3">{{ mascota.raza }}</p>
+          <p class="card-text">
+            <i class="fas fa-birthday-cake"></i> {{ mascota.edad }} años<br />
+            <i class="fas fa-id-badge"></i> Placa: {{ mascota.placa }}<br />
+            <i class="fas fa-microchip"></i> Chip: {{ mascota.chip }}
+          </p>
+          <!-- Botones de Acción -->
+          <div class="d-flex justify-content-center gap-2 mt-3 actions">
+            <button class="btn btn-outline-primary btn-sm" (click)="editarMascota(mascota)">
+              <i class="fas fa-edit"></i>
+            </button>
+            <button class="btn btn-outline-danger btn-sm" (click)="eliminarMascota(mascota.id)">
+              <i class="fas fa-trash-alt"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  

@@ -1,35 +1,28 @@
-/* Estilos para los botones */
-button {
-    padding: 10px 20px;
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
+/* Navbar estilos */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #004d40;
+  padding: 10px 20px;
+  color: white;
+  height: 60px;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
 }
 
-button:hover {
-    background-color: #0056b3;
+/* Ajuste del logo */
+.navbar-brand img {
+  width: 80px;
+  height: auto;
 }
 
-button:active {
-    background-color: #003d80;
+/* Botón de menú */
+.toggle-button {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 1.5rem;
+  cursor: pointer;
 }
-
-.button-group {
-    display: flex;
-    justify-content: flex-start;
-  }
-  
-  .btn {
-    margin-right: 10px;
-  }
-
-  .navbar {
-    display: flex;
-    justify-content: flex-start;
-  }
-  
-  .button-group {
-    margin-right: auto;
-  }

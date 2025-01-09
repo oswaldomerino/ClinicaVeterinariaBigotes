@@ -1,15 +1,37 @@
-<div class="modal-header">
-    <h4 class="modal-title">Registro de Cliente y Mascotas</h4>
-    <button type="button" class="btn-close" aria-label="Cerrar" (click)="closeModal()"></button>
+<div class="modal-dialog modal-xl modal-dialog-centered">
+  <div class="modal-content">
+    <!-- Header del modal -->
+    <div class="modal-header bg-dark text-white">
+      <h4 class="modal-title">
+        <i class="fas fa-user-plus"></i> Registro de Cliente y Mascotas
+      </h4>
+      <button type="button" class="btn-close text-white" aria-label="Cerrar" (click)="closeModal()"></button>
+    </div>
+
+    <!-- Body del modal dividido en dos columnas -->
+    <div class="modal-body p-4">
+      <div class="container-fluid">
+        <div class="row">
+          <!-- Columna izquierda: Formulario de Cliente -->
+          <div class="col-lg-6 col-md-12">
+            <app-cliente-formulario *ngIf="mostrarFormulario"></app-cliente-formulario>
+            <app-cliente-detalle *ngIf="!mostrarFormulario"></app-cliente-detalle>
+          </div>
+
+          <!-- Columna derecha: Formulario y Lista de Mascotas -->
+          <div class="col-lg-6 col-md-12">
+            <app-mascota-formulario *ngIf="mostrarFormularioMascota"></app-mascota-formulario>
+            <app-mascotas-lista *ngIf="!mostrarFormularioMascota"></app-mascotas-lista>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer del modal -->
+    <div class="modal-footer d-flex justify-content-between">
+      <button type="button" class="btn btn-secondary" (click)="closeModal()">
+        <i class="fas fa-times"></i> Cancelar
+      </button>
+    </div>
   </div>
-  <div class="modal-body">
-    <!-- Contenido del modal -->
-    <div class="container">
-      <div class="row">
-<app-registro-cliente-mascota-component></app-registro-cliente-mascota-component>
-  </div>
-  <div class="modal-footer">
-    <!-- Botón de cierre del modal -->
-    <button type="button" class="btn btn-secondary" (click)="closeModal()">Cerrar</button>
-  </div>
-  
+</div>

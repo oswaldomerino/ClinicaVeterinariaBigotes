@@ -8,11 +8,13 @@
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "serve:ssr:ClinicaVeterinariaBigotes": "node dist/clinica-veterinaria-bigotes/server/server.mjs",
-    "webpack": "webpack"
+    "webpack": "webpack",
+    "lint": "ng lint"
   },
   "private": true,
   "dependencies": {
     "@angular/animations": "^17.0.0",
+    "@angular/cdk": "^17.2.0",
     "@angular/common": "^17.0.0",
     "@angular/compiler": "^17.0.0",
     "@angular/core": "^17.0.0",
@@ -44,7 +46,9 @@
     "@types/express": "^4.17.17",
     "@types/jasmine": "~5.1.0",
     "@types/node": "^18.18.0",
+    "angular-eslint": "19.0.2",
     "css-loader": "^6.10.0",
+    "eslint": "^9.16.0",
     "html-loader": "^5.0.0",
     "html-webpack-plugin": "^5.6.0",
     "jasmine-core": "~5.1.0",
@@ -59,6 +63,7 @@
     "style-loader": "^3.3.4",
     "ts-loader": "^9.5.1",
     "typescript": "~5.2.2",
+    "typescript-eslint": "8.18.0",
     "webpack": "^5.91.0",
     "webpack-cli": "^5.1.4"
   }

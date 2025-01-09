@@ -13,3 +13,5 @@
     background-color: #007bff !important; /* Color azul */
     color: #ffffff !important; /* Texto blanco */
   }
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

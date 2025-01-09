@@ -1,12 +1,18 @@
 <div class="dashboard-container">
+    <!-- Navbar en la parte superior -->
     <app-navbar (toggleSidebar)="toggleSidebarSize()"></app-navbar>
+  
+    <!-- Contenido dividido en sidebar y main-content -->
     <div class="dashboard-content">
-      <app-sidebar [isSmallSidebar]="isSmallSidebar"></app-sidebar>
-        <!-- Aquí puedes incluir el contenido específico del dashboard -->
-        <div class="main-content">
-          
-            <router-outlet></router-outlet>
-            <!-- Aquí puedes agregar los componentes o contenido del dashboard -->
-        </div>
+      <app-sidebar [isSmallSidebar]="isSmallSidebar" [isSidebarOpen]="isSidebarOpen"></app-sidebar>
+  
+      <!-- Sección principal de contenido -->
+      <div class="main-content" [ngClass]="{ 'sidebar-open': isSidebarOpen }">
+        <router-outlet></router-outlet>
+      </div>
     </div>
-</div>
+  
+    <!-- Fondo semitransparente para pantallas pequeñas -->
+    <div class="overlay" *ngIf="isSidebarOpen" (click)="toggleSidebarSize()"></div>
+  </div>
+  
