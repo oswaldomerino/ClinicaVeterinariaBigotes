@@ -57,6 +57,14 @@ export class ClientesListaComponent {
 
 
   }
+  getBonosTooltip(bonos: string[]): string {
+    return `\n\n` + bonos.map(bono => `- ${bono}`).join('\n');
+}
+
+
+
+
+
 
 
   obtenerClientes(): void {
@@ -110,6 +118,13 @@ export class ClientesListaComponent {
   nuevoCliente(): void {
     const clienteNuevo: any = null;
     this.clienteS.cambiarModoEdicion(false);
+    this.clienteSelecionado = []; 
+    this.clienteS.resetCliente(); // 🚀 Limpia el cliente
+    this.clienteS.cambiarModoEdicion(false);
+    this.clienteS.cambiarVistaFormularioMascota(false);
+    this.clienteS.editarCliente([]);
+    this.clienteS.resetMascota(); // 🚀 Limpia la lista de mascotas
+    this.clienteS.actualizarClienteId('');
     this.clienteS.editarCliente(clienteNuevo);
     this.openModal();
   }

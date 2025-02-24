@@ -31,19 +31,29 @@ import { SharedDataService } from '../../../servicios/shared-data.service';
 })
 export class RegistroClienteMascotaModalComponent {
   mostrarFormulario?: boolean;
-  mostrarFormularioMascota?:boolean;
-  
-  constructor(private clienteService: SharedDataService, public activeModal: NgbActiveModal) {
+  mostrarFormularioMascota?: boolean;
+  mascotas: any[] = []; // ✅ Declaramos la propiedad mascotas
+  formCliente: any; // ✅ Se debe definir el formulario
+
+
+  constructor(
+    private clienteService: SharedDataService, public activeModal: NgbActiveModal) {
     this.clienteService.mostrarFormularioObservable.subscribe(mostrar => this.mostrarFormulario = mostrar);
     this.clienteService.mostrarFormularioMascotaObservable.subscribe(mostrar => this.mostrarFormularioMascota = mostrar);
 }
+
 
 closeModal() {
   this.activeModal.close(); // Cierra el modal
 }
 
 ngOnInit(): void {
-
+  if (!this.clienteService.getClienteActual()) { // ✅ Usamos clienteService en lugar de clienteS
+    if (this.formCliente) {
+      this.formCliente.reset(); // ✅ Evita errores si formCliente no está inicializado
+    }
+    this.mascotas = []; // ✅ Limpia la lista de mascotas correctamente
+  }
 }
   
 }

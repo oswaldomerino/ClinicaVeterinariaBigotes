@@ -16,7 +16,7 @@ import { CanDeactivateGuard } from './servicios/can-deactivate-guard.service';
 import { EstadisticasVeterinariaComponent } from './dashboard/estadisticas-veterinaria/estadisticas-veterinaria.component';
 
 export const routes: Routes = [
-    { path: '', component: EstadisticasVeterinariaComponent }, // Ruta por defecto para el dashboard
+    { path: '', component: InfoClienteMascotaComponent }, // Ruta por defecto para el dashboard
     {path: 'registro', component: RegistroClienteMascotaComponentComponent},
     {path: 'clientes', component: ClientesListaComponent},
     {path: 'recepcion', component: RecepcionComponent},

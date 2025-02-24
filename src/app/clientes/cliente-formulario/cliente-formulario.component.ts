@@ -254,6 +254,8 @@ mostrarAlerta(titulo: string, mensaje: string, tipo: 'success' | 'error' | 'warn
         console.log( this.cliente.id)
         this.sharedDataService.actualizarCliente(cliente);
         this.sharedDataService.cambiarVistaFormulario(false);
+
+        this.sharedDataService.actualizarClienteId(cliente.id!);
         this.editarModo = false;
       })
       .catch(error => {

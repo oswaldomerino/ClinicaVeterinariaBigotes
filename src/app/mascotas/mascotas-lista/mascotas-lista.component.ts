@@ -50,10 +50,16 @@ export class MascotasListaComponent {
   }
 
   ngOnInit(): void {
-    this.sharedDataService.clienteIdObservable.subscribe(cliente => this.idCliente = cliente);
-  
+    this.sharedDataService.clienteIdObservable.subscribe(cliente => {
+        this.idCliente = cliente;
 
-  }
+        // 🚀 Si no hay cliente seleccionado, limpia la lista de mascotas
+        if (!this.idCliente) {
+            this.mascotas = [];
+        }
+    });
+}
+
 
   ngOnDestroy(): void {
     // Asegúrate de cancelar la suscripción cuando el componente se destruya

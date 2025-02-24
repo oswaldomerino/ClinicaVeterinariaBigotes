@@ -1,0 +1,25 @@
+/* Estilos para el contenedor del ng-select */
+::ng-deep .ng-select {
+    display: inline-block;
+    width: 100%;
+  }
+  
+  
+  /* Estilos para las opciones desplegadas */
+  ::ng-deep .ng-dropdown-panel {
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+    box-shadow: none;
+    background-color: white;
+  }
+  
+  /* Estilos para las opciones individuales */
+  ::ng-deep .ng-option {
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+  }
+  
+  /* Estilos para las opciones cuando están resaltadas */
+  ::ng-deep .ng-option.ng-option-marked {
+    background-color: #f8f9fa;
+  }

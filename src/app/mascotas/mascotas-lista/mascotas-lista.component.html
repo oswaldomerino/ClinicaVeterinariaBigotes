@@ -24,10 +24,13 @@
               <td>{{ mascota.nombre }}</td>
               <td>{{ mascota.placa }}</td>
               <td>{{ mascota.chip }}</td>
-              <td class="text-center">
-                <button class="btn btn-outline-primary btn-sm" (click)="editarMascota(mascota)">
-                  <i class="fas fa-edit"></i>
-                </button>
+             <td class="text-center">
+                <button class="btn btn-icon btn-edit"
+                [ngStyle]="{ color: mascotaSeleccionada === mascota ? 'white' : '#007bff' }"
+                (click)="editarMascota(mascota)">
+          <i class="fas fa-edit"></i>
+        </button>
+    
                 <button class="btn btn-outline-danger btn-sm" (click)="eliminarMascota(mascota.id)">
                   <i class="fas fa-trash-alt"></i>
                 </button>

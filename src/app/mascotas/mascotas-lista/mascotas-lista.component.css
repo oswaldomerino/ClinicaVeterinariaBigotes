@@ -93,4 +93,11 @@
   .card-hover:hover .especie-icon {
     color: #007bff;
   }
-  
+  .selected {
+    background-color: #b2dfdb; /* Color de fondo para la fila seleccionada */
+    color: #004d40;
+}
+
+.selected .btn-edit {
+    color: white !important; /* Cambia el color del icono de edición */
+}

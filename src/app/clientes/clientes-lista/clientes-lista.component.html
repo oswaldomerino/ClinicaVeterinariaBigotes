@@ -34,7 +34,7 @@
           </thead>
           <tbody>
             <ng-container *ngFor="let cliente of clientesFiltrados">
-              <tr (click)="seleccionarCliente(cliente, $event)" [class.selected]="clienteSelecionado === cliente"  (mouseover)="cliente.hover = true" (mouseout)="cliente.hover = false">
+              <tr (click)="seleccionarCliente(cliente, $event)" (dblclick)="editarCliente(cliente)" [class.selected]="clienteSelecionado === cliente"  (mouseover)="cliente.hover = true" (mouseout)="cliente.hover = false">
                 <td>{{ cliente.codigo }}</td>
                 <td>
                   {{ cliente.nombres[0] }}
@@ -74,17 +74,24 @@
                   <!-- Iconos para bonos y advertencias -->
                   <td>
                     <!-- Icono de bonos -->
-                    <ng-container *ngIf="cliente.bonos && cliente.bonos.length > 0">
-                      <button
-                        type="button"
-                        class="btn btn-icon btn-bono"
-                        [ngbTooltip]="cliente.bonos[0]"
-                        container="body"
-                        triggers="mouseenter:mouseleave click:blur"
-                      >
-                        <i class="fas fa-star text-warning"></i>
-                      </button>
-                    </ng-container>
+<!-- Icono de bonos con tooltip mejorado -->
+<ng-container *ngIf="cliente.bonos && cliente.bonos.length > 0">
+  <button
+    type="button"
+    class="btn btn-icon btn-bono"
+    [ngbTooltip]="getBonosTooltip(cliente.bonos)"
+    container="body"
+    triggers="mouseenter:mouseleave click:blur"
+    tooltipClass="custom-tooltip">
+    <i class="fas fa-star text-warning"></i>
+  </button>
+</ng-container>
+
+
+
+
+
+
                   
                     <!-- Icono de advertencias -->
                     <ng-container *ngIf="cliente.advertencias && cliente.advertencias.length > 0">
